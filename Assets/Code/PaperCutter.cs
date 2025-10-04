@@ -5,9 +5,8 @@ using UnityEngine.InputSystem;
 
 public class PaperCutter : MonoBehaviour
 {
-    [Header("Input/Output")]
-    public SpriteRenderer imageSource;
-    public SpriteRenderer imageOutput;
+    public SpriteRenderer ImageSource => Game.Instance.imageSource;
+    public SpriteRenderer ImageOutput => Game.Instance.imageOutput;
 
     [Header("Settings")]
     public float closeLoopDistance = 20f; //dist as closed point
@@ -113,13 +112,13 @@ public class PaperCutter : MonoBehaviour
 
     private void CutOutTexture()
     {
-        if (imageSource == null || imageSource.sprite == null)
+        if (ImageSource == null || ImageSource.sprite == null)
         {
             Debug.LogWarning("PaperCutter: imageSource or sprite is null");
             return;
         }
 
-        Sprite sourceSprite = imageSource.sprite;
+        Sprite sourceSprite = ImageSource.sprite;
         Texture2D sourceTexture = sourceSprite.texture;
         Rect sourceRect = sourceSprite.textureRect;
 
@@ -176,17 +175,25 @@ public class PaperCutter : MonoBehaviour
             sourceSprite.pixelsPerUnit
         );
 
-        if (imageOutput != null)
+        if (ImageOutput != null)
         {
-            imageOutput.sprite = outputSprite;
+            ImageOutput.sprite = outputSprite;
 
             Vector2 centerScreen = GetContourCenterScreen();
-            Vector3 worldPos = mainCamera.ScreenToWorldPoint(new Vector3(centerScreen.x, centerScreen.y, mainCamera.WorldToScreenPoint(imageSource.transform.position).z));
+            Vector3 worldPos = mainCamera.ScreenToWorldPoint(new Vector3(centerScreen.x, centerScreen.y, mainCamera.WorldToScreenPoint(ImageOutput.transform.position).z));
 
-            //imageOutput.transform.position = new Vector3(worldPos.x, worldPos.y, imageOutput.transform.position.z);
+            //ImageOutput.transform.position = new Vector3(worldPos.x, worldPos.y, ImageOutput.transform.position.z);
         }
 
+        Debug.Log($"--------------------- new cut info");
         Debug.Log($"PaperCutter: Cut out texture {width}x{height}");
+
+        // 触发抠图完成事件
+        EvtArgs_ImageCut eventArgs = new EvtArgs_ImageCut
+        {
+            contourPointsInTexture = textureContour,
+        };
+        Utils.EventManager.TriggerEvent(GameEvent.OnCutComplete, eventArgs);
     }
 
     private Rect GetContourBoundsInTexture(List<Vector2> texturePoints)
@@ -211,8 +218,8 @@ public class PaperCutter : MonoBehaviour
     {
         List<Vector2> result = new List<Vector2>();
 
-        Sprite sourceSprite = imageSource.sprite;
-        Bounds spriteBounds = imageSource.bounds;
+        Sprite sourceSprite = ImageSource.sprite;
+        Bounds spriteBounds = ImageSource.bounds;
         Vector3 spriteMin = spriteBounds.min;
         Vector3 spriteMax = spriteBounds.max;
 
@@ -226,7 +233,7 @@ public class PaperCutter : MonoBehaviour
             Vector3 worldPos = mainCamera.ScreenToWorldPoint(new Vector3(
                 screenPos.x,
                 screenPos.y,
-                mainCamera.WorldToScreenPoint(imageSource.transform.position).z
+                mainCamera.WorldToScreenPoint(ImageSource.transform.position).z
             ));
 
             //wpos to sprite local pos
