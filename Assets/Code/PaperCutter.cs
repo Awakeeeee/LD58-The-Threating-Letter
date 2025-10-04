@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,11 +9,20 @@ public class PaperCutter : MonoBehaviour
     public SpriteRenderer ImageSource => Game.Instance.imageSource;
     public SpriteRenderer ImageOutput => Game.Instance.imageOutput;
 
-    [Header("Settings")]
+    [TitleGroup("Settings")]
     public float closeLoopDistance = 20f; //dist as closed point
     public float minPointDistance = 5f; //border record resolution
 
-    [Header("Debug")]
+
+    [TitleGroup("The Carving")]
+    public SpriteRenderer knife;
+    [Tooltip("Knife idle position in viewport coordinates (0-1, relative to camera view)")]
+    public Vector2 knifeIdleViewportPos = new Vector2(0.9f, 0.4f); //刻刀默认放在屏幕右下角
+    public Vector3 knifeIdleRotation = Vector3.zero;
+    public LineRenderer trajectory;
+
+
+    [TitleGroup("Debug")]
     public bool drawGizmos = true;
 
     private List<Vector2> contourPoints = new List<Vector2>();
@@ -24,6 +34,7 @@ public class PaperCutter : MonoBehaviour
     private void Awake()
     {
         mainCamera = Camera.main;
+        ResetKnife();
     }
 
     private void OnEnable()
@@ -70,6 +81,20 @@ public class PaperCutter : MonoBehaviour
         startPoint = screenPos;
         contourPoints.Clear();
         contourPoints.Add(screenPos);
+
+        if (knife != null)
+        {
+            Vector3 worldPos = ScreenToWorldPosition(screenPos);
+            knife.transform.position = worldPos;
+            knife.transform.rotation = Quaternion.identity;
+        }
+
+        // 初始化轨迹线
+        if (trajectory != null)
+        {
+            trajectory.positionCount = 1;
+            trajectory.SetPosition(0, ScreenToWorldPosition(screenPos));
+        }
     }
 
     private void UpdateDrawing(Vector2 screenPos)
@@ -80,13 +105,27 @@ public class PaperCutter : MonoBehaviour
             return;
         }
 
+        bool pointAdded = false;
         if (contourPoints.Count > 0)
         {
             Vector2 lastPoint = contourPoints[contourPoints.Count - 1];
             if (Vector2.Distance(screenPos, lastPoint) >= minPointDistance)
             {
                 contourPoints.Add(screenPos);
+                pointAdded = true;
             }
+        }
+
+        if (knife != null)
+        {
+            Vector3 worldPos = ScreenToWorldPosition(screenPos);
+            knife.transform.position = worldPos;
+        }
+
+        // 更新轨迹线
+        if (trajectory != null && pointAdded)
+        {
+            UpdateTrajectoryLine();
         }
     }
 
@@ -96,18 +135,39 @@ public class PaperCutter : MonoBehaviour
         {
             isDrawing = false;
             contourPoints.Clear();
+            ResetKnife();
+            ClearTrajectoryLine();
             return;
         }
 
         if (!closedLoop)
         {
             contourPoints.Add(startPoint);
+            // 更新最后一次轨迹（闭合到起点）
+            if (trajectory != null)
+            {
+                UpdateTrajectoryLine();
+            }
         }
 
         CutOutTexture();
         isDrawing = false;
         canStartDrawing = false;
         contourPoints.Clear();
+        ResetKnife();
+        ClearTrajectoryLine();
+    }
+
+    private void ResetKnife()
+    {
+        if (knife != null && mainCamera != null)
+        {
+            // Viewport坐标：(0,0)是左下角，(1,1)是右上角
+            float zDepth = mainCamera.WorldToScreenPoint(ImageSource.transform.position).z;
+            Vector3 viewportPos = new Vector3(knifeIdleViewportPos.x, knifeIdleViewportPos.y, zDepth);
+            knife.transform.position = mainCamera.ViewportToWorldPoint(viewportPos);
+            knife.transform.eulerAngles = knifeIdleRotation;
+        }
     }
 
     private void CutOutTexture()
@@ -262,6 +322,28 @@ public class PaperCutter : MonoBehaviour
         return sum / contourPoints.Count;
     }
 
+    private void UpdateTrajectoryLine()
+    {
+        if (trajectory == null || contourPoints.Count == 0) return;
+
+        trajectory.positionCount = contourPoints.Count;
+
+        // 将所有屏幕坐标转换为世界坐标并设置到LineRenderer
+        for (int i = 0; i < contourPoints.Count; i++)
+        {
+            Vector3 worldPos = ScreenToWorldPosition(contourPoints[i]);
+            trajectory.SetPosition(i, worldPos);
+        }
+    }
+
+    private void ClearTrajectoryLine()
+    {
+        if (trajectory != null)
+        {
+            trajectory.positionCount = 0;
+        }
+    }
+
     //inside polygon check
     private bool IsPointInPolygon(Vector2 point, List<Vector2> polygon)
     {
@@ -281,6 +363,13 @@ public class PaperCutter : MonoBehaviour
         }
 
         return inside;
+    }
+
+    private Vector3 ScreenToWorldPosition(Vector2 screenPos)
+    {
+        // 使用ImageSource的z深度
+        float zDepth = mainCamera.WorldToScreenPoint(ImageSource.transform.position).z;
+        return mainCamera.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, zDepth));
     }
 
 #if UNITY_EDITOR
