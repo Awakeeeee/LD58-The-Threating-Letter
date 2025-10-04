@@ -2,7 +2,6 @@ using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Searcher;
 using UnityEngine;
 
 public class UIManager : MonoBehaviourSingleton<UIManager>
@@ -48,8 +47,10 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
         sendMailUI.gameObject.SetActive(false);
 
         selectCoverUI.transform.position = leftUIRef.position;
+        selectCoverUI.InitEnterAnim();
         selectCoverUI.transform.DOMove(centerUIRef.position, 0.5f).SetEase(Ease.InOutSine).onComplete += () =>
         {
+            selectCoverUI.OnEnterAnim();
             callback?.Invoke();
         };
         collageUI.transform.position = rightUIRef.position;
