@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e765af80eba7c642a64923a7adca01f, type: 3}
+  m_Name: BA_Pokemon
+  m_EditorClassIdentifier: 
+  ID: 2
+  title: BA_Pokemon
+  image: {fileID: 21300000, guid: cde87e081dcbf2842bbdd6d1da315b44, type: 3}
+  characters:
+  - text: o
+    editorNote: o_in_poke
+    pivot: {x: 897.7901, y: 1641.9226}
+    min: {x: 791.7, y: 1766.3}
+    max: {x: 1038, y: 1494.6}
+  - text: o
+    editorNote: o_in_moe
+    pivot: {x: 1709.9448, y: 1650.21}
+    min: {x: 1591, y: 1542}
+    max: {x: 1814, y: 1770}
+  - text: o
+    editorNote: o_in_gold
+    pivot: {x: 1151.9337, y: 1398.8287}
+    min: {x: 1047, y: 1286}
+    max: {x: 1252, y: 1503}

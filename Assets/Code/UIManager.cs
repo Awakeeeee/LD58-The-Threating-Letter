@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEditor.Searcher;
 using UnityEngine;
 
-public class UIManager : SingletonMB<UIManager>
+public class UIManager : MonoBehaviourSingleton<UIManager>
 {
     public Transform leftUIRef;
     public Transform centerUIRef;
@@ -20,6 +20,10 @@ public class UIManager : SingletonMB<UIManager>
         selectCoverUI.transform.position = leftUIRef.position;
         collageUI.transform.position = centerUIRef.position;
         sendMailUI.transform.position = rightUIRef.position;
+
+        selectCoverUI.gameObject.SetActive(true);
+        collageUI.gameObject.SetActive(true);
+        sendMailUI.gameObject.SetActive(true);
     }
 
     public void ChangeFromSelectCoverToCollage(Action callback)
