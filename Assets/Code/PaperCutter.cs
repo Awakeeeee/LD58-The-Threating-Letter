@@ -291,7 +291,7 @@ public class PaperCutter : MonoBehaviour
 
         if (isDrawing)
         {
-            Gizmos.color = Color.red;
+            Gizmos.color = Color.yellow;
             Vector3 start = mainCamera.ScreenToWorldPoint(new Vector3(startPoint.x, startPoint.y, 10f));
             Gizmos.DrawWireSphere(start, 0.2f);
         }
