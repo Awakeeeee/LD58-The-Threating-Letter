@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e765af80eba7c642a64923a7adca01f, type: 3}
+  m_Name: BA_ZERO3
+  m_EditorClassIdentifier: 
+  ID: 10
+  title: BA_ZERO3
+  image: {fileID: 21300000, guid: 2a77817a1a5d2764490150368ff89156, type: 3}
+  characters:
+  - text: r
+    editorNote: r_in_zero
+    pivot: {x: 1407.9254, y: 1847.5338}
+    min: {x: 1322, y: 1704}
+    max: {x: 1499, y: 1991}
+  - text: o
+    editorNote: o_in_zero
+    pivot: {x: 1596.7366, y: 1845.2028}
+    min: {x: 1523, y: 1700}
+    max: {x: 1662, y: 1984}

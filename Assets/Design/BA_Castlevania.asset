@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e765af80eba7c642a64923a7adca01f, type: 3}
+  m_Name: BA_Castlevania
+  m_EditorClassIdentifier: 
+  ID: 4
+  title: BA_Castlevania
+  image: {fileID: 21300000, guid: 0005aa13af365064aa33dfc43324664d, type: 3}
+  characters:
+  - text: r
+    editorNote: r_in_rose
+    pivot: {x: 857.85535, y: 464.45886}
+    min: {x: 785.7, y: 353.1}
+    max: {x: 933.9, y: 573.2}
+  - text: o
+    editorNote: o_in_rose
+    pivot: {x: 970.6745, y: 449.75952}
+    min: {x: 939.9, y: 388.2}
+    max: {x: 1016.8, y: 511.3}

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e765af80eba7c642a64923a7adca01f, type: 3}
+  m_Name: BA_AceCombat
+  m_EditorClassIdentifier: 
+  ID: 1
+  title: BA_AceCombat
+  image: {fileID: 21300000, guid: 845eafd8a04ff1d43b968c8139179b87, type: 3}
+  characters:
+  - text: r
+    editorNote: r_in_air
+    pivot: {x: 385.60413, y: 1747.2288}
+    min: {x: 332.21, y: 1682.9}
+    max: {x: 452, y: 1805.6}
+  - text: o
+    editorNote: o_in_combat
+    pivot: {x: 694.0874, y: 1742.0874}
+    min: {x: 630, y: 1681.9}
+    max: {x: 752, y: 1807.1}
