@@ -1,0 +1,54 @@
+{
+    "name": "InputConfigure",
+    "maps": [
+        {
+            "name": "PlayerControl",
+            "id": "421f94a4-bce4-41e7-84ce-c4a6f0950234",
+            "actions": [
+                {
+                    "name": "Point",
+                    "type": "Button",
+                    "id": "b91bb53c-414c-4e88-aa82-6f551a32bf6a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PointerPosition",
+                    "type": "Value",
+                    "id": "d4e8201b-3de1-495c-a3c1-1432e0fba9e4",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a7d4c7ad-aed9-40d7-af63-d7ced58678ef",
+                    "path": "<Pointer>/press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Point",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "253405f9-f0bc-43e3-8e51-4b50dc5d0c50",
+                    "path": "<Pointer>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PointerPosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
