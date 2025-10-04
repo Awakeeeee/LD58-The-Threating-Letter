@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e765af80eba7c642a64923a7adca01f, type: 3}
+  m_Name: BA_FIFA
+  m_EditorClassIdentifier: 
+  ID: 2
+  title: BA_FIFA
+  image: {fileID: 21300000, guid: 52b01e2a0ebcc804f96bee451090ee4c, type: 3}
+  characters:
+  - text: o
+    editorNote: o_in_foba
+    pivot: {x: 700.5988, y: 485.12573}
+    min: {x: 556, y: 368.2}
+    max: {x: 836, y: 592.2}
+  - text: o
+    editorNote: o_in_foot
+    pivot: {x: 652.69464, y: 323.4491}
+    min: {x: 615.1, y: 282.8}
+    max: {x: 687.1, y: 359.2}
+  - text: o
+    editorNote: o_in_foot_2
+    pivot: {x: 733.53296, y: 323.4491}
+    min: {x: 695.2, y: 286.3}
+    max: {x: 777.9, y: 358.4}

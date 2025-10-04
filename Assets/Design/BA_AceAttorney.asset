@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e765af80eba7c642a64923a7adca01f, type: 3}
+  m_Name: BA_AceAttorney
+  m_EditorClassIdentifier: 
+  ID: 1
+  title: BA_AceAttorney
+  image: {fileID: 21300000, guid: 77a5ff5163999644aa340843a3dbdb69, type: 3}
+  characters:
+  - text: o
+    editorNote: o_in_Who
+    pivot: {x: 1744.1365, y: 670.6013}
+    min: {x: 1699.61, y: 610}
+    max: {x: 1813, y: 724.2}
+  - text: r
+    editorNote: r_in_right
+    pivot: {x: 1514.9253, y: 570.38806}
+    min: {x: 1446.1, y: 494}
+    max: {x: 1589.1, y: 623}
+  - text: o
+    editorNote: o_in_old
+    pivot: {x: 1320.8955, y: 409.9403}
+    min: {x: 1295, y: 375}
+    max: {x: 1364.4, y: 446}
+  - text: o
+    editorNote: o_in_attorney
+    pivot: {x: 1642.0765, y: 408.65576}
+    min: {x: 1622.0765, y: 388.65576}
+    max: {x: 1662.0765, y: 428.65576}
+  - text: 
+    editorNote: 
+    pivot: {x: 1640.4697, y: 407.53027}
+    min: {x: 1620.4697, y: 384.7}
+    max: {x: 1660.4697, y: 427.53027}
+  - text: r
+    editorNote: r_in_attorney
+    pivot: {x: 1684.7335, y: 405.7235}
+    min: {x: 1664.7335, y: 385.7235}
+    max: {x: 1704.7335, y: 425.7235}
