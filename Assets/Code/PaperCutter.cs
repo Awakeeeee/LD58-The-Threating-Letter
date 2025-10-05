@@ -47,6 +47,8 @@ public class PaperCutter : MonoBehaviour
     private Vector2 startPoint;
     private Camera mainCamera;
     private Coroutine retreatCoroutine = null; // 跟踪回退协程
+    private Vector2 lastDrawPosition; // 用于检测鼠标移动
+    private bool isMouseMoving = false;
 
     public void Init()
     {
@@ -80,7 +82,6 @@ public class PaperCutter : MonoBehaviour
         GameMode currentMode = Game.Instance.CurrentMode;
         if (currentMode != GameMode.Carve && currentMode != GameMode.Free) return;
 
-        // 检测左键（主按钮）
         bool isLeftPressed = false;
         if (UnityEngine.InputSystem.Mouse.current != null)
         {
@@ -116,6 +117,15 @@ public class PaperCutter : MonoBehaviour
     {
         if (UtilFunction.IsPointerOverUI())
         {
+            canStartDrawing = false;
+            return;
+        }
+
+        if (!IsScreenPointOnSprite(screenPos))
+        {
+            Debug.Log("PaperCutter: Start point not on sprite, drawing not started");
+            SFXManager.Instance.PlaySFX("sfx_desk");
+            canStartDrawing = false;
             return;
         }
 
@@ -129,6 +139,8 @@ public class PaperCutter : MonoBehaviour
         startPoint = screenPos;
         contourPoints.Clear();
         contourPoints.Add(screenPos);
+        lastDrawPosition = screenPos;
+        isMouseMoving = true;
 
         if (knife != null)
         {
@@ -151,6 +163,8 @@ public class PaperCutter : MonoBehaviour
             trajectory.positionCount = 1;
             trajectory.SetPosition(0, ScreenToWorldPosition(screenPos));
         }
+
+        SFXManager.Instance.StartLoopSFX("sfx_paper_loop");
     }
 
     private void UpdateDrawing(Vector2 screenPos)
@@ -160,6 +174,21 @@ public class PaperCutter : MonoBehaviour
             EndDrawing(true);
             return;
         }
+
+        float moveDist = Vector2.Distance(screenPos, lastDrawPosition);
+        bool wasMoving = isMouseMoving;
+        isMouseMoving = moveDist > 0.5f;
+
+        if (isMouseMoving && !wasMoving)
+        {
+            SFXManager.Instance.StartLoopSFX("sfx_paper_loop");
+        }
+        else if (!isMouseMoving && wasMoving)
+        {
+            SFXManager.Instance.PauseLoopSFX();
+        }
+
+        lastDrawPosition = screenPos;
 
         bool pointAdded = false;
         if (contourPoints.Count > 0)
@@ -186,6 +215,9 @@ public class PaperCutter : MonoBehaviour
 
     private void EndDrawing(bool closedLoop = false)
     {
+        // 停止切纸音效
+        SFXManager.Instance.StopLoopSFX();
+
         if (contourPoints.Count < 3)
         {
             isDrawing = false;
@@ -197,6 +229,8 @@ public class PaperCutter : MonoBehaviour
 
         if (!closedLoop)
         {
+            // 未闭合：播放取消音效
+            SFXManager.Instance.PlaySFX("sfx_cancel");
             isDrawing = false;
             canStartDrawing = false;
             ResetKnife();
@@ -226,6 +260,9 @@ public class PaperCutter : MonoBehaviour
 
     private void CancelCut()
     {
+        SFXManager.Instance.PlaySFX("sfx_cancel");
+        SFXManager.Instance.StopLoopSFX(immediate: true);
+
         isDrawing = false;
         canStartDrawing = false;
         contourPoints.Clear();
@@ -233,19 +270,27 @@ public class PaperCutter : MonoBehaviour
         retreatCoroutine = StartCoroutine(RetreatTrajectoryLine());
     }
 
-    private bool IsContourIntersectingSprite(List<Vector2> screenPoints)
+    private bool IsScreenPointOnSprite(Vector2 screenPos)
     {
         if (ImageSource == null || ImageSource.sprite == null)
             return false;
 
         Bounds spriteBounds = ImageSource.bounds;
         float zDepth = mainCamera.WorldToScreenPoint(ImageSource.transform.position).z;
+        Vector3 worldPos = mainCamera.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, zDepth));
+
+        return spriteBounds.Contains(worldPos);
+    }
+
+    private bool IsContourIntersectingSprite(List<Vector2> screenPoints)
+    {
+        if (ImageSource == null || ImageSource.sprite == null)
+            return false;
 
         // 检查轮廓的任意点是否在sprite bounds内
         foreach (var screenPos in screenPoints)
         {
-            Vector3 worldPos = mainCamera.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, zDepth));
-            if (spriteBounds.Contains(worldPos))
+            if (IsScreenPointOnSprite(screenPos))
             {
                 return true; // 至少有一个点在sprite内，视为相交
             }
@@ -350,6 +395,7 @@ public class PaperCutter : MonoBehaviour
 
         if (ImageOutput != null)
         {
+            SFXManager.Instance.PlaySFX("sfx_pop");
             ImageOutput.sprite = outputSprite;
 
             //init
@@ -375,6 +421,7 @@ public class PaperCutter : MonoBehaviour
                 if (uiTarget != null)
                 {
                     Vector3 destination = UtilFunction.ConvertUIPosToWpos(uiTarget);
+                    SFXManager.Instance.PlaySFX("sfx_fly");
                     UtilFunction.CurveFly(ImageOutput.transform, ImageOutput.transform.position, destination, destFlyTime, destFlyEase, () =>
                     {
                         ImageOutput.gameObject.SetActive(false);
