@@ -26,7 +26,7 @@ public class Game : MonoBehaviourSingleton<Game>
     public Vector2 viewLimitY;
     public Vector2 zoomLimit;
     public float defaultOrthoZoom = 3f;
-    public float zoomScrollSpeed = 0.002f; // 滚轮缩放速度
+    public float zoomScrollSpeed = 0.002f;
     private bool isDraggingCamera = false;
     private Vector3 lastPointerWorldPos;
     private bool isUpdatingZoomSlider = false; // 防止循环更新
@@ -36,9 +36,9 @@ public class Game : MonoBehaviourSingleton<Game>
     {
         base.Awake();
         Cam = Camera.main;
-        Cam.orthographicSize = defaultOrthoZoom; // 设置初始缩放
+        Cam.orthographicSize = defaultOrthoZoom;
         CutCollection = new List<CutImage>();
-        CurrentMode = GameMode.Carve; // 默认切图模式
+        CurrentMode = GameMode.Free;
         EventManager.StartListening(GameEvent.OnCutComplete, OnCutImageComplete);
         cutter.Init();
     }

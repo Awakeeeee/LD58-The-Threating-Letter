@@ -258,18 +258,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7158590007445538535, guid: 4da572b24f3c6fc45832978aab8cb99e, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7455960628965444086, guid: 4da572b24f3c6fc45832978aab8cb99e, type: 3}
       propertyPath: knifeCutterRoot
       value: 
       objectReference: {fileID: 1132069641}
-    - target: {fileID: 8200959102710213546, guid: 4da572b24f3c6fc45832978aab8cb99e, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8803271436848488175, guid: 4da572b24f3c6fc45832978aab8cb99e, type: 3}
       propertyPath: m_Camera
       value: 
