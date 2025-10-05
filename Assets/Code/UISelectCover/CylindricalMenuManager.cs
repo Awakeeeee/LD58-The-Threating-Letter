@@ -8,36 +8,59 @@ public class CylindricalMenuManager : MonoBehaviour
     [SerializeField] private GameObject itemPrefab;
     [SerializeField] private CylindricalScrollController cylindricalScrollController;
 
-    [Header("内容设置")]
-    private int createCount = 10;//TODO 从正式背包数据获取
 
     private List<CylindricalItem> items = new List<CylindricalItem>();
-    
+
     private void Start()
+    {
+        itemPrefab.gameObject.SetActive(false);
+        //InitializeMenu();
+    }
+
+    public void Show()
     {
         InitializeMenu();
     }
-    
-    private void InitializeMenu()
+
+    public void Hide()
+    {
+        DestoryMenu();
+    }
+
+    public void InitializeMenu()
     {
         // 清空现有项目
-        foreach (Transform child in layoutGroup.transform)
+        for (int i = layoutGroup.transform.childCount - 1; i >= 0; i--)
         {
-            Destroy(child.gameObject);
+            GameObject childGO = layoutGroup.transform.GetChild(i).gameObject;
+            childGO.transform.SetParent(null);
+            Destroy(childGO);
         }
         items.Clear();
+        layoutGroup.ClearAllItems();
 
         itemPrefab.gameObject.SetActive(true);
-
-        for (int i = 0; i < createCount; i++)
+        for (int i = 0; i < Game.Instance.CutCollection.Count; i++)
         {
-            CreateMenuItem(i);
+            CreateMenuItem(i, Game.Instance.CutCollection[i]);
         }
         SetLayoutGroupDirty();
         itemPrefab.gameObject.SetActive(false);
     }
 
-    private void CreateMenuItem(int index)
+    private void DestoryMenu()
+    {
+        for (int i = layoutGroup.transform.childCount - 1; i >= 0; i--)
+        {
+            GameObject childGO = layoutGroup.transform.GetChild(i).gameObject;
+            childGO.transform.SetParent(null);
+            Destroy(childGO);
+        }
+        items.Clear();
+        layoutGroup.ClearAllItems();
+    }
+
+    private void CreateMenuItem(int index, CutImage cutImage)
     {
         if (itemPrefab == null) return;
 
@@ -46,10 +69,8 @@ public class CylindricalMenuManager : MonoBehaviour
         
         if (item != null)
         {
-            ImagePreprocessData data = Game.Instance.imageTable.GetImageData(index % Game.Instance.imageTable.images.Count);
-
-            Sprite icon = data.image;
-            string title = data.title;
+            Sprite icon = cutImage.image;
+            string title = cutImage.matchedMark?.text;
             
             item.Initialize(index, icon, title, OnItemClicked);
             items.Add(item);
@@ -65,6 +86,9 @@ public class CylindricalMenuManager : MonoBehaviour
     
     private void OnItemClicked(int itemIndex)
     {
+        if (!UIManager.Instance.IsInCollageStage())
+            return;
+
         Debug.Log($"Item {itemIndex}");// clicked: {itemTitles[itemIndex]}");
 
         // 滚动到被点击的项目

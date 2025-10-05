@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class UICollection : MonoBehaviour
 {
     public Transform drawerTrans;
+    public CylindricalMenuManager propManager;
     public Transform drawerClosePositionRef;
     public Transform drawerOpenPositionRef;
 
@@ -31,6 +32,9 @@ public class UICollection : MonoBehaviour
         drawerTrans.DOMove(drawerClosePositionRef.position, 0.3f).SetEase(Ease.InOutSine).onComplete += () =>
         {
             UIManager.Instance.HideGlobalMask();
+            UIManager.Instance.overLayUI.ShowAllTopBtns();
+
+            propManager.Hide();
 
             openBtn.gameObject.SetActive(true);
             closeBtn.gameObject.SetActive(false);
@@ -39,6 +43,9 @@ public class UICollection : MonoBehaviour
 
     private void OnOpenBtnClicked()
     {
+        propManager.Show();
+
+        UIManager.Instance.overLayUI.HideAllTopBtns();
         UIManager.Instance.ShowGlobalMask();
         drawerTrans.position = drawerClosePositionRef.position;
         drawerTrans.DOMove(drawerOpenPositionRef.position, 0.3f).SetEase(Ease.InOutSine).onComplete += () =>
@@ -48,5 +55,10 @@ public class UICollection : MonoBehaviour
             openBtn.gameObject.SetActive(false);
             closeBtn.gameObject.SetActive(true);
         };
+    }
+
+    public RectTransform GetFlyEnd()
+    {
+        return drawerTrans.GetComponent<RectTransform>();
     }
 }

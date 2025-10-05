@@ -193,7 +193,7 @@ public class CylindricalLayoutGroup : UIBehaviour, ILayoutGroup
         
         items.Add(item);
         //item.SetParent(rectTransform, false);
-        //SetDirty();
+        SetDirty();
     }
     
     public void RemoveItem(RectTransform item)
@@ -201,6 +201,12 @@ public class CylindricalLayoutGroup : UIBehaviour, ILayoutGroup
         if (item == null) return;
         
         items.Remove(item);
+        SetDirty();
+    }
+
+    public void ClearAllItems()
+    {
+        items.Clear();
         SetDirty();
     }
     

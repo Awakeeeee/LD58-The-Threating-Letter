@@ -57,4 +57,13 @@ public class UISelectCover : MonoBehaviour
     {
 
     }
+
+    //发生了切割 这里的封面图也应该动态修改
+    public void UpdateAllProp()
+    {
+        for (int i = 0; i < propList.Count; ++i)
+        {
+            propList[i].UpdateImage();
+        }
+    }
 }

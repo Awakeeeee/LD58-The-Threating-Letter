@@ -2,14 +2,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
+using Coffee.UIEffects;
 
-public class CylindricalItem : MonoBehaviour, IPointerClickHandler
+public class CylindricalItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     [Header("UI组件")]
     [SerializeField] private Image itemImage;
     [SerializeField] private TextMeshProUGUI itemText;
-    [SerializeField] private GameObject selectionHighlight;
-    
+    //[SerializeField] private GameObject selectionHighlight;
+
+    public UIEffect uiEffect;
+
     private int itemIndex;
     private System.Action<int> onItemClick;
     
@@ -32,8 +35,8 @@ public class CylindricalItem : MonoBehaviour, IPointerClickHandler
     
     public void SetSelected(bool selected)
     {
-        if (selectionHighlight != null)
-            selectionHighlight.SetActive(selected);
+        //if (selectionHighlight != null)
+        //    selectionHighlight.SetActive(selected);
     }
     
     public void OnPointerClick(PointerEventData eventData)
@@ -51,5 +54,24 @@ public class CylindricalItem : MonoBehaviour, IPointerClickHandler
         }
         
         SetSelected(isCenter);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        uiEffect.colorFilter = ColorFilter.MultiplyAdditive;
+        uiEffect.colorIntensity = 1;
+        //effectOnCoverImage.edgeMode = EdgeMode.Plain;
+        uiEffect.shadowMode = ShadowMode.Outline8;
+
+        //transform.localScale = Vector3.one * 1.05f;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        uiEffect.colorFilter = ColorFilter.None;
+        //uiEffect.edgeMode = EdgeMode.None;
+        uiEffect.shadowMode = ShadowMode.None;
+
+        //transform.localScale = Vector3.one;
     }
 }
