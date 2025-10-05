@@ -35,6 +35,13 @@ public class Game : MonoBehaviourSingleton<Game>
 
     }
 
+    public void SetOperatingImage(ImagePreprocessData inputData)
+    {
+        currentImageID = inputData.ID;
+        StartLevel();
+        //imageSource.sprite = inputData.GetRuntimeSprite();
+    }
+
     public ImagePreprocessData GetCurrentImage()
     {
         if (imageTable == null)
@@ -249,12 +256,9 @@ public class Game : MonoBehaviourSingleton<Game>
         Debug.Log(log);
     }
 
-    //TODO
-    [TitleGroup("DEBUG")]
-    public RectTransform testUICollection;
     public RectTransform GetCollectionUI()
     {
-        return testUICollection;
+        return UIManager.Instance.collectionUI.GetFlyEnd();
     }
 }
 

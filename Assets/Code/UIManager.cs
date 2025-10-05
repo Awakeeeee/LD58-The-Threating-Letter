@@ -10,14 +10,19 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
     public Transform centerUIRef;
     public Transform rightUIRef;
 
+    public GameObject knifeCutterRoot;
     public UISelectCover selectCoverUI;
     public UICollage collageUI;
     public UISendMail sendMailUI;
+    public UICollection collectionUI;
+    public UIOverLay overLayUI;
 
     public GameObject globalMask;
 
     private void Start()
     {
+        knifeCutterRoot.gameObject.SetActive(false);
+
         selectCoverUI.transform.position = leftUIRef.position;
         collageUI.transform.position = centerUIRef.position;
         sendMailUI.transform.position = rightUIRef.position;
@@ -110,5 +115,23 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
     public void HideGlobalMask()
     {
         globalMask.SetActive(false);
+    }
+
+    public void OnSelectCoverPropClicked(ImagePreprocessData processDataClicked)
+    {
+        knifeCutterRoot.gameObject.SetActive(true);
+        selectCoverUI.gameObject.SetActive(false);
+
+        Game.Instance.SetOperatingImage(processDataClicked);
+
+        overLayUI.ShowReturnBtn();
+    }
+
+    public void OnReturnBtnClicked()
+    {
+        knifeCutterRoot.gameObject.SetActive(false);
+        selectCoverUI.gameObject.SetActive(true);
+
+        overLayUI.HideReturnBtn();
     }
 }
