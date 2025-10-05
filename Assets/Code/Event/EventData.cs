@@ -11,4 +11,5 @@ public class EvtArg_Floats
 public class EvtArgs_ImageCut
 {
     public List<Vector2> contourPointsInTexture;
+    public Sprite cutSprite;
 }
