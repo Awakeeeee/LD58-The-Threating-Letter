@@ -430,7 +430,7 @@ public class Game : MonoBehaviourSingleton<Game>
     [Button(ButtonSizes.Large)]
     private void TestScreenCapture()
     {
-        UtilFunction.CaptureSpriteRendererToPNG(imageSource, @"test_screenshot");
+        UtilFunction.CaptureSpriteRendererToPNG(imageSource, @"test_screenshot", true, 50);
     }
 
     public RectTransform GetCollectionUI()

@@ -186,7 +186,7 @@ public class UtilFunction : MonoBehaviour
             });
     }
 
-    public static void CaptureSpriteRendererToPNG(SpriteRenderer sr, string defaultFileName = "screenshot", bool useDownloadForWebGL = true)
+    public static void CaptureSpriteRendererToPNG(SpriteRenderer sr, string defaultFileName = "screenshot", bool useDownloadForWebGL = true, int borderWidth = 0)
     {
         if (sr == null || sr.sprite == null)
         {
@@ -215,13 +215,19 @@ public class UtilFunction : MonoBehaviour
         captureTexture.SetPixels(pixels);
         captureTexture.Apply();
 
+        // Add border if needed
+        if (borderWidth > 0)
+        {
+            captureTexture = AddBorderToTexture(captureTexture, borderWidth, Color.white);
+        }
+
         byte[] pngData = captureTexture.EncodeToPNG();
         Object.Destroy(captureTexture);
 
         SavePNGData(pngData, defaultFileName, useDownloadForWebGL);
     }
 
-    public static void CaptureImageToPNG(Image img, string defaultFileName = "screenshot", bool useDownloadForWebGL = true)
+    public static void CaptureImageToPNG(Image img, string defaultFileName = "screenshot", bool useDownloadForWebGL = true, int borderWidth = 0)
     {
         if (img == null || img.sprite == null)
         {
@@ -250,10 +256,44 @@ public class UtilFunction : MonoBehaviour
         captureTexture.SetPixels(pixels);
         captureTexture.Apply();
 
+        // Add border if needed
+        if (borderWidth > 0)
+        {
+            captureTexture = AddBorderToTexture(captureTexture, borderWidth, Color.white);
+        }
+
         byte[] pngData = captureTexture.EncodeToPNG();
         Object.Destroy(captureTexture);
 
         SavePNGData(pngData, defaultFileName, useDownloadForWebGL);
+    }
+
+    private static Texture2D AddBorderToTexture(Texture2D sourceTexture, int borderWidth, Color borderColor)
+    {
+        int originalWidth = sourceTexture.width;
+        int originalHeight = sourceTexture.height;
+        int newWidth = originalWidth + borderWidth * 2;
+        int newHeight = originalHeight + borderWidth * 2;
+
+        Texture2D borderedTexture = new Texture2D(newWidth, newHeight, TextureFormat.RGBA32, false);
+
+        // Fill entire texture with border color
+        Color[] borderPixels = new Color[newWidth * newHeight];
+        for (int i = 0; i < borderPixels.Length; i++)
+        {
+            borderPixels[i] = borderColor;
+        }
+        borderedTexture.SetPixels(borderPixels);
+
+        // Copy original image to center
+        Color[] originalPixels = sourceTexture.GetPixels();
+        borderedTexture.SetPixels(borderWidth, borderWidth, originalWidth, originalHeight, originalPixels);
+        borderedTexture.Apply();
+
+        // Destroy the original texture
+        Object.Destroy(sourceTexture);
+
+        return borderedTexture;
     }
 
     private static void SavePNGData(byte[] pngData, string fileName, bool useDownloadForWebGL)
