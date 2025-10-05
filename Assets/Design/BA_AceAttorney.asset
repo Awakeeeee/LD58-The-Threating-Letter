@@ -17,32 +17,27 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: 77a5ff5163999644aa340843a3dbdb69, type: 3}
   characters:
   - text: o
-    editorNote: o_in_Who
-    pivot: {x: 1744.1365, y: 670.6013}
-    min: {x: 1699.61, y: 610}
-    max: {x: 1813, y: 724.2}
-  - text: r
-    editorNote: r_in_right
-    pivot: {x: 1514.9253, y: 570.38806}
-    min: {x: 1446.1, y: 494}
-    max: {x: 1589.1, y: 623}
-  - text: o
-    editorNote: o_in_old
-    pivot: {x: 1320.8955, y: 409.9403}
-    min: {x: 1295, y: 375}
-    max: {x: 1364.4, y: 446}
+    editorNote: o_in_who
+    pivot: {x: 873.5245, y: 339.3457}
+    min: {x: 848.7, y: 308.1}
+    max: {x: 902.8, y: 362}
+  - text: R
+    editorNote: R_in_Right
+    pivot: {x: 762.22595, y: 283.69647}
+    min: {x: 725.9, y: 253.3}
+    max: {x: 792.2, y: 307.7}
+  - text: O
+    editorNote: O_in_OLD
+    pivot: {x: 664.1679, y: 206.90857}
+    min: {x: 647.2, y: 188.8}
+    max: {x: 682, y: 223.7}
   - text: o
     editorNote: o_in_attorney
-    pivot: {x: 1642.0765, y: 408.65576}
-    min: {x: 1622.0765, y: 388.65576}
-    max: {x: 1662.0765, y: 428.65576}
-  - text: 
-    editorNote: 
-    pivot: {x: 1640.4697, y: 407.53027}
-    min: {x: 1620.4697, y: 384.7}
-    max: {x: 1660.4697, y: 427.53027}
+    pivot: {x: 820.08997, y: 202.41077}
+    min: {x: 807.7, y: 189.6}
+    max: {x: 833.3, y: 217.2}
   - text: r
-    editorNote: r_in_attorney
-    pivot: {x: 1684.7335, y: 405.7235}
-    min: {x: 1664.7335, y: 385.7235}
-    max: {x: 1704.7335, y: 425.7235}
+    editorNote: r_in_attorny
+    pivot: {x: 838.46155, y: 206.05127}
+    min: {x: 830.6, y: 188.4}
+    max: {x: 852, y: 216.8}

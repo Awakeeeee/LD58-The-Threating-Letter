@@ -18,16 +18,16 @@ MonoBehaviour:
   characters:
   - text: o
     editorNote: o_in_poke
-    pivot: {x: 897.7901, y: 1641.9226}
-    min: {x: 791.7, y: 1766.3}
-    max: {x: 1038, y: 1494.6}
+    pivot: {x: 475.1678, y: 819.97314}
+    min: {x: 418.6, y: 758.7}
+    max: {x: 523.2, y: 871.2}
   - text: o
     editorNote: o_in_moe
-    pivot: {x: 1709.9448, y: 1650.21}
-    min: {x: 1591, y: 1542}
-    max: {x: 1814, y: 1770}
+    pivot: {x: 864.4295, y: 828.02686}
+    min: {x: 812.3, y: 775.7}
+    max: {x: 913.2, y: 881.7}
   - text: o
     editorNote: o_in_gold
-    pivot: {x: 1151.9337, y: 1398.8287}
-    min: {x: 1047, y: 1286}
-    max: {x: 1252, y: 1503}
+    pivot: {x: 587.91943, y: 701.85236}
+    min: {x: 535, y: 650.9}
+    max: {x: 635, y: 745.2}
