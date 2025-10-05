@@ -10,14 +10,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e765af80eba7c642a64923a7adca01f, type: 3}
-  m_Name: BA_YOSIISOLAND
+  m_Name: BA_HOMM3
   m_EditorClassIdentifier: 
-  ID: 15
-  title: BA_YOSIISOLAND
-  image: {fileID: 21300000, guid: a5713db9138c92b40952f3c2cdb0aa97, type: 3}
+  ID: 11
+  title: BA_HOMM3
+  image: {fileID: 21300000, guid: c4c310f5d0abaf140908f93c9b713af7, type: 3}
   characters:
-  - text: o
-    editorNote: o_in_yoshi
-    pivot: {x: 683.4678, y: 1715.3387}
-    min: {x: 614, y: 1602.6}
-    max: {x: 778, y: 1821.7}
+  - text: R
+    editorNote: R_In_HERO
+    pivot: {x: 500, y: 1512.7058}
+    min: {x: 430.4, y: 1374.9}
+    max: {x: 573, y: 1636}
+  - text: O
+    editorNote: O_IN_HERO
+    pivot: {x: 670.58826, y: 1509.7646}
+    min: {x: 590, y: 1378.8}
+    max: {x: 773, y: 1635.4}

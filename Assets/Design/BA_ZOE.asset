@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e765af80eba7c642a64923a7adca01f, type: 3}
-  m_Name: BA_YOSIISOLAND
+  m_Name: BA_ZOE
   m_EditorClassIdentifier: 
-  ID: 15
-  title: BA_YOSIISOLAND
-  image: {fileID: 21300000, guid: a5713db9138c92b40952f3c2cdb0aa97, type: 3}
+  ID: 18
+  title: BA_ZOE
+  image: {fileID: 21300000, guid: 1034ed91f34a45442b87ee501ffb2538, type: 3}
   characters:
-  - text: o
-    editorNote: o_in_yoshi
-    pivot: {x: 683.4678, y: 1715.3387}
-    min: {x: 614, y: 1602.6}
-    max: {x: 778, y: 1821.7}
+  - text: O
+    editorNote: O_IN_ZOE
+    pivot: {x: 697.5309, y: 1368.9877}
+    min: {x: 506, y: 1272.7}
+    max: {x: 885, y: 1447.2}

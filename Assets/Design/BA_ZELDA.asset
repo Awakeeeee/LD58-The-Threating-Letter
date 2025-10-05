@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7e765af80eba7c642a64923a7adca01f, type: 3}
-  m_Name: BA_YOSIISOLAND
+  m_Name: BA_ZELDA
   m_EditorClassIdentifier: 
-  ID: 15
-  title: BA_YOSIISOLAND
-  image: {fileID: 21300000, guid: a5713db9138c92b40952f3c2cdb0aa97, type: 3}
+  ID: 16
+  title: BA_ZELDA
+  image: {fileID: 21300000, guid: c961687689e5ca947aa0d90d71c844bc, type: 3}
   characters:
-  - text: o
-    editorNote: o_in_yoshi
-    pivot: {x: 683.4678, y: 1715.3387}
-    min: {x: 614, y: 1602.6}
-    max: {x: 778, y: 1821.7}
+  - text: O
+    editorNote: O_in_ZOLDA
+    pivot: {x: 613.24786, y: 325.7777}
+    min: {x: 544.8, y: 222.1}
+    max: {x: 675.4, y: 422.5}

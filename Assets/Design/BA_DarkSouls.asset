@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e765af80eba7c642a64923a7adca01f, type: 3}
+  m_Name: BA_DarkSouls
+  m_EditorClassIdentifier: 
+  ID: 7
+  title: BA_DarkSouls
+  image: {fileID: 21300000, guid: 41b45e513e4fcf24cbc582a8ff9e82c6, type: 3}
+  characters:
+  - text: R
+    editorNote: R_In_Dark
+    pivot: {x: 424.95786, y: 1639.9055}
+    min: {x: 373.9, y: 1570.2}
+    max: {x: 494.7, y: 1708}
+  - text: O
+    editorNote: O_in_Cores
+    pivot: {x: 839.79767, y: 1643.2782}
+    min: {x: 779, y: 1570.6}
+    max: {x: 908, y: 1708.4}
+  - text: R
+    editorNote: R_In_cores
+    pivot: {x: 966.2732, y: 1643.2782}
+    min: {x: 912, y: 1571.9}
+    max: {x: 1015, y: 1705.9}
