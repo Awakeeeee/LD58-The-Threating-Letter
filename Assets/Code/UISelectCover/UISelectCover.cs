@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,12 +36,15 @@ public class UISelectCover : MonoBehaviour
         }
     }
 
-    public void OnEnterAnim()
+    public void OnEnterAnim(Action callback)
     {
         for (int i = 0; i < propList.Count; ++i)
         {
             propList[i].transform.DOMove(selectPropTransList[i].position, 1.2f).SetEase(Ease.OutSine).SetDelay(0.05f * i);
-            propList[i].transform.DOLocalRotate(new Vector3(0, 0, Random.Range(-10f, 10f)), 1.0f).SetEase(Ease.OutSine).SetDelay(0.05f * i);
+            propList[i].transform.DOLocalRotate(new Vector3(0, 0, UnityEngine.Random.Range(-10f, 10f)), 1.0f).SetEase(Ease.OutSine).SetDelay(0.05f * i).onComplete += () =>
+            {
+                callback?.Invoke();
+            };
         }
         //selectCoverPropTemplate
     }
