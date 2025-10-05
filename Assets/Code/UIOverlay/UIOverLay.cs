@@ -27,6 +27,7 @@ public class UIOverLay : MonoBehaviour
 
         right_gotoCollageBtn.onClick.AddListener(() =>
         {
+            SFXManager.Instance.PlaySFX("sfx_fly");
             HideAllButton();
             UIManager.Instance.ChangeFromSelectCoverToCollage(() =>
             {
@@ -37,6 +38,7 @@ public class UIOverLay : MonoBehaviour
 
         left_gotoCutCoverBtn.onClick.AddListener(() =>
         {
+            SFXManager.Instance.PlaySFX("sfx_fly");
             HideAllButton();
             UIManager.Instance.ChangeToSelectCover(() =>
             {
@@ -46,6 +48,7 @@ public class UIOverLay : MonoBehaviour
 
         right_gotoSendMailBtn.onClick.AddListener(() =>
         {
+            SFXManager.Instance.PlaySFX("sfx_fly");
             HideAllButton();
             UIManager.Instance.ChangeToSendMail(() =>
             {
@@ -55,6 +58,7 @@ public class UIOverLay : MonoBehaviour
         
         left_gotoCollageBtn.onClick.AddListener(() =>
         {
+            SFXManager.Instance.PlaySFX("sfx_fly");
             HideAllButton();
             UIManager.Instance.ChangeFromSendMailToCollage(() =>
             {
@@ -65,6 +69,7 @@ public class UIOverLay : MonoBehaviour
 
         returnBtn.onClick.AddListener(() =>
         {
+            SFXManager.Instance.PlaySFX("sfx_fly");
             UIManager.Instance.OnReturnBtnClicked();
         });
     }
