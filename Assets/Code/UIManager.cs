@@ -47,18 +47,24 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
     {
         ShowGlobalMask();
 
-        selectCoverUI.gameObject.SetActive(false);
-        collageUI.gameObject.SetActive(true);
-        sendMailUI.gameObject.SetActive(false);
-
-        selectCoverUI.transform.position = leftUIRef.position;
-        collageUI.transform.position = rightUIRef.position;
-        collageUI.transform.DOMove(centerUIRef.position, 0.5f).SetEase(Ease.InOutSine).onComplete += () =>
+        selectCoverUI.OnExitAnim(() =>
         {
-            HideGlobalMask();
-            callback?.Invoke();
-        };
-        sendMailUI.transform.position = rightUIRef.position;
+            selectCoverUI.gameObject.SetActive(false);
+            collageUI.gameObject.SetActive(true);
+            sendMailUI.gameObject.SetActive(false);
+
+            selectCoverUI.transform.position = leftUIRef.position;
+            collageUI.transform.position = centerUIRef.position;
+            //collageUI.transform.DOMove(centerUIRef.position, 0.5f).SetEase(Ease.InOutSine).onComplete += () =>
+            //{
+            //collageUI.Enter
+                HideGlobalMask();
+                callback?.Invoke();
+            //};
+            sendMailUI.transform.position = rightUIRef.position;
+        });
+
+
     }
 
     public void ChangeToSelectCover(Action callback)
