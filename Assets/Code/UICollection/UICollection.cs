@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class UICollection : MonoBehaviour
 {
     public Transform drawerTrans;
+    public CylindricalMenuManager propManager;
     public Transform drawerClosePositionRef;
     public Transform drawerOpenPositionRef;
 
@@ -33,6 +34,8 @@ public class UICollection : MonoBehaviour
             UIManager.Instance.HideGlobalMask();
             UIManager.Instance.overLayUI.ShowAllTopBtns();
 
+            propManager.Hide();
+
             openBtn.gameObject.SetActive(true);
             closeBtn.gameObject.SetActive(false);
         };
@@ -40,6 +43,8 @@ public class UICollection : MonoBehaviour
 
     private void OnOpenBtnClicked()
     {
+        propManager.Show();
+
         UIManager.Instance.overLayUI.HideAllTopBtns();
         UIManager.Instance.ShowGlobalMask();
         drawerTrans.position = drawerClosePositionRef.position;

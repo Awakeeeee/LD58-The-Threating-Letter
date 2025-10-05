@@ -124,6 +124,7 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 
         Game.Instance.SetOperatingImage(processDataClicked);
 
+        collectionUI.gameObject.SetActive(false);
         overLayUI.ShowReturnBtn();
     }
 
@@ -132,6 +133,12 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
         knifeCutterRoot.gameObject.SetActive(false);
         selectCoverUI.gameObject.SetActive(true);
 
+        collectionUI.gameObject.SetActive(true);
         overLayUI.HideReturnBtn();
+    }
+
+    public bool IsInCollageStage()
+    {
+        return collageUI.gameObject.activeSelf;
     }
 }

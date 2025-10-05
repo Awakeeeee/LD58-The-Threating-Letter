@@ -18,6 +18,9 @@ public class UIOverLay : MonoBehaviour
 
     public void Start()
     {
+        navigationBtnsRoot.gameObject.SetActive(true);
+        returnBtnForUICutter.gameObject.SetActive(false);
+
         HideAllButton();
         left_gotoCutCoverBtn.gameObject.SetActive(true);
         right_gotoSendMailBtn.gameObject.SetActive(true);
