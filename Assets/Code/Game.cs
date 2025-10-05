@@ -18,8 +18,7 @@ public class Game : MonoBehaviourSingleton<Game>
     void Start()
     {
         EventManager.StartListening(GameEvent.OnCutComplete, OnCutImageComplete);
-
-
+        cutter.Init();
         StartLevel();
     }
 

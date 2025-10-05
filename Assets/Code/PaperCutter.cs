@@ -31,7 +31,7 @@ public class PaperCutter : MonoBehaviour
     private Vector2 startPoint;
     private Camera mainCamera;
 
-    private void Awake()
+    public void Init()
     {
         mainCamera = Camera.main;
         ResetKnife();
