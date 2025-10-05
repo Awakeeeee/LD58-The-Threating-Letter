@@ -14,6 +14,35 @@ public class ImagePreprocessData : ScriptableObject
 
     public List<CharacterMark> characters;
 
+    [System.NonSerialized]
+    public Texture2D runtimeTexture;
+
+    public Sprite GetRuntimeSprite()
+    {
+        if (runtimeTexture == null)
+        {
+            Texture2D originalTexture = image.texture;
+            runtimeTexture = new Texture2D(originalTexture.width, originalTexture.height, TextureFormat.RGBA32, false);
+            runtimeTexture.SetPixels(originalTexture.GetPixels());
+            runtimeTexture.Apply();
+        }
+
+        Rect rect = image.textureRect;
+        Vector2 pixelPivot = image.pivot;
+        Vector2 normalizedPivot = new Vector2(
+            (pixelPivot.x - rect.x) / rect.width,
+            (pixelPivot.y - rect.y) / rect.height
+        );
+
+        Sprite runtimeSprite = Sprite.Create(
+            runtimeTexture,
+            image.textureRect,
+            normalizedPivot,
+            image.pixelsPerUnit);
+
+        return runtimeSprite;
+    }
+
 }
 
 [System.Serializable]

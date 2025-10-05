@@ -15,8 +15,11 @@ public class Game : MonoBehaviourSingleton<Game>
     public ImageTable imageTable;
     public int currentImageID;
 
+    public List<CutImage> CutCollection { get; private set; }
+
     void Start()
     {
+        CutCollection = new List<CutImage>();
         EventManager.StartListening(GameEvent.OnCutComplete, OnCutImageComplete);
         cutter.Init();
         StartLevel();
@@ -58,7 +61,7 @@ public class Game : MonoBehaviourSingleton<Game>
             return;
         }
 
-        imageSource.sprite = data.image;
+        imageSource.sprite = data.GetRuntimeSprite();
 
         //TODO
     }
@@ -78,14 +81,21 @@ public class Game : MonoBehaviourSingleton<Game>
             return;
         }
 
-        CutScoreResult result = EvaluateCut(data.contourPointsInTexture, imageData);
-
+        CutImage result = EvaluateCut(data.contourPointsInTexture, imageData);
+        result.image = data.cutSprite; // 填充切出的图片
         Debug.Log($"Cut Score Result: Success={result.success}, Score={result.score:F2}, MatchedMark={result.matchedMark?.text}");
+
+        imageSource.sprite = imageData.GetRuntimeSprite();
+
+        //TODO 所有图片都可用，还是规定切得好的才可用？
+        CutCollection.Add(result);
+
+        LogCutCollection();
     }
 
-    private CutScoreResult EvaluateCut(List<Vector2> contourPoints, ImagePreprocessData imageData)
+    private CutImage EvaluateCut(List<Vector2> contourPoints, ImagePreprocessData imageData)
     {
-        CutScoreResult result = new CutScoreResult();
+        CutImage result = new CutImage();
 
         // if (contourPoints.Count > 0)
         // {
@@ -211,11 +221,47 @@ public class Game : MonoBehaviourSingleton<Game>
 
         return inside;
     }
+
+    [Button(ButtonSizes.Large)]
+    private void LogCutCollection()
+    {
+        if (CutCollection == null || CutCollection.Count <= 0)
+        {
+            Debug.Log("NULL");
+            return;
+        }
+
+        string log = "--- cut collection ---\n";
+        int count = 0;
+        foreach (var i in CutCollection)
+        {
+            count++;
+            if (i.matchedMark == null)
+            {
+                log += $"{count}. unmarked part\n";
+            }
+            else
+            {
+                log += $"{count}. {i.matchedMark.text}\n";
+            }
+        }
+        log += "------------";
+        Debug.Log(log);
+    }
+
+    //TODO
+    [TitleGroup("DEBUG")]
+    public RectTransform testUICollection;
+    public RectTransform GetCollectionUI()
+    {
+        return testUICollection;
+    }
 }
 
-public class CutScoreResult
+public class CutImage
 {
-    public bool success;           // 是否成功
-    public float score;            // 评分（0-1）
+    public bool success;
+    public float score;
+    public Sprite image;
     public CharacterMark matchedMark; // 匹配到的字符配置
 }

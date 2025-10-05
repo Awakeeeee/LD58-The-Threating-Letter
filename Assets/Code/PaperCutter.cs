@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -20,6 +21,20 @@ public class PaperCutter : MonoBehaviour
     public Vector2 knifeIdleViewportPos = new Vector2(0.9f, 0.4f); //刻刀默认放在屏幕右下角
     public Vector3 knifeIdleRotation = Vector3.zero;
     public LineRenderer trajectory;
+    public float trajectoryFadeDuration = 0.3f;
+
+    [TitleGroup("Outline")]
+    public bool enableOutline = true;
+    public int outlineWidth = 2;
+    public Color outlineColor = Color.black;
+
+    [TitleGroup("Cut Animation")]
+    public float cutSlideDistance = 2f;
+    public float cutSlideDuration = 0.5f;
+    public Ease cutSlideEase = Ease.OutQuad;
+    public float slideStayDuration = 0.5f; // 滑动后停留时长
+    public float destFlyTime = 1.5f;
+    public Ease destFlyEase = Ease.InOutCirc;
 
 
     [TitleGroup("Debug")]
@@ -89,7 +104,6 @@ public class PaperCutter : MonoBehaviour
             knife.transform.rotation = Quaternion.identity;
         }
 
-        // 初始化轨迹线
         if (trajectory != null)
         {
             trajectory.positionCount = 1;
@@ -122,7 +136,6 @@ public class PaperCutter : MonoBehaviour
             knife.transform.position = worldPos;
         }
 
-        // 更新轨迹线
         if (trajectory != null && pointAdded)
         {
             UpdateTrajectoryLine();
@@ -143,7 +156,6 @@ public class PaperCutter : MonoBehaviour
         if (!closedLoop)
         {
             contourPoints.Add(startPoint);
-            // 更新最后一次轨迹（闭合到起点）
             if (trajectory != null)
             {
                 UpdateTrajectoryLine();
@@ -184,6 +196,13 @@ public class PaperCutter : MonoBehaviour
 
         List<Vector2> textureContour = ScreenToTextureSpace(contourPoints);
         Rect bounds = GetContourBoundsInTexture(textureContour);
+
+        // 为描边预留空间
+        int outlinePadding = enableOutline ? outlineWidth : 0;
+        bounds.xMin -= outlinePadding;
+        bounds.yMin -= outlinePadding;
+        bounds.width += outlinePadding * 2;
+        bounds.height += outlinePadding * 2;
 
         int width = Mathf.CeilToInt(bounds.width);
         int height = Mathf.CeilToInt(bounds.height);
@@ -228,6 +247,12 @@ public class PaperCutter : MonoBehaviour
         cutoutTexture.SetPixels(pixels);
         cutoutTexture.Apply();
 
+        // 应用描边
+        if (enableOutline && outlineWidth > 0)
+        {
+            ApplyOutline(cutoutTexture, outlineWidth, outlineColor);
+        }
+
         Sprite outputSprite = Sprite.Create(
             cutoutTexture,
             new Rect(0, 0, width, height),
@@ -239,19 +264,47 @@ public class PaperCutter : MonoBehaviour
         {
             ImageOutput.sprite = outputSprite;
 
+            //init
+            ImageOutput.gameObject.SetActive(true);
             Vector2 centerScreen = GetContourCenterScreen();
-            Vector3 worldPos = mainCamera.ScreenToWorldPoint(new Vector3(centerScreen.x, centerScreen.y, mainCamera.WorldToScreenPoint(ImageOutput.transform.position).z));
+            float zDepth = ImageOutput.transform.position.z;
+            Vector3 cutCenterWorld = mainCamera.ScreenToWorldPoint(new Vector3(centerScreen.x, centerScreen.y, mainCamera.WorldToScreenPoint(ImageSource.transform.position).z));
+            cutCenterWorld.z = zDepth;
+            ImageOutput.transform.position = cutCenterWorld;
 
-            //ImageOutput.transform.position = new Vector3(worldPos.x, worldPos.y, ImageOutput.transform.position.z);
+            // sliding
+            float randomAngle = Random.Range(0f, 360f);
+            Vector2 slideDirection = new Vector2(Mathf.Cos(randomAngle * Mathf.Deg2Rad), Mathf.Sin(randomAngle * Mathf.Deg2Rad));
+            Vector3 slideTargetPos = cutCenterWorld + new Vector3(slideDirection.x, slideDirection.y, 0f) * cutSlideDistance;
+
+            // wait and fly
+            Sequence cutSequence = DOTween.Sequence();
+            cutSequence.Append(ImageOutput.transform.DOMove(slideTargetPos, cutSlideDuration).SetEase(cutSlideEase));
+            cutSequence.AppendInterval(slideStayDuration);
+            cutSequence.AppendCallback(() =>
+            {
+                RectTransform uiTarget = Game.Instance.GetCollectionUI();
+                if (uiTarget != null)
+                {
+                    Vector3 destination = UtilFunction.ConvertUIPosToWpos(uiTarget);
+                    UtilFunction.CurveFly(ImageOutput.transform, ImageOutput.transform.position, destination, destFlyTime, destFlyEase, () =>
+                    {
+                        ImageOutput.gameObject.SetActive(false);
+                        // TODO 通过事件或直接调用接口更新ui
+                    });
+                }
+            });
         }
 
         Debug.Log($"--------------------- new cut info");
         Debug.Log($"PaperCutter: Cut out texture {width}x{height}");
 
-        // 触发抠图完成事件
+        EraseSourceTexture(textureContour);
+
         EvtArgs_ImageCut eventArgs = new EvtArgs_ImageCut
         {
             contourPointsInTexture = textureContour,
+            cutSprite = outputSprite
         };
         Utils.EventManager.TriggerEvent(GameEvent.OnCutComplete, eventArgs);
     }
@@ -328,7 +381,6 @@ public class PaperCutter : MonoBehaviour
 
         trajectory.positionCount = contourPoints.Count;
 
-        // 将所有屏幕坐标转换为世界坐标并设置到LineRenderer
         for (int i = 0; i < contourPoints.Count; i++)
         {
             Vector3 worldPos = ScreenToWorldPosition(contourPoints[i]);
@@ -338,9 +390,18 @@ public class PaperCutter : MonoBehaviour
 
     private void ClearTrajectoryLine()
     {
-        if (trajectory != null)
+        if (trajectory != null && trajectory.material != null)
         {
-            trajectory.positionCount = 0;
+            Material mat = trajectory.material;
+            mat.DOKill(); // 停止之前的tween
+            mat.DOFade(0, trajectoryFadeDuration).OnComplete(() =>
+            {
+                trajectory.positionCount = 0;
+                // 恢复alpha以备下次使用
+                Color c = mat.color;
+                c.a = 1f;
+                mat.color = c;
+            });
         }
     }
 
@@ -367,9 +428,119 @@ public class PaperCutter : MonoBehaviour
 
     private Vector3 ScreenToWorldPosition(Vector2 screenPos)
     {
-        // 使用ImageSource的z深度
         float zDepth = mainCamera.WorldToScreenPoint(ImageSource.transform.position).z;
         return mainCamera.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, zDepth));
+    }
+
+    private void ApplyOutline(Texture2D texture, int width, Color color)
+    {
+        int texWidth = texture.width;
+        int texHeight = texture.height;
+
+        Vector2Int[] directions = new Vector2Int[]
+        {
+            new Vector2Int(-1, -1), new Vector2Int(0, -1), new Vector2Int(1, -1),
+            new Vector2Int(-1, 0),                          new Vector2Int(1, 0),
+            new Vector2Int(-1, 1),  new Vector2Int(0, 1),   new Vector2Int(1, 1)
+        };
+
+        //extend outline
+        for (int iter = 0; iter < width; iter++)
+        {
+            Color[] currentPixels = texture.GetPixels();
+            Color[] newPixels = (Color[])currentPixels.Clone();
+
+            for (int y = 0; y < texHeight; y++)
+            {
+                for (int x = 0; x < texWidth; x++)
+                {
+                    int index = y * texWidth + x;
+
+                    if (currentPixels[index].a < 0.01f)
+                    {
+                        bool hasOpaqueNeighbor = false;
+
+                        foreach (var dir in directions)
+                        {
+                            int nx = x + dir.x;
+                            int ny = y + dir.y;
+                            if (nx >= 0 && nx < texWidth && ny >= 0 && ny < texHeight)
+                            {
+                                int neighborIndex = ny * texWidth + nx;
+                                if (currentPixels[neighborIndex].a > 0.01f)
+                                {
+                                    hasOpaqueNeighbor = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (hasOpaqueNeighbor)
+                        {
+                            newPixels[index] = color;
+                        }
+                    }
+                }
+            }
+
+            texture.SetPixels(newPixels);
+            texture.Apply();
+        }
+    }
+
+    private void EraseSourceTexture(List<Vector2> textureContour)
+    {
+        ImagePreprocessData imageData = Game.Instance.GetCurrentImage();
+        if (imageData == null || imageData.runtimeTexture == null)
+        {
+            Debug.LogWarning("PaperCutter: Cannot erase source texture, runtimeTexture is null");
+            return;
+        }
+
+        Texture2D runtimeTexture = imageData.runtimeTexture;
+        Rect textureRect = imageData.image.textureRect;
+
+        // 获取轮廓边界
+        float minX = float.MaxValue, minY = float.MaxValue;
+        float maxX = float.MinValue, maxY = float.MinValue;
+        foreach (var p in textureContour)
+        {
+            minX = Mathf.Min(minX, p.x);
+            minY = Mathf.Min(minY, p.y);
+            maxX = Mathf.Max(maxX, p.x);
+            maxY = Mathf.Max(maxY, p.y);
+        }
+
+        int startX = Mathf.Max(0, Mathf.FloorToInt(minX));
+        int startY = Mathf.Max(0, Mathf.FloorToInt(minY));
+        int endX = Mathf.Min(runtimeTexture.width - 1, Mathf.CeilToInt(maxX));
+        int endY = Mathf.Min(runtimeTexture.height - 1, Mathf.CeilToInt(maxY));
+
+        // 遍历轮廓内的像素，设为透明
+        for (int y = startY; y <= endY; y++)
+        {
+            for (int x = startX; x <= endX; x++)
+            {
+                Vector2 pixelPos = new Vector2(x, y);
+                if (IsPointInPolygon(pixelPos, textureContour))
+                {
+                    runtimeTexture.SetPixel(x, y, Color.clear);
+                }
+            }
+        }
+
+        runtimeTexture.Apply();
+
+        // 刷新ImageSource的sprite
+        Sprite refreshedSprite = Sprite.Create(
+            runtimeTexture,
+            imageData.image.textureRect,
+            imageData.image.pivot,
+            imageData.image.pixelsPerUnit
+        );
+        ImageSource.sprite = refreshedSprite;
+
+        Debug.Log($"PaperCutter: Erased source texture in region ({startX},{startY}) to ({endX},{endY})");
     }
 
 #if UNITY_EDITOR
