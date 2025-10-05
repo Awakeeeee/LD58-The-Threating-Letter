@@ -19,22 +19,22 @@ public class CylindricalMenuManager : MonoBehaviour
 
     public void Show()
     {
-        gameObject.SetActive(true);
         InitializeMenu();
     }
 
     public void Hide()
     {
-        gameObject.SetActive(false);
+        DestoryMenu();
     }
 
     public void InitializeMenu()
     {
         // 清空现有项目
-        foreach (Transform child in layoutGroup.transform)
+        for (int i = layoutGroup.transform.childCount - 1; i >= 0; i--)
         {
-            child.gameObject.transform.SetParent(null);
-            Destroy(child.gameObject);
+            GameObject childGO = layoutGroup.transform.GetChild(i).gameObject;
+            childGO.transform.SetParent(null);
+            Destroy(childGO);
         }
         items.Clear();
         layoutGroup.ClearAllItems();
@@ -46,6 +46,18 @@ public class CylindricalMenuManager : MonoBehaviour
         }
         SetLayoutGroupDirty();
         itemPrefab.gameObject.SetActive(false);
+    }
+
+    private void DestoryMenu()
+    {
+        for (int i = layoutGroup.transform.childCount - 1; i >= 0; i--)
+        {
+            GameObject childGO = layoutGroup.transform.GetChild(i).gameObject;
+            childGO.transform.SetParent(null);
+            Destroy(childGO);
+        }
+        items.Clear();
+        layoutGroup.ClearAllItems();
     }
 
     private void CreateMenuItem(int index, CutImage cutImage)
