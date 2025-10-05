@@ -10,13 +10,13 @@ public class UISendMail : MonoBehaviour
     public Transform envelopStartRef;
     public Transform envelopEnterRef;
 
-    public Transform leftHandTrans;
+    private Transform leftHandTrans;
     public Transform leftHandStartRef;
     public Transform leftHandTakeLetterRef;
     //这一步随envelop动
     public Transform leftHandExitRef;
 
-    public Transform rightHandTrans;
+    private Transform rightHandTrans;
     public Transform rightHandStartRef;
     public Transform rightHandTakeLetterRef;
     //这一步随envelop动
@@ -24,6 +24,9 @@ public class UISendMail : MonoBehaviour
 
     private void Start()
     {
+        leftHandTrans = UIManager.Instance.leftHand.transform;
+        rightHandTrans = UIManager.Instance.rightHand.transform;
+
         envelopTransform.position = envelopStartRef.position;
 
         leftHandTrans.position = leftHandExitRef.position;
