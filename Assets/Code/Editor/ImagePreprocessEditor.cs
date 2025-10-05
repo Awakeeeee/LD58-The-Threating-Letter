@@ -317,9 +317,7 @@ public class ImagePreprocessEditor : EditorWindow
         mark.text = EditorGUILayout.TextField("Text", mark.text);
         mark.editorNote = EditorGUILayout.TextField("Editor Note", mark.editorNote);
 
-        EditorGUI.BeginDisabledGroup(!isNew);
         mark.pivot = EditorGUILayout.Vector2Field("Pivot", mark.pivot);
-        EditorGUI.EndDisabledGroup();
 
         EditorGUI.BeginChangeCheck();
         mark.min = EditorGUILayout.Vector2Field("Min", mark.min);
