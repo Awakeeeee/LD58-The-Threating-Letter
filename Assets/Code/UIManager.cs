@@ -33,6 +33,8 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
         collageUI.gameObject.SetActive(true);
         sendMailUI.gameObject.SetActive(true);
 
+        modeUI.gameObject.SetActive(false);
+
         EventManager.StartListening(GameEvent.OnModeChanged, OnModeChange);
     }
 
