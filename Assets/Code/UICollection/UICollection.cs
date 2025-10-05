@@ -25,7 +25,7 @@ public class UICollection : MonoBehaviour
         closeBtn.gameObject.SetActive(false);
     }
 
-    private void OnCloseBtnClicked()
+    public void OnCloseBtnClicked()
     {
         UIManager.Instance.ShowGlobalMask();
         drawerTrans.position = drawerOpenPositionRef.position;

@@ -14,10 +14,16 @@ public class CylindricalItem : MonoBehaviour, IPointerEnterHandler, IPointerExit
     public UIEffect uiEffect;
 
     private int itemIndex;
-    private System.Action<int> onItemClick;
-    
-    public void Initialize(int index, Sprite icon, string title, System.Action<int> clickCallback)
+    private System.Action<int, CutImage> onItemClick;
+    private CutImage cutImageCache;
+
+    public void Initialize(int index, CutImage cutImage, System.Action<int, CutImage> clickCallback)
     {
+        cutImageCache = cutImage;
+
+        Sprite icon = cutImage.image;
+        string title = cutImage.matchedMark?.text;
+
         itemIndex = index;
         onItemClick = clickCallback;
         
@@ -41,7 +47,7 @@ public class CylindricalItem : MonoBehaviour, IPointerEnterHandler, IPointerExit
     
     public void OnPointerClick(PointerEventData eventData)
     {
-        onItemClick?.Invoke(itemIndex);
+        onItemClick?.Invoke(itemIndex, cutImageCache);
     }
     
     // 更新项目状态（根据在圆柱面上的位置）

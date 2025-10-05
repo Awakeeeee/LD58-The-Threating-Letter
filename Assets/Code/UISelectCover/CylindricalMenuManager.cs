@@ -69,10 +69,10 @@ public class CylindricalMenuManager : MonoBehaviour
         
         if (item != null)
         {
-            Sprite icon = cutImage.image;
-            string title = cutImage.matchedMark?.text;
+            //Sprite icon = cutImage.image;
+            //string title = cutImage.matchedMark?.text;
             
-            item.Initialize(index, icon, title, OnItemClicked);
+            item.Initialize(index, cutImage, OnItemClicked);
             items.Add(item);
         }
         
@@ -83,16 +83,18 @@ public class CylindricalMenuManager : MonoBehaviour
     {
         layoutGroup.SetDirty();
     }
-    
-    private void OnItemClicked(int itemIndex)
+
+    private void OnItemClicked(int itemIndex, CutImage cutImage)
     {
         if (!UIManager.Instance.IsInCollageStage())
             return;
 
-        Debug.Log($"Item {itemIndex}");// clicked: {itemTitles[itemIndex]}");
+        //Debug.Log($"Item {itemIndex}");// clicked: {itemTitles[itemIndex]}");
+        //// 滚动到被点击的项目
+        //cylindricalScrollController.ScrollToItem(itemIndex);
 
-        // 滚动到被点击的项目
-        cylindricalScrollController.ScrollToItem(itemIndex);
+        //TODO 创建可以拼贴的组件
+        UIManager.Instance.collectionUI.OnCloseBtnClicked();
     }
     
     // 动态添加项目

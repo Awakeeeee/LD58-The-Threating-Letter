@@ -32,8 +32,8 @@ public class CylindricalScrollController : MonoBehaviour, IBeginDragHandler, IDr
         scrollOffsetField = typeof(CylindricalLayoutGroup).GetField("scrollOffset", 
             BindingFlags.NonPublic | BindingFlags.Instance);
             
-        if (autoPlay)
-            StartAutoPlay();
+        //if (autoPlay)
+        //    StartAutoPlay();
     }
     
     private float GetCurrentScrollOffset()
@@ -69,36 +69,37 @@ public class CylindricalScrollController : MonoBehaviour, IBeginDragHandler, IDr
     {
         isDragging = false;
         
-        if (enableInertia && Mathf.Abs(velocity) > 10f)
-        {
-            StartCoroutine(InertiaScroll());
-        }
-        else
-        {
-            SnapToNearestItem();
-        }
+        //都不要了！
+        //if (enableInertia && Mathf.Abs(velocity) > 10f)
+        //{
+        //    StartCoroutine(InertiaScroll());
+        //}
+        //else
+        //{
+        //    SnapToNearestItem();
+        //}
         
-        if (autoPlay)
-            StartAutoPlay();
+        //if (autoPlay)
+        //    StartAutoPlay();
     }
     
-    private IEnumerator InertiaScroll()
-    {
-        while (Mathf.Abs(velocity) > 1f && !isDragging)
-        {
-            layoutGroup.Scroll(velocity * Time.deltaTime);
-            velocity *= inertiaDeceleration;
-            yield return null;
-        }
+    //private IEnumerator InertiaScroll()
+    //{
+    //    while (Mathf.Abs(velocity) > 1f && !isDragging)
+    //    {
+    //        layoutGroup.Scroll(velocity * Time.deltaTime);
+    //        velocity *= inertiaDeceleration;
+    //        yield return null;
+    //    }
         
-        SnapToNearestItem();
-    }
+    //    //SnapToNearestItem();
+    //}
     
-    private void SnapToNearestItem()
-    {
-        int centerIndex = layoutGroup.GetCenterItemIndex();
-        snapCoroutine = StartCoroutine(SmoothSnapToItem(centerIndex));
-    }
+    //private void SnapToNearestItem()
+    //{
+    //    int centerIndex = layoutGroup.GetCenterItemIndex();
+    //    snapCoroutine = StartCoroutine(SmoothSnapToItem(centerIndex));
+    //}
     
     private IEnumerator SmoothSnapToItem(int targetIndex)
     {
@@ -127,47 +128,47 @@ public class CylindricalScrollController : MonoBehaviour, IBeginDragHandler, IDr
         return -((float)targetIndex / (layoutGroup.GetItemCount() - 1) - 0.5f);
     }
     
-    public void ScrollToNext()
-    {
-        int currentCenter = layoutGroup.GetCenterItemIndex();
-        int nextIndex = (currentCenter + 1) % layoutGroup.GetItemCount();
-        Debug.LogWarning($"ScrollToNext currentCenter {currentCenter} nextIndex {nextIndex}");
-        snapCoroutine = StartCoroutine(SmoothSnapToItem(nextIndex));
-    }
+    //public void ScrollToNext()
+    //{
+    //    int currentCenter = layoutGroup.GetCenterItemIndex();
+    //    int nextIndex = (currentCenter + 1) % layoutGroup.GetItemCount();
+    //    Debug.LogWarning($"ScrollToNext currentCenter {currentCenter} nextIndex {nextIndex}");
+    //    snapCoroutine = StartCoroutine(SmoothSnapToItem(nextIndex));
+    //}
     
-    public void ScrollToPrevious()
-    {
-        int currentCenter = layoutGroup.GetCenterItemIndex();
-        int previousIndex = (currentCenter - 1 + layoutGroup.GetItemCount()) % layoutGroup.GetItemCount();
-        //Debug.LogWarning($"ScrollToNext currentCenter {currentCenter} previousIndex {previousIndex}");
-        snapCoroutine = StartCoroutine(SmoothSnapToItem(previousIndex));
-    }
+    //public void ScrollToPrevious()
+    //{
+    //    int currentCenter = layoutGroup.GetCenterItemIndex();
+    //    int previousIndex = (currentCenter - 1 + layoutGroup.GetItemCount()) % layoutGroup.GetItemCount();
+    //    //Debug.LogWarning($"ScrollToNext currentCenter {currentCenter} previousIndex {previousIndex}");
+    //    snapCoroutine = StartCoroutine(SmoothSnapToItem(previousIndex));
+    //}
     
-    public void ScrollToItem(int index)
-    {
-        //Debug.LogError($"ScrollToItem {index}");
-        if (index >= 0 && index < layoutGroup.GetItemCount())
-        {
-            snapCoroutine = StartCoroutine(SmoothSnapToItem(index));
-        }
-    }
+    //public void ScrollToItem(int index)
+    //{
+    //    //Debug.LogError($"ScrollToItem {index}");
+    //    if (index >= 0 && index < layoutGroup.GetItemCount())
+    //    {
+    //        snapCoroutine = StartCoroutine(SmoothSnapToItem(index));
+    //    }
+    //}
     
-    private void StartAutoPlay()
-    {
-        if (autoPlayCoroutine != null)
-            StopCoroutine(autoPlayCoroutine);
+    //private void StartAutoPlay()
+    //{
+    //    if (autoPlayCoroutine != null)
+    //        StopCoroutine(autoPlayCoroutine);
             
-        autoPlayCoroutine = StartCoroutine(AutoPlayRoutine());
-    }
+    //    autoPlayCoroutine = StartCoroutine(AutoPlayRoutine());
+    //}
     
-    private IEnumerator AutoPlayRoutine()
-    {
-        while (autoPlay && !isDragging)
-        {
-            yield return new WaitForSeconds(autoPlayInterval);
-            ScrollToNext();
-        }
-    }
+    //private IEnumerator AutoPlayRoutine()
+    //{
+    //    while (autoPlay && !isDragging)
+    //    {
+    //        yield return new WaitForSeconds(autoPlayInterval);
+    //        ScrollToNext();
+    //    }
+    //}
     
     private void OnDisable()
     {
