@@ -17,11 +17,34 @@ public class Game : MonoBehaviourSingleton<Game>
 
     public List<CutImage> CutCollection { get; private set; }
 
-    void Start()
+    public GameMode CurrentMode { get; private set; }
+
+    public Camera Cam { get; private set; }
+
+    [TitleGroup("View Control")]
+    public Vector2 viewLimitX; //x=min_x, y=max_x
+    public Vector2 viewLimitY;
+    public Vector2 zoomLimit;
+    public float defaultOrthoZoom = 3f;
+    public float zoomScrollSpeed = 0.002f; // 滚轮缩放速度
+    private bool isDraggingCamera = false;
+    private Vector3 lastPointerWorldPos;
+    private bool isUpdatingZoomSlider = false; // 防止循环更新
+
+
+    protected override void Awake()
     {
+        base.Awake();
+        Cam = Camera.main;
+        Cam.orthographicSize = defaultOrthoZoom; // 设置初始缩放
         CutCollection = new List<CutImage>();
+        CurrentMode = GameMode.Carve; // 默认切图模式
         EventManager.StartListening(GameEvent.OnCutComplete, OnCutImageComplete);
         cutter.Init();
+    }
+
+    void Start()
+    {
         StartLevel();
     }
 
@@ -32,7 +55,118 @@ public class Game : MonoBehaviourSingleton<Game>
 
     void Update()
     {
+        if (CurrentMode == GameMode.Navigate || CurrentMode == GameMode.Free)
+        {
+            HandleCameraDrag();
+            HandleCameraZoom();
+        }
+    }
 
+    private void HandleCameraDrag()
+    {
+        if (UnityEngine.InputSystem.Pointer.current == null)
+        {
+            return;
+        }
+
+        // 根据模式判断使用哪个按钮
+        bool isPressed = false;
+        if (CurrentMode == GameMode.Navigate)
+        {
+            // Navigate模式：任意pointer按下
+            isPressed = UnityEngine.InputSystem.Pointer.current.press.isPressed;
+        }
+        else if (CurrentMode == GameMode.Free)
+        {
+            // Free模式：只响应右键
+            if (UnityEngine.InputSystem.Mouse.current != null)
+            {
+                isPressed = UnityEngine.InputSystem.Mouse.current.rightButton.isPressed;
+            }
+        }
+
+        Vector2 screenPos = UnityEngine.InputSystem.Pointer.current.position.ReadValue();
+
+        if (isPressed)
+        {
+            if (UtilFunction.IsPointerOverUI())
+            {
+                return;
+            }
+
+            float zDepth = Cam.WorldToScreenPoint(imageSource.transform.position).z;
+            Vector3 currentPointerWorldPos = Cam.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, zDepth));
+
+            if (!isDraggingCamera)
+            {
+                isDraggingCamera = true;
+                lastPointerWorldPos = currentPointerWorldPos;
+            }
+            else
+            {
+                Vector3 delta = currentPointerWorldPos - lastPointerWorldPos;
+                Vector3 newImagePos = imageSource.transform.position + delta;
+
+                newImagePos.x = Mathf.Clamp(newImagePos.x, viewLimitX.x, viewLimitX.y);
+                newImagePos.y = Mathf.Clamp(newImagePos.y, viewLimitY.x, viewLimitY.y);
+
+                imageSource.transform.position = newImagePos;
+                lastPointerWorldPos = Cam.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, zDepth));
+            }
+        }
+        else
+        {
+            isDraggingCamera = false;
+        }
+    }
+
+    private void HandleCameraZoom()
+    {
+        if (UnityEngine.InputSystem.Mouse.current == null) return;
+
+        float scrollDelta = UnityEngine.InputSystem.Mouse.current.scroll.ReadValue().y;
+        if (Mathf.Abs(scrollDelta) > 0.01f)
+        {
+            float newSize = Cam.orthographicSize - scrollDelta * zoomScrollSpeed;
+            SetZoom(newSize, true);
+        }
+    }
+
+    public void SetZoom(float orthoSize, bool updateSlider = false)
+    {
+        // 限制范围
+        orthoSize = Mathf.Clamp(orthoSize, zoomLimit.x, zoomLimit.y);
+        Cam.orthographicSize = orthoSize;
+
+        // 更新slider（避免循环）
+        if (updateSlider && !isUpdatingZoomSlider)
+        {
+            Utils.EventManager.TriggerEvent(GameEvent.OnZoomChanged, orthoSize);
+        }
+    }
+
+    public float GetZoom()
+    {
+        return Cam.orthographicSize;
+    }
+
+    public void OnZoomSliderChanged(float value)
+    {
+        isUpdatingZoomSlider = true;
+        SetZoom(value, false);
+        isUpdatingZoomSlider = false;
+    }
+
+    public void SwitchMode(GameMode newMode)
+    {
+        if (CurrentMode == newMode) return;
+
+        CurrentMode = newMode;
+        Debug.Log($"Switched to mode: {newMode}");
+
+        isDraggingCamera = false;
+
+        EventManager.TriggerEvent(GameEvent.OnModeChanged);
     }
 
     public void SetOperatingImage(ImagePreprocessData inputData)
@@ -254,6 +388,20 @@ public class Game : MonoBehaviourSingleton<Game>
         }
         log += "------------";
         Debug.Log(log);
+    }
+
+    [Button("AB TEST - 鼠标全操作", ButtonSizes.Large)]
+    private void ABTestSetModeFree()
+    {
+        if (Game.Instance == null) return;
+        SwitchMode(GameMode.Free);
+    }
+
+    [Button("AB TEST - UI切换模式", ButtonSizes.Large)]
+    private void ABTestSetModeUI()
+    {
+        if (Game.Instance == null) return;
+        SwitchMode(GameMode.Navigate);
     }
 
     public RectTransform GetCollectionUI()

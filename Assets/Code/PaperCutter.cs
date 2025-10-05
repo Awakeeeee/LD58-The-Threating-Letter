@@ -69,22 +69,37 @@ public class PaperCutter : MonoBehaviour
     {
         if (Pointer.current == null) return;
 
-        bool isPressed = Pointer.current.press.isPressed;
+        // 只在Carve或Free模式下响应切图输入
+        GameMode currentMode = Game.Instance.CurrentMode;
+        if (currentMode != GameMode.Carve && currentMode != GameMode.Free) return;
+
+        // 检测左键（主按钮）
+        bool isLeftPressed = false;
+        if (UnityEngine.InputSystem.Mouse.current != null)
+        {
+            isLeftPressed = UnityEngine.InputSystem.Mouse.current.leftButton.isPressed;
+        }
+        else
+        {
+            // 触摸屏等其他输入设备使用通用press
+            isLeftPressed = Pointer.current.press.isPressed;
+        }
+
         Vector2 currentPos = Pointer.current.position.ReadValue();
 
-        if (isPressed && !isDrawing && canStartDrawing) //start
+        if (isLeftPressed && !isDrawing && canStartDrawing) //start
         {
             StartDrawing(currentPos);
         }
-        else if (isPressed && isDrawing) //drawing
+        else if (isLeftPressed && isDrawing) //drawing
         {
             UpdateDrawing(currentPos);
         }
-        else if (!isPressed && isDrawing) //stop
+        else if (!isLeftPressed && isDrawing) //stop
         {
             EndDrawing();
         }
-        else if (!isPressed) //pointer up, allow next draw
+        else if (!isLeftPressed) //pointer up, allow next draw
         {
             canStartDrawing = true;
         }
@@ -92,6 +107,11 @@ public class PaperCutter : MonoBehaviour
 
     private void StartDrawing(Vector2 screenPos)
     {
+        if (UtilFunction.IsPointerOverUI())
+        {
+            return;
+        }
+
         isDrawing = true;
         startPoint = screenPos;
         contourPoints.Clear();
