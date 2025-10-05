@@ -188,6 +188,25 @@ public class PaperCutter : MonoBehaviour
             SFXManager.Instance.PauseLoopSFX();
         }
 
+        //如果在移动 检查移动过的线段 是否和现有的 contourPoints 组成的折线相交
+        if (isMouseMoving && IsIntersectingWithRecentCountourPoints(lastDrawPosition, screenPos, out Vector2 intersectionPoint, out int index))
+        {
+            Debug.LogWarning("IsIntersectingWithRecentCountourPoints true");
+            List<Vector2> newContourPoints = new List<Vector2>();
+            //加入交点
+            newContourPoints.Add(intersectionPoint);
+            //再把交点所在线段的后一个节点 所在contourPoints位置 及其之后的所有点 加入列表
+            for(int i = index; i < contourPoints.Count; ++i)
+            {
+                newContourPoints.Add(contourPoints[i]);
+            }
+            contourPoints.Clear();
+            contourPoints.AddRange(newContourPoints);
+            //修正完contourPoints后 结束绘制
+            EndDrawing(true);
+            return;
+        }
+
         lastDrawPosition = screenPos;
 
         bool pointAdded = false;
@@ -211,6 +230,56 @@ public class PaperCutter : MonoBehaviour
         {
             UpdateTrajectoryLine();
         }
+    }
+
+    private bool IsIntersectingWithRecentCountourPoints(Vector2 fromV2, Vector2 toV2, out Vector2 intersectionPoint, out int index)
+    {
+        intersectionPoint = Vector2.zero;
+        index = 0;
+        if (contourPoints.Count < 3)
+            return false;
+        //反向检查contourPoints 找到的第一个交点 可以认为是新的contourPoints的起点
+        //最后一段要略过
+        for (int i = contourPoints.Count - 2; i >= 1; --i)
+        {
+            Vector2 contourStart = contourPoints[i - 1];
+            Vector2 contourEnd = contourPoints[i];
+
+            // 检查两线段是否相交
+            if (DoLineSegmentsIntersect(fromV2, toV2, contourStart, contourEnd, out intersectionPoint))
+            {
+                index = i;
+                return true;
+                //intersections.Add(intersectionPoint);
+            }
+        }
+        return false;
+    }
+
+    private bool DoLineSegmentsIntersect(Vector2 p1, Vector2 p2, Vector2 p3, Vector2 p4, out Vector2 intersection)
+    {
+        intersection = Vector2.zero;
+
+        // 计算分母
+        float denominator = (p4.y - p3.y) * (p2.x - p1.x) - (p4.x - p3.x) * (p2.y - p1.y);
+
+        // 如果分母为0，说明线段平行
+        if (Mathf.Approximately(denominator, 0f))
+            return false;
+
+        float ua = ((p4.x - p3.x) * (p1.y - p3.y) - (p4.y - p3.y) * (p1.x - p3.x)) / denominator;
+        float ub = ((p2.x - p1.x) * (p1.y - p3.y) - (p2.y - p1.y) * (p1.x - p3.x)) / denominator;
+
+        // 检查交点是否在两个线段上
+        if (ua >= 0f && ua <= 1f && ub >= 0f && ub <= 1f)
+        {
+            // 计算交点坐标
+            intersection.x = p1.x + ua * (p2.x - p1.x);
+            intersection.y = p1.y + ua * (p2.y - p1.y);
+            return true;
+        }
+
+        return false;
     }
 
     private void EndDrawing(bool closedLoop = false)
