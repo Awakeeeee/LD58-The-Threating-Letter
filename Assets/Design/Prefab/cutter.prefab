@@ -51,6 +51,7 @@ MonoBehaviour:
   knifeIdleRotation: {x: 0, y: 0, z: -135}
   trajectory: {fileID: 0}
   trajectoryFadeDuration: 0.5
+  trajectoryRetreatSpeed: 0.005
   enableOutline: 1
   outlineWidth: 4
   outlineColor: {r: 1, g: 1, b: 1, a: 1}
@@ -58,6 +59,6 @@ MonoBehaviour:
   cutSlideDuration: 0.5
   cutSlideEase: 21
   slideStayDuration: 0.2
-  destFlyTime: 1
-  destFlyEase: 1
+  destFlyTime: 0.5
+  destFlyEase: 5
   drawGizmos: 1

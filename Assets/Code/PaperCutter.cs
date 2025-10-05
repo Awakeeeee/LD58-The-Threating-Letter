@@ -22,6 +22,7 @@ public class PaperCutter : MonoBehaviour
     public Vector3 knifeIdleRotation = Vector3.zero;
     public LineRenderer trajectory;
     public float trajectoryFadeDuration = 0.3f;
+    public float trajectoryRetreatSpeed = 0.02f; // 回退动画间隔时间（秒）
 
     [TitleGroup("Outline")]
     public bool enableOutline = true;
@@ -45,11 +46,17 @@ public class PaperCutter : MonoBehaviour
     private bool canStartDrawing = true;
     private Vector2 startPoint;
     private Camera mainCamera;
+    private Coroutine retreatCoroutine = null; // 跟踪回退协程
 
     public void Init()
     {
         mainCamera = Camera.main;
         ResetKnife();
+
+        if (trajectory != null)
+        {
+            trajectory.enabled = false;
+        }
     }
 
     private void OnEnable()
@@ -112,6 +119,12 @@ public class PaperCutter : MonoBehaviour
             return;
         }
 
+        if (retreatCoroutine != null)
+        {
+            StopCoroutine(retreatCoroutine);
+            retreatCoroutine = null;
+        }
+
         isDrawing = true;
         startPoint = screenPos;
         contourPoints.Clear();
@@ -126,6 +139,15 @@ public class PaperCutter : MonoBehaviour
 
         if (trajectory != null)
         {
+            if (trajectory.material != null)
+            {
+                trajectory.material.DOKill();
+                Color c = trajectory.material.color;
+                c.a = 1f;
+                trajectory.material.color = c;
+            }
+
+            trajectory.enabled = true;
             trajectory.positionCount = 1;
             trajectory.SetPosition(0, ScreenToWorldPosition(screenPos));
         }
@@ -175,11 +197,11 @@ public class PaperCutter : MonoBehaviour
 
         if (!closedLoop)
         {
-            contourPoints.Add(startPoint);
-            if (trajectory != null)
-            {
-                UpdateTrajectoryLine();
-            }
+            isDrawing = false;
+            canStartDrawing = false;
+            ResetKnife();
+            retreatCoroutine = StartCoroutine(RetreatTrajectoryLine());
+            return;
         }
 
         CutOutTexture();
@@ -267,7 +289,6 @@ public class PaperCutter : MonoBehaviour
         cutoutTexture.SetPixels(pixels);
         cutoutTexture.Apply();
 
-        // 应用描边
         if (enableOutline && outlineWidth > 0)
         {
             ApplyOutline(cutoutTexture, outlineWidth, outlineColor);
@@ -408,16 +429,51 @@ public class PaperCutter : MonoBehaviour
         }
     }
 
+    private IEnumerator RetreatTrajectoryLine()
+    {
+        if (trajectory == null)
+        {
+            contourPoints.Clear();
+            canStartDrawing = true;
+            retreatCoroutine = null;
+            yield break;
+        }
+
+        while (contourPoints.Count > 0)
+        {
+            contourPoints.RemoveAt(contourPoints.Count - 1);
+
+            if (contourPoints.Count > 0)
+            {
+                trajectory.positionCount = contourPoints.Count;
+                for (int i = 0; i < contourPoints.Count; i++)
+                {
+                    trajectory.SetPosition(i, ScreenToWorldPosition(contourPoints[i]));
+                }
+            }
+            else
+            {
+                trajectory.positionCount = 0;
+            }
+
+            yield return new WaitForSeconds(trajectoryRetreatSpeed);
+        }
+
+        trajectory.enabled = false;
+        canStartDrawing = true;
+        retreatCoroutine = null;
+    }
+
     private void ClearTrajectoryLine()
     {
         if (trajectory != null && trajectory.material != null)
         {
             Material mat = trajectory.material;
-            mat.DOKill(); // 停止之前的tween
+            mat.DOKill();
             mat.DOFade(0, trajectoryFadeDuration).OnComplete(() =>
             {
                 trajectory.positionCount = 0;
-                // 恢复alpha以备下次使用
+                trajectory.enabled = false;
                 Color c = mat.color;
                 c.a = 1f;
                 mat.color = c;
