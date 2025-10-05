@@ -23,7 +23,7 @@ public class UIOverLay : MonoBehaviour
 
         HideAllButton();
         left_gotoCutCoverBtn.gameObject.SetActive(true);
-        right_gotoSendMailBtn.gameObject.SetActive(true);
+        right_gotoSendMailBtn.gameObject.SetActive(false);//
 
         right_gotoCollageBtn.onClick.AddListener(() =>
         {
@@ -31,7 +31,7 @@ public class UIOverLay : MonoBehaviour
             UIManager.Instance.ChangeFromSelectCoverToCollage(() =>
             {
                 left_gotoCutCoverBtn.gameObject.SetActive(true);
-                right_gotoSendMailBtn.gameObject.SetActive(true);
+                right_gotoSendMailBtn.gameObject.SetActive(false);
             });
         });
 
@@ -59,7 +59,7 @@ public class UIOverLay : MonoBehaviour
             UIManager.Instance.ChangeFromSendMailToCollage(() =>
             {
                 left_gotoCutCoverBtn.gameObject.SetActive(true);
-                right_gotoSendMailBtn.gameObject.SetActive(true);
+                right_gotoSendMailBtn.gameObject.SetActive(false);
             });
         });
 
