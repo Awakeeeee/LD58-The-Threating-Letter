@@ -224,6 +224,36 @@ public class PaperCutter : MonoBehaviour
         }
     }
 
+    private void CancelCut()
+    {
+        isDrawing = false;
+        canStartDrawing = false;
+        contourPoints.Clear();
+        ResetKnife();
+        retreatCoroutine = StartCoroutine(RetreatTrajectoryLine());
+    }
+
+    private bool IsContourIntersectingSprite(List<Vector2> screenPoints)
+    {
+        if (ImageSource == null || ImageSource.sprite == null)
+            return false;
+
+        Bounds spriteBounds = ImageSource.bounds;
+        float zDepth = mainCamera.WorldToScreenPoint(ImageSource.transform.position).z;
+
+        // 检查轮廓的任意点是否在sprite bounds内
+        foreach (var screenPos in screenPoints)
+        {
+            Vector3 worldPos = mainCamera.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, zDepth));
+            if (spriteBounds.Contains(worldPos))
+            {
+                return true; // 至少有一个点在sprite内，视为相交
+            }
+        }
+
+        return false; // 所有点都不在sprite内，不相交
+    }
+
     private void CutOutTexture()
     {
         if (ImageSource == null || ImageSource.sprite == null)
@@ -232,11 +262,28 @@ public class PaperCutter : MonoBehaviour
             return;
         }
 
+        // cancel check: 如果没碰到底图直接视作取消
+        if (!IsContourIntersectingSprite(contourPoints))
+        {
+            Debug.Log("PaperCutter: Contour does not intersect with sprite, canceling cut");
+            CancelCut();
+            return;
+        }
+
+        List<Vector2> textureContour = ScreenToTextureSpace(contourPoints);
+
+        // cancel check: 没有框到预设的字形
+        if (!Game.Instance.ShouldAcceptCut(textureContour))
+        {
+            Debug.Log("PaperCutter: Cut does not meet requirements, canceling");
+            CancelCut();
+            return;
+        }
+
         Sprite sourceSprite = ImageSource.sprite;
         Texture2D sourceTexture = sourceSprite.texture;
         Rect sourceRect = sourceSprite.textureRect;
 
-        List<Vector2> textureContour = ScreenToTextureSpace(contourPoints);
         Rect bounds = GetContourBoundsInTexture(textureContour);
 
         // 为描边预留空间

@@ -930,6 +930,7 @@ MonoBehaviour:
   imageOutput: {fileID: 1248470885}
   imageTable: {fileID: 11400000, guid: afac0933451edb046833af4853e53557, type: 2}
   currentImageID: 3
+  shouldCollectEmptyCut: 1
   viewLimitX: {x: -10, y: 10}
   viewLimitY: {x: -10, y: 10}
   zoomLimit: {x: 1.5, y: 5.5}

@@ -14,6 +14,7 @@ public class Game : MonoBehaviourSingleton<Game>
     [TitleGroup("Config")]
     public ImageTable imageTable;
     public int currentImageID;
+    public bool shouldCollectEmptyCut;
 
     public List<CutImage> CutCollection { get; private set; }
 
@@ -205,6 +206,31 @@ public class Game : MonoBehaviourSingleton<Game>
         imageSource.sprite = data.GetRuntimeSprite();
 
         //TODO
+    }
+
+    public bool ShouldAcceptCut(List<Vector2> textureContour)
+    {
+        ImagePreprocessData imageData = GetCurrentImage();
+        if (imageData == null || imageData.characters == null || imageData.characters.Count == 0)
+        {
+            return shouldCollectEmptyCut;
+        }
+
+        int matchedCount = 0;
+        foreach (var mark in imageData.characters)
+        {
+            if (IsPointInPolygon(mark.pivot, textureContour))
+            {
+                matchedCount++;
+            }
+        }
+
+        if (matchedCount == 0)
+        {
+            return shouldCollectEmptyCut;
+        }
+
+        return true;
     }
 
     private void OnCutImageComplete(object args)
