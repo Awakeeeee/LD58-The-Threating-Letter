@@ -146,6 +146,7 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
         knifeCutterRoot.gameObject.SetActive(true);
         selectCoverUI.gameObject.SetActive(false);
 
+        Game.Instance.ResetZoom();//建立在非裁切/拼贴时 玩家不能滚轮zoom的话 这里倒是也不用再调用
         Game.Instance.SetOperatingImage(processDataClicked);
 
         collectionUI.gameObject.SetActive(false);
@@ -157,13 +158,25 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
         knifeCutterRoot.gameObject.SetActive(false);
         selectCoverUI.gameObject.SetActive(true);
 
+        Game.Instance.ResetZoom();
+
         collectionUI.gameObject.SetActive(true);
         overLayUI.HideReturnBtn();
+    }
+
+    public bool IsInKnifeCutterStage()
+    {
+        return knifeCutterRoot.gameObject.activeSelf;
     }
 
     public bool IsInCollageStage()
     {
         return collageUI.gameObject.activeSelf;
+    }
+
+    public bool AllowZoom()
+    {
+        return IsInKnifeCutterStage();//TODO 拼贴的时候可能也允许
     }
 
     private void OnModeChange(object args)

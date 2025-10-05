@@ -125,6 +125,9 @@ public class Game : MonoBehaviourSingleton<Game>
     {
         if (UnityEngine.InputSystem.Mouse.current == null) return;
 
+        if (!UIManager.Instance.AllowZoom())
+            return;
+
         float scrollDelta = UnityEngine.InputSystem.Mouse.current.scroll.ReadValue().y;
         if (Mathf.Abs(scrollDelta) > 0.01f)
         {
@@ -149,6 +152,11 @@ public class Game : MonoBehaviourSingleton<Game>
     public float GetZoom()
     {
         return Cam.orthographicSize;
+    }
+
+    public void ResetZoom()
+    {
+        Cam.orthographicSize = defaultOrthoZoom;
     }
 
     public void OnZoomSliderChanged(float value)
