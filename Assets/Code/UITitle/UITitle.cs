@@ -84,6 +84,10 @@ public class UITitle : MonoBehaviour
         titleTrans.transform.DOMove(titleOutScreenTrans.position, 0.5f).onComplete += () =>
         {
             callback?.Invoke();
+
+            gameObject.SetActive(false);
+            startButton.gameObject.SetActive(true);
+            titleTrans.transform.position = titleInScreenTrans.position;
         };
     }
 }

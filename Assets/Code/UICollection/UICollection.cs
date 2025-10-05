@@ -14,19 +14,33 @@ public class UICollection : MonoBehaviour
     public Button openBtn;
     public Button closeBtn;
 
+    private bool isOpen = false;
+
     public void Start()
     {
         drawerTrans.position = drawerClosePositionRef.position;
 
-        openBtn.onClick.AddListener(OnOpenBtnClicked);
+        openBtn.onClick.AddListener(OnCloseAndOpenBtnClicked);
+        //openBtn.onClick.AddListener(OnOpenBtnClicked);
         closeBtn.onClick.AddListener(OnCloseBtnClicked);
 
-        openBtn.gameObject.SetActive(true);
+        //openBtn.gameObject.SetActive(true);
         closeBtn.gameObject.SetActive(false);
+    }
+
+    private void OnCloseAndOpenBtnClicked()
+    {
+        if (isOpen)
+            OnCloseBtnClicked();
+        else
+            OnOpenBtnClicked();
     }
 
     public void OnCloseBtnClicked()
     {
+        SFXManager.Instance.PlaySFX("sfx_fly");
+
+        isOpen = false;
         UIManager.Instance.ShowGlobalMask();
         drawerTrans.position = drawerOpenPositionRef.position;
         drawerTrans.DOMove(drawerClosePositionRef.position, 0.3f).SetEase(Ease.InOutSine).onComplete += () =>
@@ -36,13 +50,16 @@ public class UICollection : MonoBehaviour
 
             propManager.Hide();
 
-            openBtn.gameObject.SetActive(true);
+            //openBtn.gameObject.SetActive(true);
             closeBtn.gameObject.SetActive(false);
         };
     }
 
     private void OnOpenBtnClicked()
     {
+        SFXManager.Instance.PlaySFX("sfx_fly");
+
+        isOpen = true;
         propManager.Show();
 
         UIManager.Instance.overLayUI.HideAllTopBtns();
@@ -52,7 +69,7 @@ public class UICollection : MonoBehaviour
         {
             UIManager.Instance.HideGlobalMask();
 
-            openBtn.gameObject.SetActive(false);
+            //openBtn.gameObject.SetActive(false);
             closeBtn.gameObject.SetActive(true);
         };
     }
