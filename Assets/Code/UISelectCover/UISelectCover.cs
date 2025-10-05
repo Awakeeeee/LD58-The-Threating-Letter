@@ -13,6 +13,10 @@ public class UISelectCover : MonoBehaviour
     public GameObject selectCoverPropTemplate;
     public Transform selectCoverPropEnterTrans;//入场的起始位置的参考
     public List<SelectCoverProp> propList = new List<SelectCoverProp>();
+    public Transform selectCoverPropExitTrans;
+
+    public Transform leftHandExit_StartRef;
+    public Transform leftHandExit_EndRef;
 
     void Start()
     {
@@ -32,7 +36,7 @@ public class UISelectCover : MonoBehaviour
 
     private void DestroyAllProps()
     {
-        for(int i = 0; i < propList.Count; ++i)
+        for (int i = 0; i < propList.Count; ++i)
         {
             propList[i].transform.SetParent(null);
             Destroy(propList[i].gameObject);
@@ -44,7 +48,7 @@ public class UISelectCover : MonoBehaviour
     {
         List<int> shuffleList = new List<int>();
         int maxNum = imageTable.images.Count;
-        for(int i = 0; i < maxNum; ++i)
+        for (int i = 0; i < maxNum; ++i)
         {
             shuffleList.Add(i);
         }
@@ -108,10 +112,22 @@ public class UISelectCover : MonoBehaviour
 
     public void OnExitAnim(Action callback)
     {
+        UIManager.Instance.leftHand.gameObject.SetActive(true);
+        UIManager.Instance.leftHand.transform.position = leftHandExit_StartRef.position;
+        UIManager.Instance.leftHand.transform.localRotation = leftHandExit_StartRef.localRotation;
+        UIManager.Instance.leftHand.transform.DOMove(leftHandExit_EndRef.position, 0.8f).SetEase(Ease.OutCubic).onComplete += () =>
+        {
+            UIManager.Instance.leftHand.gameObject.SetActive(false);
+            UIManager.Instance.leftHand.transform.localRotation = Quaternion.identity;
+        };
+
+        Vector3 delta = Vector3.zero;
         for (int i = 0; i < propList.Count; ++i)
         {
+            if (delta == Vector3.zero)
+                delta = selectCoverPropExitTrans.position - propList[i].transform.position;
             propAnimCount++;
-            propList[i].transform.DOMove(selectCoverPropEnterTrans.position, 0.6f).SetEase(Ease.OutCubic).onComplete += () =>
+            propList[i].transform.DOMove(propList[i].transform.position + delta, 0.8f).SetEase(Ease.OutCubic).onComplete += () =>
             {
                 propAnimCount--;
                 if (propAnimCount == 0)

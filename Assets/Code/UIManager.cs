@@ -21,6 +21,9 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 
     public GameObject globalMask;
 
+    public GameObject leftHand;
+    public GameObject rightHand;
+
     private void Start()
     {
         knifeCutterRoot.gameObject.SetActive(false);
