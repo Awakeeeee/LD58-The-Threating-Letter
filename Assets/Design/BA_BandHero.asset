@@ -17,12 +17,12 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: d8f7249a931d128458520b5bb520ab6b, type: 3}
   characters:
   - text: R
-    editorNote: R_In_HERO
-    pivot: {x: 779.81647, y: 829.65137}
-    min: {x: 705, y: 976.6}
-    max: {x: 862.8, y: 701.5}
+    editorNote: R_in_HERO
+    pivot: {x: 389.67612, y: 415.70038}
+    min: {x: 352.9, y: 349.8}
+    max: {x: 428.1, y: 482.2}
   - text: O
-    editorNote: O_IN_HERO
-    pivot: {x: 946.78894, y: 846.16516}
-    min: {x: 877.5, y: 709.8}
-    max: {x: 1021.6, y: 975.2}
+    editorNote: O_in_HERO
+    pivot: {x: 475.22235, y: 422.98346}
+    min: {x: 436.9, y: 358.6}
+    max: {x: 515, y: 482.6}

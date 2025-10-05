@@ -16,13 +16,13 @@ MonoBehaviour:
   title: BA_Castlevania
   image: {fileID: 21300000, guid: 0005aa13af365064aa33dfc43324664d, type: 3}
   characters:
-  - text: r
-    editorNote: r_in_rose
-    pivot: {x: 857.85535, y: 464.45886}
-    min: {x: 785.7, y: 353.1}
-    max: {x: 933.9, y: 573.2}
+  - text: R
+    editorNote: R_In_Rose
+    pivot: {x: 428.32166, y: 230.29376}
+    min: {x: 397.1, y: 177}
+    max: {x: 457.2, y: 283.9}
   - text: o
-    editorNote: o_in_rose
-    pivot: {x: 970.6745, y: 449.75952}
-    min: {x: 939.9, y: 388.2}
-    max: {x: 1016.8, y: 511.3}
+    editorNote: o_in_Rose
+    pivot: {x: 484.26572, y: 225.04901}
+    min: {x: 465.6, y: 190.7}
+    max: {x: 507.2, y: 252.5}

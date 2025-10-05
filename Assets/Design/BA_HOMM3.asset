@@ -16,13 +16,13 @@ MonoBehaviour:
   title: BA_HOMM3
   image: {fileID: 21300000, guid: c4c310f5d0abaf140908f93c9b713af7, type: 3}
   characters:
-  - text: R
-    editorNote: R_In_HERO
-    pivot: {x: 500, y: 1512.7058}
-    min: {x: 430.4, y: 1374.9}
-    max: {x: 573, y: 1636}
-  - text: O
-    editorNote: O_IN_HERO
-    pivot: {x: 670.58826, y: 1509.7646}
-    min: {x: 590, y: 1378.8}
-    max: {x: 773, y: 1635.4}
+  - text: r
+    editorNote: r_in_hero
+    pivot: {x: 248.32214, y: 747.4899}
+    min: {x: 216.4, y: 685.7}
+    max: {x: 283.2, y: 815.6}
+  - text: o
+    editorNote: o_in_hero
+    pivot: {x: 335.57047, y: 755.54364}
+    min: {x: 293.3, y: 689}
+    max: {x: 385.4, y: 815.2}
