@@ -42,8 +42,8 @@ public class UISelectCover : MonoBehaviour
         for (int i = 0; i < propList.Count; ++i)
         {
             propAnimCount++;
-            propList[i].transform.DOMove(selectPropTransList[i].position, 1.2f).SetEase(Ease.OutSine).SetDelay(0.05f * i);
-            propList[i].transform.DOLocalRotate(new Vector3(0, 0, UnityEngine.Random.Range(-10f, 10f)), 1.0f).SetEase(Ease.OutSine).SetDelay(0.05f * i).onComplete += () =>
+            propList[i].transform.DOMove(selectPropTransList[i].position, 0.6f).SetEase(Ease.OutCubic).SetDelay(0.05f * i);
+            propList[i].transform.DOLocalRotate(new Vector3(0, 0, UnityEngine.Random.Range(-10f, 10f)), 0.5f).SetEase(Ease.OutCubic).SetDelay(0.05f * i).onComplete += () =>
             {
                 propAnimCount--;
                 if (propAnimCount == 0)

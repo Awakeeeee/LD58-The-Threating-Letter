@@ -53,13 +53,13 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
         collageUI.gameObject.SetActive(false);
         sendMailUI.gameObject.SetActive(false);
 
-        selectCoverUI.transform.position = leftUIRef.position;
+        selectCoverUI.transform.position = centerUIRef.position;
         selectCoverUI.InitEnterAnim();
-        selectCoverUI.transform.DOMove(centerUIRef.position, 0.5f).SetEase(Ease.InOutSine).onComplete += () =>
-        {
+        //selectCoverUI.transform.DOMove(centerUIRef.position, 0.5f).SetEase(Ease.InOutSine).onComplete += () =>
+        //{
             selectCoverUI.OnEnterAnim(HideGlobalMask);
             callback?.Invoke();
-        };
+        //};
         collageUI.transform.position = rightUIRef.position;
         sendMailUI.transform.position = rightUIRef.position;
     }
@@ -74,13 +74,13 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 
         selectCoverUI.transform.position = leftUIRef.position;
         collageUI.transform.position = leftUIRef.position;
-        sendMailUI.transform.position = rightUIRef.position;
+        sendMailUI.transform.position = centerUIRef.position;
         sendMailUI.InitEnterAnim();
-        sendMailUI.transform.DOMove(centerUIRef.position, 0.5f).SetEase(Ease.InOutSine).onComplete += () =>
-        {
+        //sendMailUI.transform.DOMove(centerUIRef.position, 0.5f).SetEase(Ease.InOutSine).onComplete += () =>
+        //{
             sendMailUI.OnEnterAnim(HideGlobalMask);
             callback?.Invoke();
-        };
+        //};
     }
 
     public void ChangeFromSendMailToCollage(Action callback)
@@ -102,12 +102,12 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 
     }
 
-    private void ShowGlobalMask()
+    public void ShowGlobalMask()
     {
         globalMask.SetActive(true);
     }
 
-    private void HideGlobalMask()
+    public void HideGlobalMask()
     {
         globalMask.SetActive(false);
     }
