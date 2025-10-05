@@ -16,19 +16,73 @@ public class UISelectCover : MonoBehaviour
 
     void Start()
     {
+        DestroyAllProps();
+        CreateRandomProps();
+
+        //selectCoverPropTemplate.gameObject.SetActive(true);
+        //for (int i = 0; i < selectPropTransList.Count; ++i)
+        //{
+        //    GameObject itemObj = Instantiate(selectCoverPropTemplate, selectPropTransList[i].transform);
+        //    SelectCoverProp propScript = itemObj.GetComponent<SelectCoverProp>();
+        //    propScript.Init(imageTable.GetImageData(i % imageTable.images.Count));
+        //    propList.Add(propScript);
+        //}
+        //selectCoverPropTemplate.gameObject.SetActive(false);
+    }
+
+    private void DestroyAllProps()
+    {
+        for(int i = 0; i < propList.Count; ++i)
+        {
+            propList[i].transform.SetParent(null);
+            Destroy(propList[i].gameObject);
+        }
+        propList.Clear();
+    }
+
+    private void CreateRandomProps()
+    {
+        List<int> shuffleList = new List<int>();
+        int maxNum = imageTable.images.Count;
+        for(int i = 0; i < maxNum; ++i)
+        {
+            shuffleList.Add(i);
+        }
+        shuffleList.Shuffle<int>();
+
         selectCoverPropTemplate.gameObject.SetActive(true);
         for (int i = 0; i < selectPropTransList.Count; ++i)
         {
             GameObject itemObj = Instantiate(selectCoverPropTemplate, selectPropTransList[i].transform);
             SelectCoverProp propScript = itemObj.GetComponent<SelectCoverProp>();
-            propScript.Init(imageTable.GetImageData(i % imageTable.images.Count));
+            propScript.Init(imageTable.GetImageData(shuffleList[i]));
             propList.Add(propScript);
         }
         selectCoverPropTemplate.gameObject.SetActive(false);
     }
 
+    public void RefreshPropsWithRandomImagePreProcessData()
+    {
+        List<int> shuffleList = new List<int>();
+        int maxNum = imageTable.images.Count;
+        for (int i = 0; i < maxNum; ++i)
+        {
+            shuffleList.Add(i);
+        }
+        shuffleList.Shuffle<int>();
+
+        for (int i = 0; i < propList.Count; ++i)
+        {
+            propList[i].Init(imageTable.GetImageData(shuffleList[i]));
+        }
+    }
+
     public void InitEnterAnim()
     {
+        //DestroyAllProps();
+        //CreateRandomProps();
+        RefreshPropsWithRandomImagePreProcessData();
+
         for (int i = 0; i < propList.Count; ++i)
         {
             propList[i].transform.position = selectCoverPropEnterTrans.transform.position;
@@ -50,12 +104,28 @@ public class UISelectCover : MonoBehaviour
                     callback?.Invoke();
             };
         }
-        //selectCoverPropTemplate
     }
 
-    public void OnExitAnim()
+    public void OnExitAnim(Action callback)
     {
+        for (int i = 0; i < propList.Count; ++i)
+        {
+            propAnimCount++;
+            propList[i].transform.DOMove(selectCoverPropEnterTrans.position, 0.6f).SetEase(Ease.OutCubic).onComplete += () =>
+            {
+                propAnimCount--;
+                if (propAnimCount == 0)
+                {
+                    //魔法 放在这里刷新 这样不觉得卡
+                    //也卡
+                    //DestroyAllProps();
+                    //CreateRandomProps();
+                    //RefreshPropsWithRandomImagePreProcessData();
 
+                    callback?.Invoke();
+                }
+            };
+        }
     }
 
     //发生了切割 这里的封面图也应该动态修改

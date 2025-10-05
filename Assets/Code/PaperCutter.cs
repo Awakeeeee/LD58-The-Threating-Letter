@@ -22,6 +22,7 @@ public class PaperCutter : MonoBehaviour
     public Vector3 knifeIdleRotation = Vector3.zero;
     public LineRenderer trajectory;
     public float trajectoryFadeDuration = 0.3f;
+    public float trajectoryRetreatSpeed = 0.02f; // 回退动画间隔时间（秒）
 
     [TitleGroup("Outline")]
     public bool enableOutline = true;
@@ -45,11 +46,17 @@ public class PaperCutter : MonoBehaviour
     private bool canStartDrawing = true;
     private Vector2 startPoint;
     private Camera mainCamera;
+    private Coroutine retreatCoroutine = null; // 跟踪回退协程
 
     public void Init()
     {
         mainCamera = Camera.main;
         ResetKnife();
+
+        if (trajectory != null)
+        {
+            trajectory.enabled = false;
+        }
     }
 
     private void OnEnable()
@@ -69,22 +76,37 @@ public class PaperCutter : MonoBehaviour
     {
         if (Pointer.current == null) return;
 
-        bool isPressed = Pointer.current.press.isPressed;
+        // 只在Carve或Free模式下响应切图输入
+        GameMode currentMode = Game.Instance.CurrentMode;
+        if (currentMode != GameMode.Carve && currentMode != GameMode.Free) return;
+
+        // 检测左键（主按钮）
+        bool isLeftPressed = false;
+        if (UnityEngine.InputSystem.Mouse.current != null)
+        {
+            isLeftPressed = UnityEngine.InputSystem.Mouse.current.leftButton.isPressed;
+        }
+        else
+        {
+            // 触摸屏等其他输入设备使用通用press
+            isLeftPressed = Pointer.current.press.isPressed;
+        }
+
         Vector2 currentPos = Pointer.current.position.ReadValue();
 
-        if (isPressed && !isDrawing && canStartDrawing) //start
+        if (isLeftPressed && !isDrawing && canStartDrawing) //start
         {
             StartDrawing(currentPos);
         }
-        else if (isPressed && isDrawing) //drawing
+        else if (isLeftPressed && isDrawing) //drawing
         {
             UpdateDrawing(currentPos);
         }
-        else if (!isPressed && isDrawing) //stop
+        else if (!isLeftPressed && isDrawing) //stop
         {
             EndDrawing();
         }
-        else if (!isPressed) //pointer up, allow next draw
+        else if (!isLeftPressed) //pointer up, allow next draw
         {
             canStartDrawing = true;
         }
@@ -92,6 +114,17 @@ public class PaperCutter : MonoBehaviour
 
     private void StartDrawing(Vector2 screenPos)
     {
+        if (UtilFunction.IsPointerOverUI())
+        {
+            return;
+        }
+
+        if (retreatCoroutine != null)
+        {
+            StopCoroutine(retreatCoroutine);
+            retreatCoroutine = null;
+        }
+
         isDrawing = true;
         startPoint = screenPos;
         contourPoints.Clear();
@@ -106,6 +139,15 @@ public class PaperCutter : MonoBehaviour
 
         if (trajectory != null)
         {
+            if (trajectory.material != null)
+            {
+                trajectory.material.DOKill();
+                Color c = trajectory.material.color;
+                c.a = 1f;
+                trajectory.material.color = c;
+            }
+
+            trajectory.enabled = true;
             trajectory.positionCount = 1;
             trajectory.SetPosition(0, ScreenToWorldPosition(screenPos));
         }
@@ -155,11 +197,11 @@ public class PaperCutter : MonoBehaviour
 
         if (!closedLoop)
         {
-            contourPoints.Add(startPoint);
-            if (trajectory != null)
-            {
-                UpdateTrajectoryLine();
-            }
+            isDrawing = false;
+            canStartDrawing = false;
+            ResetKnife();
+            retreatCoroutine = StartCoroutine(RetreatTrajectoryLine());
+            return;
         }
 
         CutOutTexture();
@@ -182,6 +224,36 @@ public class PaperCutter : MonoBehaviour
         }
     }
 
+    private void CancelCut()
+    {
+        isDrawing = false;
+        canStartDrawing = false;
+        contourPoints.Clear();
+        ResetKnife();
+        retreatCoroutine = StartCoroutine(RetreatTrajectoryLine());
+    }
+
+    private bool IsContourIntersectingSprite(List<Vector2> screenPoints)
+    {
+        if (ImageSource == null || ImageSource.sprite == null)
+            return false;
+
+        Bounds spriteBounds = ImageSource.bounds;
+        float zDepth = mainCamera.WorldToScreenPoint(ImageSource.transform.position).z;
+
+        // 检查轮廓的任意点是否在sprite bounds内
+        foreach (var screenPos in screenPoints)
+        {
+            Vector3 worldPos = mainCamera.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, zDepth));
+            if (spriteBounds.Contains(worldPos))
+            {
+                return true; // 至少有一个点在sprite内，视为相交
+            }
+        }
+
+        return false; // 所有点都不在sprite内，不相交
+    }
+
     private void CutOutTexture()
     {
         if (ImageSource == null || ImageSource.sprite == null)
@@ -190,11 +262,28 @@ public class PaperCutter : MonoBehaviour
             return;
         }
 
+        // cancel check: 如果没碰到底图直接视作取消
+        if (!IsContourIntersectingSprite(contourPoints))
+        {
+            Debug.Log("PaperCutter: Contour does not intersect with sprite, canceling cut");
+            CancelCut();
+            return;
+        }
+
+        List<Vector2> textureContour = ScreenToTextureSpace(contourPoints);
+
+        // cancel check: 没有框到预设的字形
+        if (!Game.Instance.ShouldAcceptCut(textureContour))
+        {
+            Debug.Log("PaperCutter: Cut does not meet requirements, canceling");
+            CancelCut();
+            return;
+        }
+
         Sprite sourceSprite = ImageSource.sprite;
         Texture2D sourceTexture = sourceSprite.texture;
         Rect sourceRect = sourceSprite.textureRect;
 
-        List<Vector2> textureContour = ScreenToTextureSpace(contourPoints);
         Rect bounds = GetContourBoundsInTexture(textureContour);
 
         // 为描边预留空间
@@ -247,7 +336,6 @@ public class PaperCutter : MonoBehaviour
         cutoutTexture.SetPixels(pixels);
         cutoutTexture.Apply();
 
-        // 应用描边
         if (enableOutline && outlineWidth > 0)
         {
             ApplyOutline(cutoutTexture, outlineWidth, outlineColor);
@@ -388,16 +476,51 @@ public class PaperCutter : MonoBehaviour
         }
     }
 
+    private IEnumerator RetreatTrajectoryLine()
+    {
+        if (trajectory == null)
+        {
+            contourPoints.Clear();
+            canStartDrawing = true;
+            retreatCoroutine = null;
+            yield break;
+        }
+
+        while (contourPoints.Count > 0)
+        {
+            contourPoints.RemoveAt(contourPoints.Count - 1);
+
+            if (contourPoints.Count > 0)
+            {
+                trajectory.positionCount = contourPoints.Count;
+                for (int i = 0; i < contourPoints.Count; i++)
+                {
+                    trajectory.SetPosition(i, ScreenToWorldPosition(contourPoints[i]));
+                }
+            }
+            else
+            {
+                trajectory.positionCount = 0;
+            }
+
+            yield return new WaitForSeconds(trajectoryRetreatSpeed);
+        }
+
+        trajectory.enabled = false;
+        canStartDrawing = true;
+        retreatCoroutine = null;
+    }
+
     private void ClearTrajectoryLine()
     {
         if (trajectory != null && trajectory.material != null)
         {
             Material mat = trajectory.material;
-            mat.DOKill(); // 停止之前的tween
+            mat.DOKill();
             mat.DOFade(0, trajectoryFadeDuration).OnComplete(() =>
             {
                 trajectory.positionCount = 0;
-                // 恢复alpha以备下次使用
+                trajectory.enabled = false;
                 Color c = mat.color;
                 c.a = 1f;
                 mat.color = c;

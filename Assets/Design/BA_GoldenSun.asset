@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e765af80eba7c642a64923a7adca01f, type: 3}
   m_Name: BA_GoldenSun
   m_EditorClassIdentifier: 
-  ID: 6
+  ID: 10
   title: BA_GoldenSun
   image: {fileID: 21300000, guid: 5efa087dd417d7d4abd4201d3a67c577, type: 3}
   characters:
