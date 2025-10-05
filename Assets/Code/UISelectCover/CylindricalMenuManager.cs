@@ -9,9 +9,8 @@ public class CylindricalMenuManager : MonoBehaviour
     [SerializeField] private CylindricalScrollController cylindricalScrollController;
 
     [Header("内容设置")]
-    [SerializeField] private List<Sprite> itemIcons;
-    [SerializeField] private List<string> itemTitles;
-    
+    private int createCount = 10;//TODO 从正式背包数据获取
+
     private List<CylindricalItem> items = new List<CylindricalItem>();
     
     private void Start()
@@ -29,8 +28,8 @@ public class CylindricalMenuManager : MonoBehaviour
         items.Clear();
 
         itemPrefab.gameObject.SetActive(true);
-        // 创建新项目
-        for (int i = 0; i < itemIcons.Count; i++)
+
+        for (int i = 0; i < createCount; i++)
         {
             CreateMenuItem(i);
         }
@@ -47,8 +46,10 @@ public class CylindricalMenuManager : MonoBehaviour
         
         if (item != null)
         {
-            Sprite icon = index < itemIcons.Count ? itemIcons[index] : null;
-            string title = index < itemTitles.Count ? itemTitles[index] : $"Item {index + 1}";
+            ImagePreprocessData data = Game.Instance.imageTable.GetImageData(index % Game.Instance.imageTable.images.Count);
+
+            Sprite icon = data.image;
+            string title = data.title;
             
             item.Initialize(index, icon, title, OnItemClicked);
             items.Add(item);
@@ -71,20 +72,20 @@ public class CylindricalMenuManager : MonoBehaviour
     }
     
     // 动态添加项目
-    public void AddNewItem(Sprite icon, string title)
-    {
-        itemIcons.Add(icon);
-        itemTitles.Add(title);
-        CreateMenuItem(itemIcons.Count - 1);
-    }
+    //public void AddNewItem(Sprite icon, string title)
+    //{
+    //    itemIcons.Add(icon);
+    //    itemTitles.Add(title);
+    //    CreateMenuItem(itemIcons.Count - 1);
+    //}
     
     // 动态移除项目
     public void RemoveItem(int index)
     {
         if (index >= 0 && index < items.Count)
         {
-            itemIcons.RemoveAt(index);
-            itemTitles.RemoveAt(index);
+            //itemIcons.RemoveAt(index);
+            //itemTitles.RemoveAt(index);
             
             CylindricalItem item = items[index];
             items.RemoveAt(index);

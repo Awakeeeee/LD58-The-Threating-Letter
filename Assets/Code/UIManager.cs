@@ -102,12 +102,12 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 
     }
 
-    private void ShowGlobalMask()
+    public void ShowGlobalMask()
     {
         globalMask.SetActive(true);
     }
 
-    private void HideGlobalMask()
+    public void HideGlobalMask()
     {
         globalMask.SetActive(false);
     }
