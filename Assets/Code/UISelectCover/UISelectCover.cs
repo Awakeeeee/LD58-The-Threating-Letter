@@ -36,14 +36,18 @@ public class UISelectCover : MonoBehaviour
         }
     }
 
+    private int propAnimCount;
     public void OnEnterAnim(Action callback)
     {
         for (int i = 0; i < propList.Count; ++i)
         {
+            propAnimCount++;
             propList[i].transform.DOMove(selectPropTransList[i].position, 1.2f).SetEase(Ease.OutSine).SetDelay(0.05f * i);
             propList[i].transform.DOLocalRotate(new Vector3(0, 0, UnityEngine.Random.Range(-10f, 10f)), 1.0f).SetEase(Ease.OutSine).SetDelay(0.05f * i).onComplete += () =>
             {
-                callback?.Invoke();
+                propAnimCount--;
+                if (propAnimCount == 0)
+                    callback?.Invoke();
             };
         }
         //selectCoverPropTemplate

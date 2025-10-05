@@ -14,6 +14,8 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
     public UICollage collageUI;
     public UISendMail sendMailUI;
 
+    public GameObject globalMask;
+
     private void Start()
     {
         selectCoverUI.transform.position = leftUIRef.position;
@@ -102,11 +104,11 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 
     private void ShowGlobalMask()
     {
-        Debug.Log("ShowGlobalMask");
+        globalMask.SetActive(true);
     }
 
     private void HideGlobalMask()
     {
-        Debug.Log("HideGlobalMask");
+        globalMask.SetActive(false);
     }
 }
