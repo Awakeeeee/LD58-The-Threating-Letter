@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BA_AW
   m_EditorClassIdentifier: 
   ID: 2
+  isSquareBox: 1
   title: BA_AW
   image: {fileID: 21300000, guid: 41b5577d4206f2a4fb3b539b526689a2, type: 3}
   characters:

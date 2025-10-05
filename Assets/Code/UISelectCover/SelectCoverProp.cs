@@ -1,4 +1,5 @@
 using Coffee.UIEffects;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,9 +8,16 @@ using UnityEngine.UI;
 
 public class SelectCoverProp : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
-    public Image coverImage;
-    public UIEffect effectOnCoverImage;
-    public Image shadowImage;
+
+
+    public Image boxImage_GBA;
+    public Image coverImage_GBA;
+    public UIEffect effectOnCoverImage_GBA;
+
+    public Image boxImage_PS;
+    public Image coverImage_PS;
+    public UIEffect effectOnCoverImage_PS;
+    //public Image shadowImage;
 
     private ImagePreprocessData dataCache;
     //private Sprite dynamicSprite;
@@ -20,14 +28,27 @@ public class SelectCoverProp : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
         UpdateImage();
 
-        coverImage.SetNativeSize();
-        shadowImage.SetNativeSize();
+        coverImage_GBA.SetNativeSize();
+        coverImage_PS.SetNativeSize();
+        //shadowImage.SetNativeSize();
+
+        boxImage_GBA.gameObject.SetActive(inputData.isSquareBox);
+        boxImage_PS.gameObject.SetActive(!inputData.isSquareBox);
     }
 
     public void UpdateImage()
     {
-        coverImage.sprite = dataCache.GetRuntimeSprite();
-        shadowImage.sprite = dataCache.GetRuntimeSprite();
+        if (dataCache.isSquareBox)
+        {
+            coverImage_GBA.sprite = dataCache.GetRuntimeSprite();
+            coverImage_PS.sprite = null;
+        }
+        else
+        {
+            coverImage_GBA.sprite = null;
+            coverImage_PS.sprite = dataCache.GetRuntimeSprite();
+        }
+        //shadowImage.sprite = dataCache.GetRuntimeSprite();
 
         //if (dynamicSprite != null)
         //    Destroy(dynamicSprite);
@@ -56,20 +77,28 @@ public class SelectCoverProp : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        effectOnCoverImage.colorFilter = ColorFilter.MultiplyAdditive;
-        effectOnCoverImage.colorIntensity = 1;
-        //effectOnCoverImage.edgeMode = EdgeMode.Plain;
-        effectOnCoverImage.shadowMode = ShadowMode.Outline8;
+        //RuntimeSprite 使用 MultiplyAdditive 会有问题 算了算了
+        //effectOnCoverImage_GBA.colorFilter = ColorFilter.MultiplyAdditive;
+        //effectOnCoverImage_GBA.colorIntensity = 0.5f;
+        //effectOnCoverImage_GBA.shadowMode = ShadowMode.Outline8;
 
-        transform.localScale = Vector3.one * 1.05f;
+        //effectOnCoverImage_PS.colorFilter = ColorFilter.MultiplyAdditive;
+        //effectOnCoverImage_PS.colorIntensity = 0.5f;
+        //effectOnCoverImage_PS.shadowMode = ShadowMode.Outline8;
+
+        transform.DOKill();
+        transform.DOScale(Vector3.one * 1.15f, 0.1f);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        effectOnCoverImage.colorFilter = ColorFilter.None;
-        //effectOnCoverImage.edgeMode = EdgeMode.None;
-        effectOnCoverImage.shadowMode = ShadowMode.None;
+        //effectOnCoverImage_GBA.colorFilter = ColorFilter.None;
+        //effectOnCoverImage_GBA.shadowMode = ShadowMode.None;
 
-        transform.localScale = Vector3.one;
+        //effectOnCoverImage_PS.colorFilter = ColorFilter.None;
+        //effectOnCoverImage_PS.shadowMode = ShadowMode.None;
+
+        transform.DOKill();
+        transform.DOScale(Vector3.one, 0.1f);
     }
 }

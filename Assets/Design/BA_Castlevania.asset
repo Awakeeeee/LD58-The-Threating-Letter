@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BA_Castlevania
   m_EditorClassIdentifier: 
   ID: 5
+  isSquareBox: 1
   title: BA_Castlevania
   image: {fileID: 21300000, guid: 0005aa13af365064aa33dfc43324664d, type: 3}
   characters:

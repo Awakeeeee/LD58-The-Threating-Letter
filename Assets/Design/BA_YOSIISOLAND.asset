@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BA_YOSIISOLAND
   m_EditorClassIdentifier: 
   ID: 15
+  isSquareBox: 1
   title: BA_YOSIISOLAND
   image: {fileID: 21300000, guid: a5713db9138c92b40952f3c2cdb0aa97, type: 3}
   characters:

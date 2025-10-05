@@ -8,6 +8,8 @@ public class ImagePreprocessData : ScriptableObject
 
     public int ID;
 
+    public bool isSquareBox;
+
     public string title;
 
     public Sprite image;
