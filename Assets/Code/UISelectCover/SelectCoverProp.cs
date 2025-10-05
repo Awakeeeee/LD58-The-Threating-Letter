@@ -49,6 +49,7 @@ public class SelectCoverProp : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        SFXManager.Instance.PlaySFX("sfx_fly");
         OnPointerExit(eventData);
         UIManager.Instance.OnSelectCoverPropClicked(dataCache);
     }
