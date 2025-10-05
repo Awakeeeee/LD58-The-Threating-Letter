@@ -51,24 +51,21 @@ public class UISendMail : MonoBehaviour
         //leftHandTrans.position = leftHandStartRef.position;
         //rightHandTrans.position = rightHandStartRef.position;
 
-        leftHandTrans.position = leftHandExitRef.position;
-        rightHandTrans.position = rightHandExitRef.position;
+        leftHandTrans.position = leftHandTakeLetterRef.position;
+        rightHandTrans.position = rightHandTakeLetterRef.position;
 
-        leftHandTrans.DOMove(leftHandTakeLetterRef.position, 0.5f).SetDelay(UnityEngine.Random.Range(0, 0.1f));
-        rightHandTrans.DOMove(rightHandTakeLetterRef.position, 0.5f).SetDelay(0.1f).onComplete += () =>
+        Vector3 envelopDeltaV3 = envelopEnterRef.position - envelopStartRef.position;
+        envelopTransform.DOMove(envelopEnterRef.position, 0.4f).SetEase(Ease.InOutSine);
+        leftHandTrans.DOMove(leftHandTakeLetterRef.position + envelopDeltaV3, 0.4f).SetEase(Ease.InOutSine);
+        rightHandTrans.DOMove(rightHandTakeLetterRef.position + envelopDeltaV3, 0.4f).SetEase(Ease.InOutSine).onComplete += () =>
         {
-            Vector3 envelopDeltaV3 = envelopEnterRef.position - envelopStartRef.position;
-            envelopTransform.DOMove(envelopEnterRef.position, 0.5f).SetEase(Ease.Linear);
-            leftHandTrans.DOMove(leftHandTakeLetterRef.position + envelopDeltaV3, 0.5f).SetEase(Ease.Linear);
-            rightHandTrans.DOMove(rightHandTakeLetterRef.position + envelopDeltaV3, 0.5f).SetEase(Ease.Linear).onComplete += () =>
+            leftHandTrans.DOMove(leftHandExitRef.position, 0.4f).SetDelay(0.2f);
+            rightHandTrans.DOMove(rightHandExitRef.position, 0.4f).SetDelay(0.2f).onComplete += () =>
             {
-                leftHandTrans.DOMove(leftHandExitRef.position, 0.4f);
-                rightHandTrans.DOMove(rightHandExitRef.position, 0.4f).onComplete += () =>
-                {
-                    finishCallback?.Invoke();
-                };
+                finishCallback?.Invoke();
             };
         };
+
         //selectCoverPropTemplate
     }
 
