@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class SFXManager : MonoBehaviourSingleton<SFXManager>
 {
-    [TitleGroup("音效注册")]
+    [TitleGroup("音效注册"), TableList]
     public List<ClipEntry> clips;
 
     [TitleGroup("Audio Sources")]

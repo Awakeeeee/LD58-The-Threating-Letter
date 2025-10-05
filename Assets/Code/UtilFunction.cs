@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -182,4 +185,118 @@ public class UtilFunction : MonoBehaviour
                 }
             });
     }
+
+    public static void CaptureSpriteRendererToPNG(SpriteRenderer sr, string defaultFileName = "screenshot", bool useDownloadForWebGL = true)
+    {
+        if (sr == null || sr.sprite == null)
+        {
+            Debug.LogWarning("UtilFunction: SpriteRenderer or sprite is null");
+            return;
+        }
+
+        Sprite sprite = sr.sprite;
+        Texture2D sourceTexture = sprite.texture;
+        Rect textureRect = sprite.textureRect;
+
+        // Create a new texture with only the sprite's rect
+        Texture2D captureTexture = new Texture2D(
+            (int)textureRect.width,
+            (int)textureRect.height,
+            TextureFormat.RGBA32,
+            false
+        );
+
+        Color[] pixels = sourceTexture.GetPixels(
+            (int)textureRect.x,
+            (int)textureRect.y,
+            (int)textureRect.width,
+            (int)textureRect.height
+        );
+        captureTexture.SetPixels(pixels);
+        captureTexture.Apply();
+
+        byte[] pngData = captureTexture.EncodeToPNG();
+        Object.Destroy(captureTexture);
+
+        SavePNGData(pngData, defaultFileName, useDownloadForWebGL);
+    }
+
+    public static void CaptureImageToPNG(Image img, string defaultFileName = "screenshot", bool useDownloadForWebGL = true)
+    {
+        if (img == null || img.sprite == null)
+        {
+            Debug.LogWarning("UtilFunction: Image or sprite is null");
+            return;
+        }
+
+        Sprite sprite = img.sprite;
+        Texture2D sourceTexture = sprite.texture;
+        Rect textureRect = sprite.textureRect;
+
+        // Create a new texture with only the sprite's rect
+        Texture2D captureTexture = new Texture2D(
+            (int)textureRect.width,
+            (int)textureRect.height,
+            TextureFormat.RGBA32,
+            false
+        );
+
+        Color[] pixels = sourceTexture.GetPixels(
+            (int)textureRect.x,
+            (int)textureRect.y,
+            (int)textureRect.width,
+            (int)textureRect.height
+        );
+        captureTexture.SetPixels(pixels);
+        captureTexture.Apply();
+
+        byte[] pngData = captureTexture.EncodeToPNG();
+        Object.Destroy(captureTexture);
+
+        SavePNGData(pngData, defaultFileName, useDownloadForWebGL);
+    }
+
+    private static void SavePNGData(byte[] pngData, string fileName, bool useDownloadForWebGL)
+    {
+        if (pngData == null || pngData.Length == 0)
+        {
+            Debug.LogError("UtilFunction: PNG data is empty");
+            return;
+        }
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+        if (useDownloadForWebGL)
+        {
+            // WebGL: trigger browser download
+            DownloadFile(fileName + ".png", pngData, pngData.Length);
+        }
+        else
+        {
+            // WebGL: open in new tab
+            string base64 = System.Convert.ToBase64String(pngData);
+            Application.OpenURL("data:image/png;base64," + base64);
+        }
+#else
+        // PC/Mac: save to persistent data path
+        string path = Path.Combine(Application.persistentDataPath, fileName + ".png");
+
+        try
+        {
+            File.WriteAllBytes(path, pngData);
+            Debug.Log($"UtilFunction: Screenshot saved to {path}");
+
+            // Open the folder containing the file
+            Application.OpenURL("file://" + Application.persistentDataPath);
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError($"UtilFunction: Failed to save screenshot: {e.Message}");
+        }
+#endif
+    }
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+    [DllImport("__Internal")]
+    private static extern void DownloadFile(string fileName, byte[] byteArray, int byteArraySize);
+#endif
 }

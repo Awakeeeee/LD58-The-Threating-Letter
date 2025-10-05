@@ -427,6 +427,12 @@ public class Game : MonoBehaviourSingleton<Game>
         SwitchMode(GameMode.Navigate);
     }
 
+    [Button(ButtonSizes.Large)]
+    private void TestScreenCapture()
+    {
+        UtilFunction.CaptureSpriteRendererToPNG(imageSource, @"test_screenshot");
+    }
+
     public RectTransform GetCollectionUI()
     {
         return UIManager.Instance.collectionUI.GetFlyEnd();
