@@ -253,10 +253,7 @@ public class Game : MonoBehaviourSingleton<Game>
         Debug.Log($"Cut Score Result: Success={result.success}, Score={result.score:F2}, MatchedMark={result.matchedMark?.text}");
 
         imageSource.sprite = imageData.GetRuntimeSprite();
-
-        //TODO 所有图片都可用，还是规定切得好的才可用？
         CutCollection.Add(result);
-
         LogCutCollection();
     }
 
