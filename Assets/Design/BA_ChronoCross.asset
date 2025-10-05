@@ -17,22 +17,22 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: 3177eb611a03820489f64b6a91b2819e, type: 3}
   characters:
   - text: R
-    editorNote: R_In_Cross
-    pivot: {x: 533, y: 1036}
-    min: {x: 478.77, y: 960.7}
-    max: {x: 597.6, y: 1101.6}
-  - text: O
-    editorNote: O_in_Cross
-    pivot: {x: 668.84534, y: 1034.9281}
-    min: {x: 606.4, y: 964.4}
-    max: {x: 742.2, y: 1103.4}
+    editorNote: R_in_cross1
+    pivot: {x: 262.04822, y: 517.9759}
+    min: {x: 239, y: 483.4}
+    max: {x: 297.9, y: 549.7}
+  - text: o
+    editorNote: o_in_cross
+    pivot: {x: 334.33737, y: 517.9759}
+    min: {x: 302.4, y: 485.1}
+    max: {x: 367.4, y: 550.1}
   - text: R
     editorNote: R_In_Cross_2
-    pivot: {x: 673.20264, y: 841.0283}
-    min: {x: 602.2, y: 732.6}
-    max: {x: 759.4, y: 952}
+    pivot: {x: 332.83133, y: 421.59033}
+    min: {x: 300.5, y: 365}
+    max: {x: 376.2, y: 474}
   - text: O
-    editorNote: O_In_CROSS_2
-    pivot: {x: 867.1024, y: 854.1002}
-    min: {x: 769, y: 737}
-    max: {x: 967.3, y: 952.3}
+    editorNote: O_In_Cross_2
+    pivot: {x: 435.24097, y: 421.59033}
+    min: {x: 383.5, y: 367.2}
+    max: {x: 481.3, y: 473.5}

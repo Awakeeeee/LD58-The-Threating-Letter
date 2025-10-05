@@ -18,11 +18,11 @@ MonoBehaviour:
   characters:
   - text: r
     editorNote: r_in_zero
-    pivot: {x: 1407.9254, y: 1847.5338}
-    min: {x: 1322, y: 1704}
-    max: {x: 1499, y: 1991}
+    pivot: {x: 704.698, y: 921.9866}
+    min: {x: 662.5, y: 853.3}
+    max: {x: 752.6, y: 997.7}
   - text: o
     editorNote: o_in_zero
-    pivot: {x: 1596.7366, y: 1845.2028}
-    min: {x: 1523, y: 1700}
-    max: {x: 1662, y: 1984}
+    pivot: {x: 795.97314, y: 926.0134}
+    min: {x: 758, y: 851}
+    max: {x: 834.8, y: 994}

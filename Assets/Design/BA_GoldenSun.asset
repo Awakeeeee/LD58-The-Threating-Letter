@@ -26,3 +26,8 @@ MonoBehaviour:
     pivot: {x: 1751.6558, y: 1683.7616}
     min: {x: 1713, y: 1571}
     max: {x: 1805, y: 1777}
+  - text: o
+    editorNote: o_in_gold
+    pivot: {x: 445.63757, y: 845.4765}
+    min: {x: 402.3, y: 796.4}
+    max: {x: 484.7, y: 888.8}

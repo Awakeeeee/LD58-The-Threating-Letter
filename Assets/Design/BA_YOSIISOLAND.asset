@@ -18,6 +18,6 @@ MonoBehaviour:
   characters:
   - text: o
     editorNote: o_in_yoshi
-    pivot: {x: 683.4678, y: 1715.3387}
-    min: {x: 614, y: 1602.6}
-    max: {x: 778, y: 1821.7}
+    pivot: {x: 350.33557, y: 858.8993}
+    min: {x: 309.3, y: 799}
+    max: {x: 388, y: 904.6}

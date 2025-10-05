@@ -16,8 +16,8 @@ MonoBehaviour:
   title: BA_AW
   image: {fileID: 21300000, guid: 41b5577d4206f2a4fb3b539b526689a2, type: 3}
   characters:
-  - text: r
-    editorNote: r_in_wars
-    pivot: {x: 1257.3364, y: 1641.6794}
-    min: {x: 1209, y: 1539}
-    max: {x: 1320, y: 1721}
+  - text: R
+    editorNote: R_in_WARS
+    pivot: {x: 630.56683, y: 821.57086}
+    min: {x: 604.1, y: 775.4}
+    max: {x: 660.8, y: 857.8}

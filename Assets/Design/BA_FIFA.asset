@@ -17,17 +17,27 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: 52b01e2a0ebcc804f96bee451090ee4c, type: 3}
   characters:
   - text: o
-    editorNote: o_in_foba
-    pivot: {x: 700.5988, y: 485.12573}
-    min: {x: 556, y: 368.2}
-    max: {x: 836, y: 592.2}
+    editorNote: o_in_sports
+    pivot: {x: 359.93976, y: 409.54218}
+    min: {x: 347.7, y: 391.6}
+    max: {x: 373.7, y: 425.4}
+  - text: r
+    editorNote: r_in_sports
+    pivot: {x: 385.54218, y: 412.5542}
+    min: {x: 371.6, y: 394.5}
+    max: {x: 398.9, y: 423.5}
   - text: o
-    editorNote: o_in_foot
-    pivot: {x: 652.69464, y: 323.4491}
-    min: {x: 615.1, y: 282.8}
-    max: {x: 687.1, y: 359.2}
+    editorNote: o_in_foba
+    pivot: {x: 310.24097, y: 341.77106}
+    min: {x: 248.7, y: 295}
+    max: {x: 366, y: 384.1}
+  - text: o
+    editorNote: o_in_foot_1
+    pivot: {x: 289.15665, y: 275.50598}
+    min: {x: 269.15665, y: 253.6}
+    max: {x: 309.15665, y: 287.3}
   - text: o
     editorNote: o_in_foot_2
-    pivot: {x: 733.53296, y: 323.4491}
-    min: {x: 695.2, y: 286.3}
-    max: {x: 777.9, y: 358.4}
+    pivot: {x: 326.80725, y: 274}
+    min: {x: 306.80725, y: 256}
+    max: {x: 345.3, y: 286.4}

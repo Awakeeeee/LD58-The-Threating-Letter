@@ -26,3 +26,13 @@ MonoBehaviour:
     pivot: {x: 670.58826, y: 1509.7646}
     min: {x: 590, y: 1378.8}
     max: {x: 773, y: 1635.4}
+  - text: r
+    editorNote: r_in_hero
+    pivot: {x: 248.32214, y: 747.4899}
+    min: {x: 216.4, y: 685.7}
+    max: {x: 283.2, y: 815.6}
+  - text: o
+    editorNote: o_in_hero
+    pivot: {x: 335.57047, y: 755.54364}
+    min: {x: 293.3, y: 689}
+    max: {x: 385.4, y: 815.2}

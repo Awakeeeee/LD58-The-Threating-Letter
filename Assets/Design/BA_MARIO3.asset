@@ -26,3 +26,33 @@ MonoBehaviour:
     pivot: {x: 1146.4089, y: 1431.9779}
     min: {x: 1094, y: 1332}
     max: {x: 1218, y: 1542}
+  - text: R
+    editorNote: R_in_Bros
+    pivot: {x: 1337.8016, y: 1316.0964}
+    min: {x: 1312, y: 1264}
+    max: {x: 1366, y: 1370}
+  - text: O
+    editorNote: O_In_Bros
+    pivot: {x: 1402.1448, y: 1337.5442}
+    min: {x: 1373, y: 1280}
+    max: {x: 1430, y: 1385}
+  - text: r
+    editorNote: r_in_hyper
+    pivot: {x: 710.06714, y: 850.84564}
+    min: {x: 682.3, y: 792.9}
+    max: {x: 754, y: 907.6}
+  - text: r
+    editorNote: r_in_marius
+    pivot: {x: 571.8121, y: 719.302}
+    min: {x: 545.7, y: 667}
+    max: {x: 608.6, y: 769.9}
+  - text: r
+    editorNote: r_in_bros
+    pivot: {x: 668.45636, y: 660.2416}
+    min: {x: 654.9, y: 631.2}
+    max: {x: 684.6, y: 684.2}
+  - text: o
+    editorNote: o_in_bros
+    pivot: {x: 700.67114, y: 665.6107}
+    min: {x: 687.1, y: 643.2}
+    max: {x: 716.4, y: 689.6}

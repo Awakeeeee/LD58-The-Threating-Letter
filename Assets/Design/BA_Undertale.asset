@@ -16,13 +16,13 @@ MonoBehaviour:
   title: BA_Undertale
   image: {fileID: 21300000, guid: 56f008cca3be2694c84e8f381709bcd4, type: 3}
   characters:
-  - text: R
-    editorNote: R_IN_UNDER
-    pivot: {x: 688.14966, y: 1118.686}
-    min: {x: 623, y: 1054.6}
-    max: {x: 763.3, y: 1178.9}
-  - text: R
-    editorNote: R_IN_GRAIL
-    pivot: {x: 941.7879, y: 1118.686}
-    min: {x: 894, y: 1053.3}
-    max: {x: 996, y: 1180.5}
+  - text: r
+    editorNote: r_in_under
+    pivot: {x: 346.30872, y: 559.57043}
+    min: {x: 312, y: 525.7}
+    max: {x: 381.3, y: 588.8}
+  - text: r
+    editorNote: r_in_grail
+    pivot: {x: 468.45636, y: 552.8591}
+    min: {x: 442.9, y: 526.2}
+    max: {x: 496.1, y: 588.2}

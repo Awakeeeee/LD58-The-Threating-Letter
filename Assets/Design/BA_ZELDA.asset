@@ -16,8 +16,8 @@ MonoBehaviour:
   title: BA_ZELDA
   image: {fileID: 21300000, guid: c961687689e5ca947aa0d90d71c844bc, type: 3}
   characters:
-  - text: O
-    editorNote: O_in_ZOLDA
-    pivot: {x: 613.24786, y: 325.7777}
-    min: {x: 544.8, y: 222.1}
-    max: {x: 675.4, y: 422.5}
+  - text: o
+    editorNote: o_in_zolda
+    pivot: {x: 304.698, y: 164.93958}
+    min: {x: 273, y: 111.1}
+    max: {x: 336.7, y: 210.3}

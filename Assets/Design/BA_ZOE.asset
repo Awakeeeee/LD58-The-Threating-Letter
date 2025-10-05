@@ -21,3 +21,8 @@ MonoBehaviour:
     pivot: {x: 697.5309, y: 1368.9877}
     min: {x: 506, y: 1272.7}
     max: {x: 885, y: 1447.2}
+  - text: o
+    editorNote: o_in_zoe
+    pivot: {x: 340.9396, y: 684.4027}
+    min: {x: 251.4, y: 637.7}
+    max: {x: 442.5, y: 723.3}

@@ -31,3 +31,18 @@ MonoBehaviour:
     pivot: {x: 966.2732, y: 1643.2782}
     min: {x: 912, y: 1571.9}
     max: {x: 1015, y: 1705.9}
+  - text: R
+    editorNote: R_in_DARK
+    pivot: {x: 210.84338, y: 817.6747}
+    min: {x: 186.5, y: 786}
+    max: {x: 242.1, y: 854.8}
+  - text: o
+    editorNote: o_in_core
+    pivot: {x: 420.18073, y: 820.68677}
+    min: {x: 389.4, y: 783.4}
+    max: {x: 452.3, y: 853}
+  - text: R
+    editorNote: R_in_CORES
+    pivot: {x: 483.43375, y: 822.19275}
+    min: {x: 455.5, y: 783.6}
+    max: {x: 507.5, y: 852.1}
