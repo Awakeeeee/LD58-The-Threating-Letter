@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-//�����ĳ��ż����ݳ� �� ���ת�ε��ݳ� �Լ����֣� �Լ��ؿ���ť
 public class UIEnding : MonoBehaviour
 {
     public GameObject underBlackScreenRoot;
@@ -15,7 +14,9 @@ public class UIEnding : MonoBehaviour
     public Transform handWithLetterInScreen;
     public GameObject officePartRoot;
     public Transform thinkingBubble;
-    public Image resultImageOnThinkingBubble_QuestionMark;
+    public Image resultImageOnThinkingBubble_QuestionMark;//?
+    public Image resultImageOnThinkingBubble_DotDotDotMark;//...
+    public Image resultImageOnThinkingBubble_ExclamationMark;//!
     public Button RestartBtn;
     public Transform RestartBtnInScreenRef;
     public Transform RestartBtnOutOfScreenRef;
@@ -68,14 +69,19 @@ public class UIEnding : MonoBehaviour
                     officePartRoot.SetActive(true);
 
                     thinkingBubble.transform.localScale = Vector3.zero;
-                    resultImageOnThinkingBubble_QuestionMark.color = Color.clear;
+                    resultImageOnThinkingBubble_QuestionMark.gameObject.SetActive(false);
+                    resultImageOnThinkingBubble_DotDotDotMark.gameObject.SetActive(false);
+                    resultImageOnThinkingBubble_ExclamationMark.gameObject.SetActive(false);
+                    Image finalResultImage = GetFinalResultMarkImage();
+                    finalResultImage.gameObject.SetActive(true);
+                    finalResultImage.color = Color.clear;
                     RestartBtn.transform.position = RestartBtnOutOfScreenRef.transform.position;
 
                     blackScreenImage.DOColor(Color.clear, 0.2f).onComplete += () =>
                     {
                         thinkingBubble.transform.DOScale(Vector3.one, 0.4f).onComplete += () =>
                         {
-                            resultImageOnThinkingBubble_QuestionMark.DOColor(Color.white, 0.2f);
+                            finalResultImage.DOColor(Color.white, 0.2f);
                             RestartBtn.transform.DOMove(RestartBtnInScreenRef.transform.position, 0.4f).SetEase(Ease.InOutSine);
                         };
                         finishCallback?.Invoke();
@@ -84,6 +90,19 @@ public class UIEnding : MonoBehaviour
             };
             handWithLetter.position = handWithLetterOutOfScreen.position;
         };
+    }
+
+    //from ? ! ...
+    private Image GetFinalResultMarkImage()
+    {
+        //TODO some other grading algorithm
+        int existingStickerNum = Game.Instance.GetExistingStickerCount();
+        if (existingStickerNum < 3)
+            return resultImageOnThinkingBubble_DotDotDotMark;
+        else if (existingStickerNum > 9)
+            return resultImageOnThinkingBubble_QuestionMark;
+        else
+            return resultImageOnThinkingBubble_ExclamationMark;
     }
 
     public void OnExitAnim(Action onBlackScreenFadInCallback, Action onBlackScreenFadeOutCallback)

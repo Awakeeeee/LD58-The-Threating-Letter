@@ -239,6 +239,8 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 
     public void OnDirectSendMailInCollage()
     {
+        Game.Instance.ResetZoom();
+
         EventManager.TriggerEvent(GameEvent.OnPrepareSendMail);
 
         ShowGlobalMask();
