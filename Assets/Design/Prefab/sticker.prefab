@@ -94,6 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8517156617939152123}
   - component: {fileID: 6327699203862566597}
+  - component: {fileID: 2752045171460687132}
   m_Layer: 0
   m_Name: sticker
   m_TagString: Untagged
@@ -129,4 +130,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14eb7207137273f4ebb64a965e4f3681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 2752045171460687132}
   mainTex: {fileID: 828347821559206579}
+--- !u!95 &2752045171460687132
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4076734277524351097}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9003a81088407014998dfe87e8244d46, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
