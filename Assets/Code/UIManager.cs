@@ -146,7 +146,7 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
         Game.Instance.ResetZoom();
         Game.Instance.SetOperatingImage(processDataClicked);
 
-        collectionUI.gameObject.SetActive(false);
+        //collectionUI.gameObject.SetActive(false);
         overLayUI.ShowReturnBtn();
     }
 
@@ -157,7 +157,7 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 
         Game.Instance.ResetZoom();
 
-        collectionUI.gameObject.SetActive(true);
+        //collectionUI.gameObject.SetActive(true);
         overLayUI.HideReturnBtn();
     }
 
