@@ -237,6 +237,25 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
         });
     }
 
+    public void OnDirectSendMailInCollage()
+    {
+        EventManager.TriggerEvent(GameEvent.OnPrepareSendMail);
+
+        ShowGlobalMask();
+
+        selectCoverUI.gameObject.SetActive(false);
+        collageUI.gameObject.SetActive(false);
+        collectionUI.gameObject.SetActive(false);
+        overLayUI.gameObject.SetActive(false);
+        endingUI.gameObject.SetActive(true);
+
+        endingUI.InitEnterAnim();
+        endingUI.OnEnterAnim(() =>
+        {
+            HideGlobalMask();
+        });
+    }
+
     public void RestartGameOnEndingUI()
     {
         ShowGlobalMask();

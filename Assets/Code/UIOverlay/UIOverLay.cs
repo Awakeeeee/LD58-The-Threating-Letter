@@ -68,7 +68,8 @@ public class UIOverLay : MonoBehaviour
         {
             SFXManager.Instance.PlaySFX("sfx_fly");
             HideAllButton();
-            UIManager.Instance.ChangeToSendMail(null);
+            UIManager.Instance.OnDirectSendMailInCollage();
+            //UIManager.Instance.ChangeToSendMail(null);
         });
 
         returnBtn.onClick.AddListener(() =>
