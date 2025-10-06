@@ -247,6 +247,10 @@ PrefabInstance:
       propertyPath: knifeCutterRoot
       value: 
       objectReference: {fileID: 1132069641}
+    - target: {fileID: 9031875971658163242, guid: 4da572b24f3c6fc45832978aab8cb99e, type: 3}
+      propertyPath: m_SamplingFilter
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

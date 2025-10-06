@@ -610,7 +610,7 @@ public class Game : MonoBehaviourSingleton<Game>
     private void OnPrepareSendMail(object args)
     {
         Game.Instance.letter.gameObject.SetActive(true);
-        FinalLetter = UtilFunction.CaptureCompositeSceneToSprite(Game.Instance.letter.transform, Game.Instance.Cam, 20);
+        FinalLetter = UtilFunction.CaptureCompositeSceneToSprite(Game.Instance.letter.transform, Game.Instance.Cam, 0);
         Game.Instance.letter.gameObject.SetActive(false);
     }
 
@@ -674,9 +674,16 @@ public class Game : MonoBehaviourSingleton<Game>
         return mLetterStickers.Count;
     }
 
+    public void RestartGame()
+    {
+        mStickerFactory.ReturnAll();
+    }
+
     public void RestartGameAsFreeMode()
     {
-        //TODO clear cache / change letter 
+        //TODO change letter 
+
+        mStickerFactory.ReturnAll(); //clear stickers
 
         Cam.orthographicSize = defaultOrthoZoom;
         CutCollection.Clear();

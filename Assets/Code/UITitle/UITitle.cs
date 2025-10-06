@@ -34,6 +34,7 @@ public class UITitle : MonoBehaviour
         startButton.onClick.AddListener(() =>
         {
             Game.Instance.IsStoryMode = true;
+            Game.Instance.RestartGame();
 
             SFXManager.Instance.PlaySFX(CommonSFX.button);
             UIManager.Instance.OnStartClicked();
@@ -102,7 +103,7 @@ public class UITitle : MonoBehaviour
 
             gameObject.SetActive(false);
             startButton.gameObject.SetActive(true);
-            startButtonWithFreeMode.gameObject.SetActive(true);//╪Р╣╔╦Ц╦Ц р╩╣╘мкЁЖ ╬мхон╙об╢нтыЁЖожй╠©иртспfreemode╟╢е╔ак
+            startButtonWithFreeMode.gameObject.SetActive(true);//О©╫Р╣╔╦О©╫О©╫ р╩О©╫О©╫О©╫кЁО©╫ О©╫О©╫О©╫О©╫н╙О©╫б╢О©╫О©╫ыЁО©╫О©╫О©╫й╠О©╫О©╫О©╫О©╫О©╫О©╫freemodeО©╫О©╫е╔О©╫О©╫
             titleTrans.transform.position = titleInScreenTrans.position;
         };
     }
