@@ -93,7 +93,10 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
             selectCoverUI.OnEnterAnim(() =>
             {
                 HideGlobalMask();
-                TutorialManager.Instance.CheckAndStartTutorial(TutorialTypeEnum.EnterSelectCover);
+                if (Game.Instance.IsStoryMode)
+                    TutorialManager.Instance.CheckAndStartTutorial(TutorialTypeEnum.EnterSelectCover);
+                else
+                    TutorialManager.Instance.CheckAndStartTutorial(TutorialTypeEnum.FreeModeEnterSelectCover);
             });
             callback?.Invoke();
             SFXManager.Instance.PlaySFX("sfx_out");
@@ -211,7 +214,10 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
             collageUI.OnEnterAnim(() =>
             {
                 HideGlobalMask();
-                TutorialManager.Instance.CheckAndStartTutorial(TutorialTypeEnum.EnterGameOutOfStock);
+                if (!Game.Instance.IsStoryMode)
+                    TutorialManager.Instance.CheckAndStartTutorial(TutorialTypeEnum.FreeMode);
+                else
+                    TutorialManager.Instance.CheckAndStartTutorial(TutorialTypeEnum.EnterGameOutOfStock);
             });
 
             collectionUI.gameObject.SetActive(true);

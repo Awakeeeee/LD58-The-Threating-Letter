@@ -31,6 +31,14 @@ public class TutorialManager : MonoBehaviourSingleton<TutorialManager>
         {
             StartBackToCollageTutorial();
         }
+        else if (targetTutorialType == TutorialTypeEnum.FreeMode)
+        {
+            StartFreeModeTutorial();
+        }
+        else if (targetTutorialType == TutorialTypeEnum.FreeModeEnterSelectCover)
+        {
+            StartFreeModeEnterSelectCover();
+        }
     }
 
     public void FinishTutorial(TutorialTypeEnum targetTutorialType)
@@ -90,6 +98,24 @@ public class TutorialManager : MonoBehaviourSingleton<TutorialManager>
             });
         });
     }
+
+    private void StartFreeModeTutorial()
+    {
+        UIManager.Instance.overLayUI.ShowDialouge("In Free Mode, you have an empty paper to play with.\r\nFeel free to cut any letter you like and paste them to the paper.", () =>
+        {
+            UIManager.Instance.overLayUI.HideDialogue();
+            FinishTutorial(TutorialTypeEnum.FreeMode);
+        });
+    }
+
+    private void StartFreeModeEnterSelectCover()
+    {
+        UIManager.Instance.overLayUI.ShowDialouge("In Free Mode ,there are more game cases you can cut.\r\nEach time you come to this view, random game cases will appear.", () =>
+        {
+            UIManager.Instance.overLayUI.HideDialogue();
+            FinishTutorial(TutorialTypeEnum.FreeModeEnterSelectCover);
+        });
+    }
 }
 
 public enum TutorialTypeEnum
@@ -99,4 +125,6 @@ public enum TutorialTypeEnum
     EnterSelectCover = 2,//I only have game cover
     EnterKnifeCutter = 3,//introducing mouse control
     BackToCollage = 4,//return to collage with at least one cutimage
+    FreeMode = 5,
+    FreeModeEnterSelectCover = 6,
 }
