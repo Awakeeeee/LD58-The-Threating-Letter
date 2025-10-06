@@ -10,6 +10,9 @@ public class UICollage : MonoBehaviour
     public Transform letterInScreenTrans;
     public Transform letterOutOfScreenTrans;
 
+    public Transform handExitStartRef;
+    public Transform handExitEndRef;
+
     private void OnEnable()
     {
         letterPaper.gameObject.SetActive(true);
@@ -27,7 +30,6 @@ public class UICollage : MonoBehaviour
 
     public void OnEnterAnim(Action callback = null)
     {
-
         letterPaper.transform.DOMove(letterInScreenTrans.position, 0.5f).onComplete += () =>
         {
             callback?.Invoke();
@@ -36,6 +38,8 @@ public class UICollage : MonoBehaviour
 
     public void OnExitAnim(Action callback = null)
     {
+        UIManager.Instance.rightHand.transform.position = handExitStartRef.transform.position;
+        UIManager.Instance.rightHand.transform.DOMove(handExitEndRef.transform.position, 0.5f);
         letterPaper.transform.DOMove(letterOutOfScreenTrans.position, 0.5f).onComplete += () =>
         {
             callback?.Invoke();
