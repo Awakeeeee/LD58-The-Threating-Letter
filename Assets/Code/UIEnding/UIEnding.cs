@@ -57,22 +57,6 @@ public class UIEnding : MonoBehaviour
         blackScreenImage.color = Color.clear;
         typeWriterScriptOnBlackScreen.gameObject.SetActive(false);
 
-        ClearSfxTween();
-
-        sfxTween1 = DOVirtual.DelayedCall(2f, () =>
-        {
-            SFXManager.Instance.PlaySFX("sfx_hmm");
-        });
-
-        int idx = UnityEngine.Random.Range(1, 3);
-        string name = "sfx_scream_" + idx.ToString("0");
-        sfxTween2 = DOVirtual.DelayedCall(4f, () =>
-        {
-            SFXManager.Instance.PlaySFX(name);
-        });
-
-        SFXManager.Instance.PlayBGM(@"bgm_end", volume: 0f);
-        SFXManager.Instance.FadeBGMVolume(1f, 1f);
     }
 
     private void ClearSfxTween()
@@ -101,6 +85,24 @@ public class UIEnding : MonoBehaviour
                     {
                         sendMailPartRoot.SetActive(false);
                         officePartRoot.SetActive(true);
+
+
+                        ClearSfxTween();
+
+                        sfxTween1 = DOVirtual.DelayedCall(1f, () =>
+                        {
+                            SFXManager.Instance.PlaySFX("sfx_hmm");
+                        });
+
+                        int idx = UnityEngine.Random.Range(1, 3);
+                        string name = "sfx_scream_" + idx.ToString("0");
+                        sfxTween2 = DOVirtual.DelayedCall(3f, () =>
+                        {
+                            SFXManager.Instance.PlaySFX(name);
+                        });
+
+                        SFXManager.Instance.PlayBGM(@"bgm_end", volume: 0f);
+                        SFXManager.Instance.FadeBGMVolume(1f, 1f);
 
                         thinkingBubble.transform.localScale = Vector3.zero;
                         resultImageOnThinkingBubble_QuestionMark.gameObject.SetActive(false);
