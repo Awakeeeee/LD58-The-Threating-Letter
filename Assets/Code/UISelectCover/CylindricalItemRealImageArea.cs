@@ -18,8 +18,11 @@ public class CylindricalItemRealImageArea : MonoBehaviour, IPointerDownHandler, 
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        //if(UIManager.Instance.IsInCollageStage())
-        EventManager.TriggerEvent(GameEvent.OnStartSticking, cutImageCache);
+        if (UIManager.Instance.IsInCollageStage())
+        {
+            EventManager.TriggerEvent(GameEvent.OnStartSticking, cutImageCache);
+            UIManager.Instance.collectionUI.OnCloseBtnClicked();
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)

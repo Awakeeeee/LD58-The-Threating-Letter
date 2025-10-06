@@ -106,7 +106,6 @@ public class CylindricalMenuManager : MonoBehaviour
         //// 滚动到被点击的项目
         //cylindricalScrollController.ScrollToItem(itemIndex);
 
-        //TODO 创建可以拼贴的组件
         UIManager.Instance.collectionUI.OnCloseBtnClicked();
     }
 

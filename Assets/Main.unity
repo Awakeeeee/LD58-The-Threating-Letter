@@ -214,22 +214,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 155389194649956700, guid: 4da572b24f3c6fc45832978aab8cb99e, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -707
-      objectReference: {fileID: 0}
-    - target: {fileID: 155389194649956700, guid: 4da572b24f3c6fc45832978aab8cb99e, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -1475
-      objectReference: {fileID: 0}
     - target: {fileID: 702071953188287171, guid: 4da572b24f3c6fc45832978aab8cb99e, type: 3}
       propertyPath: m_Name
       value: UIManager
       objectReference: {fileID: 0}
-    - target: {fileID: 970109465694941477, guid: 4da572b24f3c6fc45832978aab8cb99e, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 519420031}
     - target: {fileID: 2366260464962817551, guid: 4da572b24f3c6fc45832978aab8cb99e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -274,14 +262,14 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 6041679067269181084, guid: 4da572b24f3c6fc45832978aab8cb99e, type: 3}
+      propertyPath: letterPaper
+      value: 
+      objectReference: {fileID: 1353522732}
     - target: {fileID: 7455960628965444086, guid: 4da572b24f3c6fc45832978aab8cb99e, type: 3}
       propertyPath: knifeCutterRoot
       value: 
       objectReference: {fileID: 1132069641}
-    - target: {fileID: 8803271436848488175, guid: 4da572b24f3c6fc45832978aab8cb99e, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 519420031}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -864,7 +852,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!212 &1353522733
 SpriteRenderer:
   m_ObjectHideFlags: 0
