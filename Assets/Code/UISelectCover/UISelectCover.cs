@@ -125,7 +125,7 @@ public class UISelectCover : MonoBehaviour
         UIManager.Instance.leftHand.gameObject.SetActive(true);
         UIManager.Instance.leftHand.transform.position = leftHandExit_StartRef.position;
         UIManager.Instance.leftHand.transform.localRotation = leftHandExit_StartRef.localRotation;
-        UIManager.Instance.leftHand.transform.DOMove(leftHandExit_EndRef.position, 0.8f).SetEase(Ease.OutCubic).onComplete += () =>
+        UIManager.Instance.leftHand.transform.DOMove(leftHandExit_EndRef.position, 0.9f).SetEase(Ease.OutCubic).onComplete += () =>
         {
             UIManager.Instance.leftHand.gameObject.SetActive(false);
             UIManager.Instance.leftHand.transform.localRotation = Quaternion.identity;
@@ -137,7 +137,7 @@ public class UISelectCover : MonoBehaviour
             if (delta == Vector3.zero)
                 delta = selectCoverPropExitTrans.position - propList[i].transform.position;
             propAnimCount++;
-            propList[i].transform.DOMove(propList[i].transform.position + delta, 0.8f).SetEase(Ease.OutCubic).onComplete += () =>
+            propList[i].transform.DOMove(propList[i].transform.position + delta, 0.8f).SetDelay(0.1f).SetEase(Ease.OutCubic).onComplete += () =>
             {
                 propAnimCount--;
                 if (propAnimCount == 0)
