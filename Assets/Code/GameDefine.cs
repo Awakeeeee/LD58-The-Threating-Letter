@@ -11,6 +11,7 @@ public enum GameEvent
     OnStartSticking,
     OnCollectionChange,
     OnPrepareSendMail,
+    ConfirmSticker,
 }
 
 public enum GameMode

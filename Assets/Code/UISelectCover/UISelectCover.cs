@@ -58,8 +58,8 @@ public class UISelectCover : MonoBehaviour
 
     private List<int> GetFixedIDList()
     {
-        //AceCombat 1 Chrono 6 BIO 4 FF7 8 Mario 12 undertale 14 poke 13 yoshi 15
-        return new List<int>() { 1, 6, 4, 8, 12, 14, 13, 15 };
+        //AceCombat 1 Chrono 6 CastleVania 5 FF7 8 Mario 12 undertale 14 poke 13 yoshi 15
+        return new List<int>() { 1, 6, 5, 8, 12, 14, 13, 15 };
     }
 
     private void CreateProps(bool useRandomID)
