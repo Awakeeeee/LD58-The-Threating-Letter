@@ -1049,7 +1049,8 @@ MonoBehaviour:
   viewLimitY: {x: -10, y: 10}
   zoomLimit: {x: 1.5, y: 5.5}
   defaultOrthoZoom: 3
-  zoomScrollSpeed: 0.002
+  zoomScrollSpeed: 0.02
+  dragSizeFactor: 1
   letterRoot: {fileID: 1353522734}
   letter: {fileID: 1353522733}
   poolRoot: {fileID: 654474784}
