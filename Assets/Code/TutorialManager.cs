@@ -33,12 +33,15 @@ public class TutorialManager : MonoBehaviourSingleton<TutorialManager>
 
     private void StartEnterGameOutOfStockTutorial()
     {
-        UIManager.Instance.overLayUI.ShowDialouge("I have used up all my letter pieces of <bounce>O</bounce> and <bounce>R</bounce>. Let me see where I might be able to find more.",
-            () =>
-            {
-                UIManager.Instance.overLayUI.HideDialogue();
-                FinishTutorial(TutorialTypeEnum.EnterGameOutOfStock);
-            });
+        UIManager.Instance.overLayUI.ShowDialouge("Those <shake>***</shake> is destroying my precious. I need to stop them.", () =>
+        {
+            UIManager.Instance.overLayUI.ShowDialouge("Oh no. I have used up all my letter pieces of <bounce><color=#FFFF00>O</color></bounce> and <bounce><color=#FFFF00>R</color></bounce>. Let me see where I might be able to find more.",
+                () =>
+                {
+                    UIManager.Instance.overLayUI.HideDialogue();
+                    FinishTutorial(TutorialTypeEnum.EnterGameOutOfStock);
+                });
+        });
     }
 }
 

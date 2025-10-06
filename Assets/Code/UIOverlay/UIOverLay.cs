@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 
 public class UIOverLay : MonoBehaviour
 {
@@ -23,6 +24,16 @@ public class UIOverLay : MonoBehaviour
     public Button dialougeFinishBtn;
     private Action dialougeCallbackCache;
 
+    public void Awake()
+    {
+        EventManager.StartListening(GameEvent.ConfirmSticker, OnConfirmSticker);
+    }
+
+    private void OnDestroy()
+    {
+        EventManager.StopListening(GameEvent.ConfirmSticker, OnConfirmSticker);
+    }
+
     public void Start()
     {
         navigationBtnsRoot.gameObject.SetActive(true);
@@ -30,7 +41,7 @@ public class UIOverLay : MonoBehaviour
 
         HideAllButton();
         left_gotoCutCoverBtn.gameObject.SetActive(true);
-        right_gotoSendMailBtn.gameObject.SetActive(true);//TODO �����Ƿ��Ѿ�ƴ����һЩ
+        right_gotoSendMailBtn.gameObject.SetActive(Game.Instance.GetExistingStickerCount() > 0);
 
         right_gotoCollageBtn.onClick.AddListener(() =>
         {
@@ -39,7 +50,7 @@ public class UIOverLay : MonoBehaviour
             UIManager.Instance.ChangeFromSelectCoverToCollage(() =>
             {
                 left_gotoCutCoverBtn.gameObject.SetActive(true);
-                right_gotoSendMailBtn.gameObject.SetActive(true);//
+                right_gotoSendMailBtn.gameObject.SetActive(Game.Instance.GetExistingStickerCount() > 0);
             });
         });
 
@@ -57,7 +68,6 @@ public class UIOverLay : MonoBehaviour
         {
             SFXManager.Instance.PlaySFX(CommonSFX.button);
             HideAllButton();
-            UIManager.Instance.ChangeToSendMail(null);
             UIManager.Instance.OnDirectSendMailInCollage();
             //UIManager.Instance.ChangeToSendMail(null);
         });
@@ -124,6 +134,12 @@ public class UIOverLay : MonoBehaviour
     {
         right_gotoCollageBtn.gameObject.SetActive(false);
         left_gotoCutCoverBtn.gameObject.SetActive(true);
-        right_gotoSendMailBtn.gameObject.SetActive(true);
+        right_gotoSendMailBtn.gameObject.SetActive(Game.Instance.GetExistingStickerCount() > 0);
+    }
+
+    private void OnConfirmSticker(object args)
+    {
+        if (UIManager.Instance.IsInCollageStage())
+            SetTopBtnStateOfUICollage();
     }
 }
