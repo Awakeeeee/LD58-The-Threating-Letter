@@ -304,6 +304,9 @@ public class Game : MonoBehaviourSingleton<Game>
 
         imageSource.sprite = data.GetRuntimeSprite();
 
+
+        SFXManager.Instance.PlayBGM(@"bgm_ambient", volume: 0f);
+        SFXManager.Instance.FadeBGMVolume(1f, 1f);
         //TODO
     }
 

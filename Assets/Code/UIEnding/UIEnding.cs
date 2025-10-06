@@ -67,6 +67,9 @@ public class UIEnding : MonoBehaviour
         {
             SFXManager.Instance.PlaySFX(name);
         });
+
+        SFXManager.Instance.PlayBGM(@"bgm_end", volume: 0f);
+        SFXManager.Instance.FadeBGMVolume(1f, 1f);
     }
 
     private void ClearSfxTween()
@@ -140,6 +143,9 @@ public class UIEnding : MonoBehaviour
             blackScreenImage.DOColor(Color.clear, 0.2f).onComplete += () =>
             {
                 onBlackScreenFadeOutCallback?.Invoke();
+
+                SFXManager.Instance.PlayBGM(@"bgm_ambient", volume: 0f);
+                SFXManager.Instance.FadeBGMVolume(1f, 1f);
             };
         };
     }

@@ -76,6 +76,10 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: a6d4279635e75f94a92a2655817111a1, type: 3}
   - name: sfx_put
     clip: {fileID: 8300000, guid: c3e45234ac7fe734ba554b7bd1dab27e, type: 3}
+  - name: bgm_ambient
+    clip: {fileID: 8300000, guid: 4715210b96c48914d97e49cbe4c1f867, type: 3}
+  - name: bgm_end
+    clip: {fileID: 8300000, guid: ab0c7223345709e4690a2a1759f986aa, type: 3}
   bgmPlayer: {fileID: 4526290655093885696}
   sfxPlayer: {fileID: 4878483169273344841}
   loopSfxPlayer: {fileID: 2435319835199430504}
