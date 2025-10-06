@@ -608,6 +608,7 @@ public class Game : MonoBehaviourSingleton<Game>
         // Return to Free mode
         SwitchMode(GameMode.Free);
 
+        EventManager.TriggerEvent(GameEvent.ConfirmSticker);
         //SFXManager.Instance.PlaySFX(@"sfx_stick");
     }
 
@@ -635,6 +636,11 @@ public class Game : MonoBehaviourSingleton<Game>
         SwitchMode(GameMode.Free);
 
         SFXManager.Instance.PlaySFX(@"sfx_cancel");
+    }
+
+    public int GetExistingStickerCount()
+    {
+        return mLetterStickers.Count;
     }
 }
 
