@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BA_DarkSouls
   m_EditorClassIdentifier: 
   ID: 7
+  isSquareBox: 0
   title: BA_DarkSouls
   image: {fileID: 21300000, guid: 41b45e513e4fcf24cbc582a8ff9e82c6, type: 3}
   characters:
@@ -31,3 +32,33 @@ MonoBehaviour:
     pivot: {x: 483.43375, y: 822.19275}
     min: {x: 455.5, y: 783.6}
     max: {x: 507.5, y: 852.1}
+  - text: d
+    editorNote: d_in_dark
+    pivot: {x: 98.60664, y: 821.4277}
+    min: {x: 68.3, y: 785.5}
+    max: {x: 129.6, y: 854}
+  - text: a
+    editorNote: a_in_dark
+    pivot: {x: 155.41264, y: 820.35583}
+    min: {x: 133.6, y: 786}
+    max: {x: 184.7, y: 860.8}
+  - text: k
+    editorNote: k_in_dark
+    pivot: {x: 277.59912, y: 820.35583}
+    min: {x: 249.2, y: 785.6}
+    max: {x: 311.4, y: 854.3}
+  - text: c
+    editorNote: c_in_cores
+    pivot: {x: 362.27222, y: 820.35583}
+    min: {x: 331.4, y: 784.2}
+    max: {x: 385.9, y: 853.9}
+  - text: e
+    editorNote: e_in_cores
+    pivot: {x: 534.83386, y: 821.4277}
+    min: {x: 512.2, y: 784.7}
+    max: {x: 561.7, y: 853.1}
+  - text: s
+    editorNote: s_in_cores
+    pivot: {x: 587.3526, y: 821.4277}
+    min: {x: 567.3526, y: 784.6}
+    max: {x: 609, y: 855.1}

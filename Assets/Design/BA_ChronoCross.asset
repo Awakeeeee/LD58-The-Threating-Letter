@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BA_ChronoCross
   m_EditorClassIdentifier: 
   ID: 6
+  isSquareBox: 0
   title: BA_ChronoCross
   image: {fileID: 21300000, guid: 3177eb611a03820489f64b6a91b2819e, type: 3}
   characters:
@@ -22,17 +23,47 @@ MonoBehaviour:
     min: {x: 239, y: 483.4}
     max: {x: 297.9, y: 549.7}
   - text: o
-    editorNote: o_in_cross
+    editorNote: o_in_cross1
     pivot: {x: 334.33737, y: 517.9759}
     min: {x: 302.4, y: 485.1}
     max: {x: 367.4, y: 550.1}
   - text: R
-    editorNote: R_In_Cross_2
+    editorNote: R_In_cross2
     pivot: {x: 332.83133, y: 421.59033}
     min: {x: 300.5, y: 365}
     max: {x: 376.2, y: 474}
   - text: O
-    editorNote: O_In_Cross_2
+    editorNote: O_In_cross2
     pivot: {x: 435.24097, y: 421.59033}
     min: {x: 383.5, y: 367.2}
     max: {x: 481.3, y: 473.5}
+  - text: c
+    editorNote: c_in_cross1
+    pivot: {x: 196.60538, y: 482.2744}
+    min: {x: 121.5, y: 391.6}
+    max: {x: 239.2, y: 578.2}
+  - text: s
+    editorNote: s_in_cross1_1
+    pivot: {x: 398.7138, y: 522.39233}
+    min: {x: 372.4, y: 483.1}
+    max: {x: 425.6, y: 550.6}
+  - text: s
+    editorNote: s_in_cross1_2
+    pivot: {x: 453.3762, y: 520.24866}
+    min: {x: 427.8, y: 483.1}
+    max: {x: 487.1, y: 551.4}
+  - text: c
+    editorNote: c_in_cross2
+    pivot: {x: 257.2347, y: 404.49304}
+    min: {x: 193.9, y: 318.6}
+    max: {x: 298.5, y: 479.8}
+  - text: s
+    editorNote: s_in_cross2_1
+    pivot: {x: 520.9003, y: 422.71387}
+    min: {x: 487.1, y: 368.2}
+    max: {x: 557.1, y: 476.9}
+  - text: s
+    editorNote: s_in_cross2_2
+    pivot: {x: 598.07074, y: 427.0011}
+    min: {x: 563.7, y: 368}
+    max: {x: 630.7, y: 477.4}

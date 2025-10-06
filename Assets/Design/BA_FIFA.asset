@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BA_FIFA
   m_EditorClassIdentifier: 
   ID: 9
+  isSquareBox: 0
   title: BA_FIFA
   image: {fileID: 21300000, guid: 52b01e2a0ebcc804f96bee451090ee4c, type: 3}
   characters:
@@ -41,3 +42,78 @@ MonoBehaviour:
     pivot: {x: 326.80725, y: 274}
     min: {x: 306.80725, y: 256}
     max: {x: 345.3, y: 286.4}
+  - text: e
+    editorNote: e_in_ea
+    pivot: {x: 341.5638, y: 457.47046}
+    min: {x: 311.1, y: 420.8}
+    max: {x: 374.3, y: 484}
+  - text: a
+    editorNote: a_in_ea
+    pivot: {x: 400.5487, y: 454.727}
+    min: {x: 377.7, y: 423.6}
+    max: {x: 432.7, y: 483.7}
+  - text: f
+    editorNote: f_in_foba
+    pivot: {x: 178.32648, y: 339.50067}
+    min: {x: 116.2, y: 292.5}
+    max: {x: 244.7, y: 386.2}
+  - text: b
+    editorNote: b_in_foba
+    pivot: {x: 432.0988, y: 343.6159}
+    min: {x: 374.6, y: 292.5}
+    max: {x: 482.8, y: 387.2}
+  - text: a
+    editorNote: a_in_foba
+    pivot: {x: 559.6708, y: 339.50067}
+    min: {x: 489.4, y: 292.8}
+    max: {x: 641.6, y: 389.2}
+  - text: f
+    editorNote: f_in_football
+    pivot: {x: 253.7723, y: 272.28528}
+    min: {x: 240.3, y: 256.4}
+    max: {x: 270.1, y: 286.1}
+  - text: t
+    editorNote: t_in_football
+    pivot: {x: 362.30112, y: 272.46997}
+    min: {x: 345.8, y: 258}
+    max: {x: 375.8, y: 286.4}
+  - text: b
+    editorNote: b_in_football
+    pivot: {x: 391.67688, y: 272.46997}
+    min: {x: 377.4, y: 256.1}
+    max: {x: 409.2, y: 285.3}
+  - text: a
+    editorNote: a_in_football
+    pivot: {x: 429.62057, y: 274.91797}
+    min: {x: 409.62057, y: 255.6}
+    max: {x: 446.9, y: 286.5}
+  - text: l
+    editorNote: l_in_football_1
+    pivot: {x: 461.44434, y: 274.91797}
+    min: {x: 447.5, y: 256.5}
+    max: {x: 476.8, y: 285.1}
+  - text: l
+    editorNote: l_in_football_2
+    pivot: {x: 492.04407, y: 272.46997}
+    min: {x: 477.3, y: 256.3}
+    max: {x: 505.6, y: 286.6}
+  - text: 2
+    editorNote: 2_in_2002_1
+    pivot: {x: 310.89352, y: 228.40631}
+    min: {x: 287.7, y: 205}
+    max: {x: 330.89352, y: 252.5}
+  - text: 0
+    editorNote: 0_in_2002_1
+    pivot: {x: 357.40515, y: 232.07831}
+    min: {x: 337.40515, y: 205.3}
+    max: {x: 377.40515, y: 251.7}
+  - text: 0
+    editorNote: 0_in_2002
+    pivot: {x: 402.69278, y: 228.40631}
+    min: {x: 382.69278, y: 202.9}
+    max: {x: 422.69278, y: 251.6}
+  - text: 2
+    editorNote: 2_in_2002_2
+    pivot: {x: 447.98044, y: 229.63031}
+    min: {x: 427.98044, y: 206.2}
+    max: {x: 472.8, y: 252.8}

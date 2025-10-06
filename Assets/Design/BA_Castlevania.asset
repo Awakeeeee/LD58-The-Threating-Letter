@@ -27,3 +27,48 @@ MonoBehaviour:
     pivot: {x: 484.26572, y: 225.04901}
     min: {x: 465.6, y: 190.7}
     max: {x: 507.2, y: 252.5}
+  - text: s
+    editorNote: s_in_rose
+    pivot: {x: 531.8246, y: 226.26312}
+    min: {x: 512.3, y: 191.2}
+    max: {x: 554, y: 251.2}
+  - text: e
+    editorNote: e_in_rose
+    pivot: {x: 577.08624, y: 224.8487}
+    min: {x: 557.08624, y: 191.5}
+    max: {x: 600.4, y: 252}
+  - text: i
+    editorNote: i_in_in
+    pivot: {x: 616.69025, y: 231}
+    min: {x: 601.6, y: 193.1}
+    max: {x: 632.1, y: 274.4}
+  - text: n
+    editorNote: n_in_in
+    pivot: {x: 657.7086, y: 222.01984}
+    min: {x: 635.4, y: 190.7}
+    max: {x: 680.6, y: 252.4}
+  - text: v
+    editorNote: v_in_vania
+    pivot: {x: 708.628, y: 226.26312}
+    min: {x: 686.7, y: 193.3}
+    max: {x: 730.8, y: 254.3}
+  - text: a
+    editorNote: a_in_vania
+    pivot: {x: 756.7185, y: 222.01984}
+    min: {x: 736.7185, y: 192.8}
+    max: {x: 781, y: 250.9}
+  - text: n
+    editorNote: n_in_vania
+    pivot: {x: 806.22345, y: 224.8487}
+    min: {x: 783.3, y: 191.6}
+    max: {x: 832.7, y: 253.2}
+  - text: i
+    editorNote: i_in_vania
+    pivot: {x: 850.0707, y: 230.50641}
+    min: {x: 836, y: 192.5}
+    max: {x: 864.1, y: 274.9}
+  - text: a
+    editorNote: a_in_vania
+    pivot: {x: 891.0891, y: 224.8487}
+    min: {x: 866.6, y: 192.8}
+    max: {x: 911.0891, y: 252.1}

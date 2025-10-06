@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BA_FFVII
   m_EditorClassIdentifier: 
   ID: 8
+  isSquareBox: 0
   title: BA_FFVII
   image: {fileID: 21300000, guid: 22cb9e6ad577e7c429707b3ae93e25d8, type: 3}
   characters:
@@ -21,3 +22,73 @@ MonoBehaviour:
     pivot: {x: 147.59036, y: 227.31323}
     min: {x: 127.59036, y: 172.4}
     max: {x: 165.8, y: 278.3}
+  - text: f
+    editorNote: f_in_first
+    pivot: {x: 83.67627, y: 232.50476}
+    min: {x: 63.67627, y: 173.3}
+    max: {x: 103.67627, y: 277.6}
+  - text: i
+    editorNote: i_in_first
+    pivot: {x: 115.22634, y: 229.76129}
+    min: {x: 105.3, y: 173.5}
+    max: {x: 125.3, y: 278.1}
+  - text: s
+    editorNote: s_in_first
+    pivot: {x: 185.1852, y: 229.76129}
+    min: {x: 171.6, y: 172.4}
+    max: {x: 202.2, y: 276.2}
+  - text: t
+    editorNote: t_in_first
+    pivot: {x: 224.96571, y: 232.50476}
+    min: {x: 206.2, y: 173.3}
+    max: {x: 244.96571, y: 275.7}
+  - text: d
+    editorNote: d_in_dynasty
+    pivot: {x: 288.06586, y: 231.13306}
+    min: {x: 264.1, y: 172.2}
+    max: {x: 304.8, y: 278.1}
+  - text: y
+    editorNote: y_in_dynasty
+    pivot: {x: 323.73114, y: 231.13306}
+    min: {x: 307.2, y: 172.9}
+    max: {x: 340.6, y: 278.8}
+  - text: n
+    editorNote: n_in_dynasty
+    pivot: {x: 362.13992, y: 233.87653}
+    min: {x: 346.3, y: 172.7}
+    max: {x: 382.13992, y: 278.7}
+  - text: a
+    editorNote: a_in_dynasty
+    pivot: {x: 401.92044, y: 231.13306}
+    min: {x: 386.1, y: 173.3}
+    max: {x: 418.9, y: 276.8}
+  - text: s
+    editorNote: s_in_dynasty
+    pivot: {x: 441.701, y: 229.76129}
+    min: {x: 425.6, y: 172.8}
+    max: {x: 459.1, y: 277.5}
+  - text: t
+    editorNote: t_in_dynasty
+    pivot: {x: 481.4815, y: 231.13306}
+    min: {x: 461.4815, y: 172.9}
+    max: {x: 500.3, y: 277.4}
+  - text: y
+    editorNote: y_in_dynasty
+    pivot: {x: 519.89026, y: 228.38953}
+    min: {x: 505.9, y: 173.7}
+    max: {x: 539.89026, y: 275.5}
+  - text: v
+    editorNote: v_in_vii
+    pivot: {x: 576.6, y: 233.87653}
+    min: {x: 557.6, y: 172.6}
+    max: {x: 590.5, y: 274.9}
+  - text: i
+    editorNote: i_in_vii_1
+    pivot: {x: 599.45135, y: 229.76129}
+    min: {x: 592.4, y: 172.7}
+    max: {x: 606, y: 276.5}
+  - text: i
+    editorNote: i_in_vii_2
+    pivot: {x: 611.797, y: 228.38953}
+    min: {x: 606.8, y: 173.3}
+    max: {x: 622.9, y: 276.8}
