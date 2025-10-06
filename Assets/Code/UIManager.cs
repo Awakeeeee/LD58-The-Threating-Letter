@@ -85,6 +85,7 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 
         collageUI.OnExitAnim(() =>
         {
+            Game.Instance.ResetZoom();
             selectCoverUI.InitEnterAnim();
             selectCoverUI.OnEnterAnim(HideGlobalMask);
             callback?.Invoke();
@@ -142,7 +143,7 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
         knifeCutterRoot.gameObject.SetActive(true);
         selectCoverUI.gameObject.SetActive(false);
 
-        Game.Instance.ResetZoom();//�����ڷǲ���/ƴ��ʱ ��Ҳ��ܹ���zoom�Ļ� ���ﵹ��Ҳ�����ٵ���
+        Game.Instance.ResetZoom();
         Game.Instance.SetOperatingImage(processDataClicked);
 
         collectionUI.gameObject.SetActive(false);
