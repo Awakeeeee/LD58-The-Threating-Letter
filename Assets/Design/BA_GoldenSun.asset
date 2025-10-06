@@ -22,3 +22,48 @@ MonoBehaviour:
     pivot: {x: 445.63757, y: 845.4765}
     min: {x: 402.3, y: 796.4}
     max: {x: 484.7, y: 888.8}
+  - text: g
+    editorNote: g_in_gold
+    pivot: {x: 357, y: 847}
+    min: {x: 311, y: 763.3}
+    max: {x: 398.1, y: 908.1}
+  - text: l
+    editorNote: l_in_gold
+    pivot: {x: 504, y: 852}
+    min: {x: 484, y: 795.4}
+    max: {x: 524, y: 908.5}
+  - text: d
+    editorNote: d_in_gold
+    pivot: {x: 567, y: 848}
+    min: {x: 529, y: 794.8}
+    max: {x: 609.5, y: 912.3}
+  - text: s
+    editorNote: s_in_sun
+    pivot: {x: 727, y: 846}
+    min: {x: 679.4, y: 755}
+    max: {x: 771.6, y: 942.5}
+  - text: u
+    editorNote: u_in_sun
+    pivot: {x: 817, y: 845}
+    min: {x: 772.1, y: 783.8}
+    max: {x: 857.5, y: 885.2}
+  - text: n
+    editorNote: n_in_sun
+    pivot: {x: 906, y: 841}
+    min: {x: 860.8, y: 787.7}
+    max: {x: 948.8, y: 889.9}
+  - text: t
+    editorNote: t_in_tm
+    pivot: {x: 973, y: 908}
+    min: {x: 964.7, y: 897.4}
+    max: {x: 980, y: 914.4}
+  - text: m
+    editorNote: m_in_tm
+    pivot: {x: 989, y: 908}
+    min: {x: 979.8, y: 896.9}
+    max: {x: 996.9, y: 915.1}
+  - text: e
+    editorNote: e_in_e
+    pivot: {x: 937, y: 155}
+    min: {x: 896.3, y: 111.3}
+    max: {x: 970.4, y: 195.5}

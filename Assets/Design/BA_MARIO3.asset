@@ -37,3 +37,68 @@ MonoBehaviour:
     pivot: {x: 700.67114, y: 665.6107}
     min: {x: 687.1, y: 643.2}
     max: {x: 716.4, y: 689.6}
+  - text: h
+    editorNote: h_in_hyper
+    pivot: {x: 412.178, y: 831.9625}
+    min: {x: 375.2, y: 739.9}
+    max: {x: 456.3, y: 906.1}
+  - text: y
+    editorNote: y_in_hyper
+    pivot: {x: 498.82907, y: 840.15924}
+    min: {x: 467.2, y: 760.4}
+    max: {x: 538.5, y: 907.2}
+  - text: p
+    editorNote: p_in_hyper
+    pivot: {x: 578.45435, y: 851.86884}
+    min: {x: 546.2, y: 777.6}
+    max: {x: 616.4, y: 908.4}
+  - text: e
+    editorNote: e_in_hyper
+    pivot: {x: 648.712, y: 856.5527}
+    min: {x: 618.5, y: 793.2}
+    max: {x: 674, y: 908.4}
+  - text: m
+    editorNote: m_in_marius
+    pivot: {x: 427.40048, y: 675.05383}
+    min: {x: 376.3, y: 587.5}
+    max: {x: 475, y: 723.8}
+  - text: a
+    editorNote: a_in_marius
+    pivot: {x: 510.53867, y: 699.64404}
+    min: {x: 480.8, y: 641.2}
+    max: {x: 542.5, y: 751.5}
+  - text: i
+    editorNote: i_in_marius
+    pivot: {x: 624.1218, y: 734.7728}
+    min: {x: 612.1, y: 681}
+    max: {x: 636.1, y: 779.9}
+  - text: u
+    editorNote: u_in_marius
+    pivot: {x: 667.4473, y: 738.2857}
+    min: {x: 639.4, y: 691.3}
+    max: {x: 697.1, y: 784.1}
+  - text: s
+    editorNote: s_in_marius
+    pivot: {x: 721.3115, y: 745.31146}
+    min: {x: 701.3115, y: 700.5}
+    max: {x: 750.1, y: 785.1}
+  - text: 3
+    editorNote: 3_in_3
+    pivot: {x: 819.6722, y: 792.1499}
+    min: {x: 761.8, y: 689.1}
+    max: {x: 879, y: 913.5}
+  - text: b
+    editorNote: b_in_bros
+    pivot: {x: 638.17334, y: 652.8056}
+    min: {x: 623.5, y: 624.2}
+    max: {x: 652.3, y: 675.2}
+  - text: s
+    editorNote: s_in_bros
+    pivot: {x: 731.1, y: 671.2}
+    min: {x: 715.1, y: 645.8}
+    max: {x: 743.2, y: 695.05383}
+  - text: e
+    editorNote: e_in_e
+    pivot: {x: 932.08435, y: 157.48944}
+    min: {x: 897.3, y: 110.5}
+    max: {x: 968.7, y: 202.7}

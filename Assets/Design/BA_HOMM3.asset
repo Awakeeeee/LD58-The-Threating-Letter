@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BA_HOMM3
   m_EditorClassIdentifier: 
   ID: 11
+  isSquareBox: 0
   title: BA_HOMM3
   image: {fileID: 21300000, guid: c4c310f5d0abaf140908f93c9b713af7, type: 3}
   characters:
@@ -26,3 +27,63 @@ MonoBehaviour:
     pivot: {x: 335.57047, y: 755.54364}
     min: {x: 293.3, y: 689}
     max: {x: 385.4, y: 815.2}
+  - text: m
+    editorNote: m_in_magic
+    pivot: {x: 276.16278, y: 861.2093}
+    min: {x: 256.16278, y: 840.9}
+    max: {x: 301.5, y: 881.2093}
+  - text: a
+    editorNote: a_in_magic
+    pivot: {x: 321.94766, y: 859.7558}
+    min: {x: 304, y: 841.5}
+    max: {x: 339.3, y: 878.8}
+  - text: g
+    editorNote: g_in_magic
+    pivot: {x: 360.46512, y: 861.93604}
+    min: {x: 343, y: 841.93604}
+    max: {x: 377.8, y: 878.4}
+  - text: i
+    editorNote: i_in_magic
+    pivot: {x: 391.7151, y: 862.6628}
+    min: {x: 383.4, y: 841}
+    max: {x: 401.7, y: 879.5}
+  - text: c
+    editorNote: c_in_magic
+    pivot: {x: 423.69183, y: 860.48254}
+    min: {x: 403.69183, y: 840.5}
+    max: {x: 443.69183, y: 879.6}
+  - text: h
+    editorNote: h_in_heroes
+    pivot: {x: 85.02907, y: 752.1977}
+    min: {x: 42.2, y: 659.2}
+    max: {x: 129.8, y: 816.5}
+  - text: e
+    editorNote: e_in_heroes_1
+    pivot: {x: 171.51163, y: 757.2849}
+    min: {x: 139.5, y: 691.1}
+    max: {x: 213.3, y: 816.6}
+  - text: e
+    editorNote: e_in_heroes_2
+    pivot: {x: 416.4244, y: 753.6512}
+    min: {x: 392.9, y: 689.4}
+    max: {x: 457.5, y: 816.8}
+  - text: s
+    editorNote: s_in_heroes
+    pivot: {x: 492.73254, y: 760.1919}
+    min: {x: 463.8, y: 688.1}
+    max: {x: 527.5, y: 818.2}
+  - text: i
+    editorNote: i_in_iii_1
+    pivot: {x: 562.5, y: 742.75}
+    min: {x: 542.5, y: 659.6}
+    max: {x: 582.5, y: 816.1}
+  - text: i
+    editorNote: i_in_iii_2
+    pivot: {x: 601.74414, y: 747.8372}
+    min: {x: 581.74414, y: 658.7}
+    max: {x: 621.74414, y: 817.8}
+  - text: i
+    editorNote: i_in_iii_3
+    pivot: {x: 638.08136, y: 750.01746}
+    min: {x: 623.7, y: 658.8}
+    max: {x: 658.08136, y: 818.3}

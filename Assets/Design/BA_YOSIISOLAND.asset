@@ -22,3 +22,48 @@ MonoBehaviour:
     pivot: {x: 350.33557, y: 858.8993}
     min: {x: 309.3, y: 799}
     max: {x: 388, y: 904.6}
+  - text: y
+    editorNote: y_in_yoshi
+    pivot: {x: 295.16287, y: 865.06616}
+    min: {x: 262.3, y: 792.7}
+    max: {x: 323.5, y: 939.1}
+  - text: s
+    editorNote: s_in_yoshi
+    pivot: {x: 397.82822, y: 865.06616}
+    min: {x: 377.82822, y: 796.2}
+    max: {x: 422.2, y: 926.4}
+  - text: h
+    editorNote: h_in_yoshi
+    pivot: {x: 458.0454, y: 861.1175}
+    min: {x: 428.2, y: 800.4}
+    max: {x: 493.6, y: 912.6}
+  - text: i
+    editorNote: i_in_yoshi
+    pivot: {x: 521.22406, y: 859.1431}
+    min: {x: 501.22406, y: 795}
+    max: {x: 541.22406, y: 910.2}
+  - text: s
+    editorNote: s_in_yoshis
+    pivot: {x: 596.2488, y: 855.19446}
+    min: {x: 570.9, y: 785.8}
+    max: {x: 625.2, y: 911.9}
+  - text: l
+    editorNote: l_in_land
+    pivot: {x: 703.8499, y: 870.00195}
+    min: {x: 671.6, y: 792.8}
+    max: {x: 736.3, y: 941}
+  - text: a
+    editorNote: a_in_land
+    pivot: {x: 772.9516, y: 868.02765}
+    min: {x: 741, y: 825}
+    max: {x: 809.3, y: 924.1}
+  - text: n
+    editorNote: n_in_land
+    pivot: {x: 848.96344, y: 859.1431}
+    min: {x: 819.1, y: 802.8}
+    max: {x: 884.1, y: 914.2}
+  - text: d
+    editorNote: d_in_land
+    pivot: {x: 930.8983, y: 859.1431}
+    min: {x: 893.2, y: 788.9}
+    max: {x: 993.7, y: 936.5}

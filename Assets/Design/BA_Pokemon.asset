@@ -32,3 +32,43 @@ MonoBehaviour:
     pivot: {x: 587.91943, y: 701.85236}
     min: {x: 535, y: 650.9}
     max: {x: 635, y: 745.2}
+  - text: p
+    editorNote: p_in_poke
+    pivot: {x: 351.59818, y: 833.7413}
+    min: {x: 275.9, y: 736.8}
+    max: {x: 414.9, y: 932.6}
+  - text: k
+    editorNote: k_in_poke
+    pivot: {x: 547.9452, y: 845.91785}
+    min: {x: 514.5, y: 766.7}
+    max: {x: 608.8, y: 925.3}
+  - text: e
+    editorNote: e_in_poke
+    pivot: {x: 662.10046, y: 865.7047}
+    min: {x: 612.1, y: 820.6}
+    max: {x: 706.2, y: 908.9}
+  - text: m
+    editorNote: m_in_moe
+    pivot: {x: 765.6012, y: 861.1385}
+    min: {x: 719.5, y: 787.7}
+    max: {x: 812, y: 923.6}
+  - text: e
+    editorNote: e_in_moe
+    pivot: {x: 949.77167, y: 873.31506}
+    min: {x: 901.9, y: 815.5}
+    max: {x: 1008.3, y: 929.1}
+  - text: g
+    editorNote: g_in_gold
+    pivot: {x: 487.0624, y: 698.277}
+    min: {x: 433.4, y: 643.7}
+    max: {x: 532.1, y: 740.6}
+  - text: l
+    editorNote: l_in_gold
+    pivot: {x: 672.75494, y: 705.8873}
+    min: {x: 642.5, y: 650.8}
+    max: {x: 712.2, y: 751.8}
+  - text: d
+    editorNote: d_in_gold
+    pivot: {x: 757.99084, y: 701.32117}
+    min: {x: 718.1, y: 649.3}
+    max: {x: 809.1, y: 747.9}

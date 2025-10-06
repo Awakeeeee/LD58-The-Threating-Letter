@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BA_ZOE
   m_EditorClassIdentifier: 
   ID: 18
+  isSquareBox: 0
   title: BA_ZOE
   image: {fileID: 21300000, guid: 1034ed91f34a45442b87ee501ffb2538, type: 3}
   characters:
@@ -21,3 +22,13 @@ MonoBehaviour:
     pivot: {x: 340.9396, y: 684.4027}
     min: {x: 251.4, y: 637.7}
     max: {x: 442.5, y: 723.3}
+  - text: z
+    editorNote: z_in_zo3
+    pivot: {x: 118.00302, y: 682.0938}
+    min: {x: 35.8, y: 635.3}
+    max: {x: 211.9, y: 724}
+  - text: 3_in_zo3
+    editorNote: 
+    pivot: {x: 577.91223, y: 683.6067}
+    min: {x: 477.7, y: 637.9}
+    max: {x: 660.6, y: 725.4}

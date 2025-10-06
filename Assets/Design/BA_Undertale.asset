@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BA_Undertale
   m_EditorClassIdentifier: 
   ID: 14
+  isSquareBox: 0
   title: BA_Undertale
   image: {fileID: 21300000, guid: 56f008cca3be2694c84e8f381709bcd4, type: 3}
   characters:
@@ -26,3 +27,43 @@ MonoBehaviour:
     pivot: {x: 468.45636, y: 552.8591}
     min: {x: 442.9, y: 526.2}
     max: {x: 496.1, y: 588.2}
+  - text: u
+    editorNote: u_in_under
+    pivot: {x: 76.01185, y: 563.9802}
+    min: {x: 37.3, y: 527.1}
+    max: {x: 109.4, y: 589.6}
+  - text: n
+    editorNote: n_in_under
+    pivot: {x: 146.1007, y: 558.05725}
+    min: {x: 113.6, y: 528}
+    max: {x: 184.3, y: 588.9}
+  - text: d
+    editorNote: d_in_under
+    pivot: {x: 216.18953, y: 560.0316}
+    min: {x: 185.8, y: 526.6}
+    max: {x: 248.4, y: 588.5}
+  - text: e
+    editorNote: e_in_under
+    pivot: {x: 278.38104, y: 561.0188}
+    min: {x: 252.8, y: 526.6}
+    max: {x: 305.9, y: 589.6}
+  - text: g
+    editorNote: g_in_grail
+    pivot: {x: 415.59723, y: 560.0316}
+    min: {x: 385, y: 527.5}
+    max: {x: 441.2, y: 589.4}
+  - text: a
+    editorNote: a_in_grail
+    pivot: {x: 526.1599, y: 562.0059}
+    min: {x: 500.6, y: 527}
+    max: {x: 556, y: 589}
+  - text: i
+    editorNote: i_in_grail
+    pivot: {x: 571.5696, y: 558.05725}
+    min: {x: 558.3, y: 527}
+    max: {x: 583.2, y: 589.5}
+  - text: l
+    editorNote: l_in_grail
+    pivot: {x: 607.1076, y: 559.04443}
+    min: {x: 587.1076, y: 527.3}
+    max: {x: 642.5, y: 590.1}

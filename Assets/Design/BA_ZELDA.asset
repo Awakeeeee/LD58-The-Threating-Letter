@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BA_ZELDA
   m_EditorClassIdentifier: 
   ID: 16
+  isSquareBox: 0
   title: BA_ZELDA
   image: {fileID: 21300000, guid: c961687689e5ca947aa0d90d71c844bc, type: 3}
   characters:
@@ -21,3 +22,23 @@ MonoBehaviour:
     pivot: {x: 304.698, y: 164.93958}
     min: {x: 273, y: 111.1}
     max: {x: 336.7, y: 210.3}
+  - text: z
+    editorNote: z_in_zolda
+    pivot: {x: 216.18953, y: 165.16486}
+    min: {x: 146.7, y: 84.7}
+    max: {x: 269.2, y: 238.9}
+  - text: l
+    editorNote: l_in_zolda
+    pivot: {x: 362.7288, y: 167.09485}
+    min: {x: 341.1, y: 112.9}
+    max: {x: 390.2, y: 211.4}
+  - text: d
+    editorNote: d_in_zolda
+    pivot: {x: 429.28452, y: 165.43097}
+    min: {x: 396.4, y: 113.6}
+    max: {x: 458.2, y: 213}
+  - text: a
+    editorNote: a_in_zolda
+    pivot: {x: 487.52078, y: 167.09485}
+    min: {x: 464.1, y: 114.6}
+    max: {x: 514.7, y: 212.7}

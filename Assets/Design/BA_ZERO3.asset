@@ -27,3 +27,48 @@ MonoBehaviour:
     pivot: {x: 795.97314, y: 926.0134}
     min: {x: 758, y: 851}
     max: {x: 834.8, y: 994}
+  - text: k
+    editorNote: k_in_kamen
+    pivot: {x: 269.91675, y: 925.308}
+    min: {x: 239.4, y: 889.1}
+    max: {x: 293.5, y: 958.7}
+  - text: a
+    editorNote: a_in_kamen
+    pivot: {x: 319.8573, y: 925.308}
+    min: {x: 295.3, y: 891.1}
+    max: {x: 339.8573, y: 956.1}
+  - text: m
+    editorNote: m_in_kamen
+    pivot: {x: 379.31033, y: 926.497}
+    min: {x: 343.6, y: 890}
+    max: {x: 410.1, y: 956.4}
+  - text: e
+    editorNote: e_in_kamen
+    pivot: {x: 437.5743, y: 925.308}
+    min: {x: 411.8, y: 890}
+    max: {x: 457.5743, y: 957}
+  - text: n
+    editorNote: n_in_kamen
+    pivot: {x: 483.94766, y: 922.9299}
+    min: {x: 459.9, y: 888.7}
+    max: {x: 515.1, y: 956.1}
+  - text: z
+    editorNote: z_in_zero
+    pivot: {x: 544.5898, y: 926.497}
+    min: {x: 512.5, y: 850.3}
+    max: {x: 564.5898, y: 995.4}
+  - text: e
+    editorNote: e_in_zero
+    pivot: {x: 617.12244, y: 922.9299}
+    min: {x: 575.9, y: 847.5}
+    max: {x: 637.12244, y: 995}
+  - text: 3
+    editorNote: 3_in_3
+    pivot: {x: 927.4673, y: 924.1189}
+    min: {x: 850.2, y: 853.5}
+    max: {x: 996.2, y: 999.5}
+  - text: 3
+    editorNote: 3_in_3_2
+    pivot: {x: 935.7907, y: 134.58264}
+    min: {x: 906.1, y: 78.9}
+    max: {x: 962.6, y: 182.8}
