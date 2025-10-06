@@ -79,12 +79,12 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
     {
         ShowGlobalMask();
 
-        selectCoverUI.gameObject.SetActive(true);
-        collageUI.gameObject.SetActive(false);
-        sendMailConfirmUI.gameObject.SetActive(false);
-
         collageUI.OnExitAnim(() =>
         {
+            selectCoverUI.gameObject.SetActive(true);
+            collageUI.gameObject.SetActive(false);
+            sendMailConfirmUI.gameObject.SetActive(false);
+
             Game.Instance.ResetZoom();
             selectCoverUI.InitEnterAnim();
             selectCoverUI.OnEnterAnim(HideGlobalMask);
