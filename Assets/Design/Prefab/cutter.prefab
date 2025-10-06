@@ -47,8 +47,9 @@ MonoBehaviour:
   closeLoopDistance: 20
   minPointDistance: 10
   knife: {fileID: 0}
+  knifeDefaultPos: {x: 4, y: -1, z: 0}
   knifeIdleViewportPos: {x: 0.9, y: 0.4}
-  knifeIdleRotation: {x: 0, y: 0, z: -135}
+  knifeIdleRotation: {x: 0, y: 0, z: 180}
   trajectory: {fileID: 0}
   trajectoryFadeDuration: 0.5
   trajectoryRetreatSpeed: 0.005

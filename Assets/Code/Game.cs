@@ -43,6 +43,8 @@ public class Game : MonoBehaviourSingleton<Game>
     private int nextStickerSortingOrder;
     private const int DraggingSortingOrderOffset = 100;
 
+    public Sprite FinalLetter { get; private set; }
+
 
     protected override void Awake()
     {
@@ -56,6 +58,7 @@ public class Game : MonoBehaviourSingleton<Game>
         nextStickerSortingOrder = letter.sortingOrder + 1;
         EventManager.StartListening(GameEvent.OnCutComplete, OnCutImageComplete);
         EventManager.StartListening(GameEvent.OnStartSticking, StartSticking);
+        EventManager.StartListening(GameEvent.OnPrepareSendMail, OnPrepareSendMail);
         cutter.Init();
     }
 
@@ -68,6 +71,7 @@ public class Game : MonoBehaviourSingleton<Game>
     {
         EventManager.StopListening(GameEvent.OnCutComplete, OnCutImageComplete);
         EventManager.StopListening(GameEvent.OnStartSticking, StartSticking);
+        EventManager.StopListening(GameEvent.OnPrepareSendMail, OnPrepareSendMail);
     }
 
     void Update()
@@ -160,7 +164,12 @@ public class Game : MonoBehaviourSingleton<Game>
                 return;
             }
 
-            float zDepth = Cam.WorldToScreenPoint(imageSource.transform.position).z;
+            // Determine which object to drag
+            Transform targetTransform = (letterRoot != null && letterRoot.gameObject.activeSelf)
+                ? letterRoot
+                : imageSource.transform;
+
+            float zDepth = Cam.WorldToScreenPoint(targetTransform.position).z;
             Vector3 currentPointerWorldPos = Cam.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, zDepth));
 
             if (!isDraggingCamera)
@@ -171,12 +180,12 @@ public class Game : MonoBehaviourSingleton<Game>
             else
             {
                 Vector3 delta = currentPointerWorldPos - lastPointerWorldPos;
-                Vector3 newImagePos = imageSource.transform.position + delta;
+                Vector3 newPos = targetTransform.position + delta;
 
-                newImagePos.x = Mathf.Clamp(newImagePos.x, viewLimitX.x, viewLimitX.y);
-                newImagePos.y = Mathf.Clamp(newImagePos.y, viewLimitY.x, viewLimitY.y);
+                newPos.x = Mathf.Clamp(newPos.x, viewLimitX.x, viewLimitX.y);
+                newPos.y = Mathf.Clamp(newPos.y, viewLimitY.x, viewLimitY.y);
 
-                imageSource.transform.position = newImagePos;
+                targetTransform.position = newPos;
                 lastPointerWorldPos = Cam.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, zDepth));
             }
         }
@@ -567,6 +576,11 @@ public class Game : MonoBehaviourSingleton<Game>
 
         Bounds bounds = letter.bounds;
         return bounds.Contains(worldPos);
+    }
+
+    private void OnPrepareSendMail(object args)
+    {
+        FinalLetter = UtilFunction.CaptureCompositeSceneToSprite(Game.Instance.letter.transform, Game.Instance.Cam, 20);
     }
 
     private void ConfirmSticker()

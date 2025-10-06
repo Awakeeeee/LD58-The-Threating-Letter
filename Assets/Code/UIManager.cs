@@ -94,6 +94,8 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 
     public void ChangeToSendMail(Action callback)
     {
+        EventManager.TriggerEvent(GameEvent.OnPrepareSendMail);
+
         ShowGlobalMask();
 
         selectCoverUI.gameObject.SetActive(false);

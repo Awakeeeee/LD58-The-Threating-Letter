@@ -250,6 +250,46 @@ public class UtilFunction : MonoBehaviour
         SavePNGData(pngData, defaultFileName, useDownloadForWebGL);
     }
 
+    public static void TransferSpriteToPNG(Sprite img, string defualtFileName = "letter", bool useDownloadForWebGL = true)
+    {
+        if (img == null)
+        {
+            Debug.LogWarning("UtilFunction: Sprite is null");
+            return;
+        }
+
+        Texture2D sourceTexture = img.texture;
+        if (sourceTexture == null)
+        {
+            Debug.LogWarning("UtilFunction: Sprite texture is null");
+            return;
+        }
+
+        Rect textureRect = img.textureRect;
+
+        // Create a new texture with only the sprite's rect
+        Texture2D captureTexture = new Texture2D(
+            (int)textureRect.width,
+            (int)textureRect.height,
+            TextureFormat.RGBA32,
+            false
+        );
+
+        Color[] pixels = sourceTexture.GetPixels(
+            (int)textureRect.x,
+            (int)textureRect.y,
+            (int)textureRect.width,
+            (int)textureRect.height
+        );
+        captureTexture.SetPixels(pixels);
+        captureTexture.Apply();
+
+        byte[] pngData = captureTexture.EncodeToPNG();
+        Object.Destroy(captureTexture);
+
+        SavePNGData(pngData, defualtFileName, useDownloadForWebGL);
+    }
+
     public static void CaptureCompositeSceneToPNG(Transform root, Camera camera, string defaultFileName = "screenshot", bool useDownloadForWebGL = true, int borderWidth = 0)
     {
         if (root == null)
@@ -333,6 +373,96 @@ public class UtilFunction : MonoBehaviour
         Object.Destroy(captureTexture);
 
         SavePNGData(pngData, defaultFileName, useDownloadForWebGL);
+    }
+
+    public static Sprite CaptureCompositeSceneToSprite(Transform root, Camera camera, int borderWidth = 0)
+    {
+        if (root == null)
+        {
+            Debug.LogWarning("UtilFunction: Root transform is null");
+            return null;
+        }
+
+        if (camera == null)
+        {
+            camera = Camera.main;
+        }
+
+        if (camera == null)
+        {
+            Debug.LogWarning("UtilFunction: Camera not found");
+            return null;
+        }
+
+        // Collect all sprite renderers
+        SpriteRenderer[] spriteRenderers = root.GetComponentsInChildren<SpriteRenderer>();
+        if (spriteRenderers.Length == 0)
+        {
+            Debug.LogWarning("UtilFunction: No sprite renderers found");
+            return null;
+        }
+
+        // Calculate bounds
+        Bounds totalBounds = spriteRenderers[0].bounds;
+        foreach (var sr in spriteRenderers)
+        {
+            totalBounds.Encapsulate(sr.bounds);
+        }
+
+        // Calculate camera settings
+        Vector3 center = totalBounds.center;
+        float height = totalBounds.size.y;
+        float width = totalBounds.size.x;
+
+        // Create temporary camera
+        GameObject tempCamObj = new GameObject("TempScreenshotCamera");
+        Camera tempCam = tempCamObj.AddComponent<Camera>();
+        tempCam.CopyFrom(camera);
+        tempCam.orthographic = true;
+        tempCam.orthographicSize = height / 2f;
+        tempCam.transform.position = new Vector3(center.x, center.y, camera.transform.position.z);
+        tempCam.clearFlags = CameraClearFlags.SolidColor;
+        tempCam.backgroundColor = new Color(0, 0, 0, 0);
+
+        // Calculate render texture size
+        int textureWidth = Mathf.CeilToInt(width * 100); // pixels per unit
+        int textureHeight = Mathf.CeilToInt(height * 100);
+
+        // Create render texture
+        RenderTexture rt = new RenderTexture(textureWidth, textureHeight, 24, RenderTextureFormat.ARGB32);
+        rt.antiAliasing = 1;
+        tempCam.targetTexture = rt;
+
+        // Render
+        tempCam.Render();
+
+        // Read pixels from render texture
+        RenderTexture.active = rt;
+        Texture2D captureTexture = new Texture2D(textureWidth, textureHeight, TextureFormat.RGBA32, false);
+        captureTexture.ReadPixels(new Rect(0, 0, textureWidth, textureHeight), 0, 0);
+        captureTexture.Apply();
+        RenderTexture.active = null;
+
+        // Cleanup
+        tempCam.targetTexture = null;
+        Object.Destroy(tempCamObj);
+        Object.Destroy(rt);
+
+        // Add border if needed
+        if (borderWidth > 0)
+        {
+            captureTexture = AddBorderToTexture(captureTexture, borderWidth, Color.white);
+        }
+
+        // Create sprite from texture
+        Sprite resultSprite = Sprite.Create(
+            captureTexture,
+            new Rect(0, 0, captureTexture.width, captureTexture.height),
+            new Vector2(0.5f, 0.5f), // center pivot
+            100f // pixels per unit
+        );
+
+        return resultSprite;
     }
 
     public static void CaptureImageToPNG(Image img, string defaultFileName = "screenshot", bool useDownloadForWebGL = true, int borderWidth = 0)

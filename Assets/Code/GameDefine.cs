@@ -10,6 +10,7 @@ public enum GameEvent
     OnModeChanged,
     OnStartSticking,
     OnCollectionChange,
+    OnPrepareSendMail,
 }
 
 public enum GameMode

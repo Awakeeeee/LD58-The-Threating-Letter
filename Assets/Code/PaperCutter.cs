@@ -18,6 +18,7 @@ public class PaperCutter : MonoBehaviour
 
     [TitleGroup("The Carving")]
     public SpriteRenderer knife;
+    public Vector3 knifeDefaultPos;
     [Tooltip("Knife idle position in viewport coordinates (0-1, relative to camera view)")]
     public Vector2 knifeIdleViewportPos = new Vector2(0.9f, 0.4f); //刻刀默认放在屏幕右下角
     public Vector3 knifeIdleRotation = Vector3.zero;
@@ -318,12 +319,18 @@ public class PaperCutter : MonoBehaviour
 
     private void ResetKnife()
     {
-        if (knife != null && mainCamera != null)
+        // if (knife != null && mainCamera != null)
+        // {
+        //     // Viewport坐标：(0,0)是左下角，(1,1)是右上角
+        //     float zDepth = mainCamera.WorldToScreenPoint(ImageSource.transform.position).z;
+        //     Vector3 viewportPos = new Vector3(knifeIdleViewportPos.x, knifeIdleViewportPos.y, zDepth);
+        //     knife.transform.position = mainCamera.ViewportToWorldPoint(viewportPos);
+        //     knife.transform.eulerAngles = knifeIdleRotation;
+        // }
+
+        if (knife != null)
         {
-            // Viewport坐标：(0,0)是左下角，(1,1)是右上角
-            float zDepth = mainCamera.WorldToScreenPoint(ImageSource.transform.position).z;
-            Vector3 viewportPos = new Vector3(knifeIdleViewportPos.x, knifeIdleViewportPos.y, zDepth);
-            knife.transform.position = mainCamera.ViewportToWorldPoint(viewportPos);
+            knife.transform.position = knifeDefaultPos;
             knife.transform.eulerAngles = knifeIdleRotation;
         }
     }

@@ -21,14 +21,28 @@ public class UIEnding : MonoBehaviour
     public Transform RestartBtnOutOfScreenRef;
 
     public Image blackScreenImage;
+    public Image letterImg;
+
+    public Button btnSave;
 
     void Start()
     {
         RestartBtn.onClick.AddListener(UIManager.Instance.RestartGameOnEndingUI);
+
+        btnSave.onClick.AddListener(() =>
+        {
+            UtilFunction.TransferSpriteToPNG(Game.Instance.FinalLetter, defualtFileName: "letter", useDownloadForWebGL: true);
+        });
     }
 
     public void InitEnterAnim()
     {
+        Sprite letter = Game.Instance.FinalLetter;
+        if (letter != null)
+        {
+            letterImg.sprite = letter;
+        }
+
         underBlackScreenRoot.gameObject.SetActive(false);
         blackScreenImage.gameObject.SetActive(true);
         blackScreenImage.color = Color.clear;
