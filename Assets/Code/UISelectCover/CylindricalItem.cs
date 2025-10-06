@@ -33,6 +33,7 @@ public class CylindricalItem : MonoBehaviour, IPointerClickHandler
         if (itemImage != null && icon != null)
         {
             itemImage.sprite = icon;
+            itemImage.preserveAspect = true;
             itemImage.alphaHitTestMinimumThreshold = 0.2f;
         }
 
