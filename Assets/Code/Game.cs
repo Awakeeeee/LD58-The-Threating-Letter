@@ -31,6 +31,7 @@ public class Game : MonoBehaviourSingleton<Game>
     private bool isDraggingCamera = false;
     private Vector3 lastPointerWorldPos;
     private bool isUpdatingZoomSlider = false; // 防止循环更新
+    private Vector3 dragTargetOriginalScale;
 
     [TitleGroup("Make Letter")]
     public Transform letterRoot;
@@ -176,6 +177,12 @@ public class Game : MonoBehaviourSingleton<Game>
             {
                 isDraggingCamera = true;
                 lastPointerWorldPos = currentPointerWorldPos;
+
+                // Save original scale and scale up
+                dragTargetOriginalScale = targetTransform.localScale;
+                targetTransform.localScale = dragTargetOriginalScale * 1.2f;
+
+                SFXManager.Instance.PlaySFX(@"sfx_put");
             }
             else
             {
@@ -191,6 +198,16 @@ public class Game : MonoBehaviourSingleton<Game>
         }
         else
         {
+            if (isDraggingCamera == true)
+            {
+                // Restore original scale
+                Transform targetTransform = (letterRoot != null && letterRoot.gameObject.activeSelf)
+                    ? letterRoot
+                    : imageSource.transform;
+                targetTransform.localScale = dragTargetOriginalScale;
+
+                SFXManager.Instance.PlaySFX(@"sfx_put");
+            }
             isDraggingCamera = false;
         }
     }

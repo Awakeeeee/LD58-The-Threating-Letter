@@ -87,12 +87,13 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 
             Game.Instance.ResetZoom();
             selectCoverUI.InitEnterAnim();
-            selectCoverUI.OnEnterAnim( () =>
+            selectCoverUI.OnEnterAnim(() =>
             {
                 HideGlobalMask();
                 TutorialManager.Instance.CheckAndStartTutorial(TutorialTypeEnum.EnterSelectCover);
             });
             callback?.Invoke();
+            SFXManager.Instance.PlaySFX("sfx_out");
         });
     }
 

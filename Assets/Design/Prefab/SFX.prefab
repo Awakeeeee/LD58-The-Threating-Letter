@@ -72,6 +72,10 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: addc75f134f3ce54d8ba39908429ab59, type: 3}
   - name: sfx_hmm
     clip: {fileID: 8300000, guid: 171a8449433cc0144808b552535e03ac, type: 3}
+  - name: sfx_out
+    clip: {fileID: 8300000, guid: a6d4279635e75f94a92a2655817111a1, type: 3}
+  - name: sfx_put
+    clip: {fileID: 8300000, guid: c3e45234ac7fe734ba554b7bd1dab27e, type: 3}
   bgmPlayer: {fileID: 4526290655093885696}
   sfxPlayer: {fileID: 4878483169273344841}
   loopSfxPlayer: {fileID: 2435319835199430504}
