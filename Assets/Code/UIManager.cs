@@ -69,6 +69,9 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
             {
                 HideGlobalMask();
                 callback?.Invoke();
+
+                if (Game.Instance.CutCollection.Count > 0)
+                    TutorialManager.Instance.CheckAndStartTutorial(TutorialTypeEnum.BackToCollage);
             });
         });
 

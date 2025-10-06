@@ -27,6 +27,10 @@ public class TutorialManager : MonoBehaviourSingleton<TutorialManager>
         {
             StartEnterKnifeCutterTutorial();
         }
+        else if (targetTutorialType == TutorialTypeEnum.BackToCollage)
+        {
+            StartBackToCollageTutorial();
+        }
     }
 
     public void FinishTutorial(TutorialTypeEnum targetTutorialType)
@@ -40,32 +44,50 @@ public class TutorialManager : MonoBehaviourSingleton<TutorialManager>
 
     private void StartEnterGameOutOfStockTutorial()
     {
-        UIManager.Instance.overLayUI.ShowDialouge("Those <shake>***</shake> are destroying my precious. I need to stop them.", () =>
+        UIManager.Instance.overLayUI.ShowDialouge("I'm writing a blackmail.\r\nBut without enough O & R letters, it won't be done.", () =>
         {
-            UIManager.Instance.overLayUI.ShowDialouge("Oh no. I have used up all my letter pieces of <bounce><color=#FFFF00>O</color></bounce> and <bounce><color=#FFFF00>R</color></bounce>. I need to collect some more",
+            UIManager.Instance.overLayUI.ShowDialouge("I need more O/R letters.\r\nNow its time To Collect O/R.", () =>
+            {
+                UIManager.Instance.overLayUI.ShowDialouge("Press \"To Collect\" to cut more O/R.",
                 () =>
                 {
                     UIManager.Instance.overLayUI.HideDialogue();
                     FinishTutorial(TutorialTypeEnum.EnterGameOutOfStock);
                 });
+            });
         });
     }
 
     private void StartEnterSelectCover()
     {
-        UIManager.Instance.overLayUI.ShowDialouge("Only some game packages here. I have no choice.", () =>
+        UIManager.Instance.overLayUI.ShowDialouge("Look at there game cases.\r\nwith all newspapers are gone, I have no choice but cut those gamebox to Collect O/R.", () =>
         {
-            UIManager.Instance.overLayUI.HideDialogue();
-            FinishTutorial(TutorialTypeEnum.EnterSelectCover);
+            UIManager.Instance.overLayUI.ShowDialouge("Press game case to start cutting letters.", () =>
+            {
+                UIManager.Instance.overLayUI.HideDialogue();
+                FinishTutorial(TutorialTypeEnum.EnterSelectCover);
+            });
         });
     }
 
     private void StartEnterKnifeCutterTutorial()
     {
-        UIManager.Instance.overLayUI.ShowDialouge("Hold Mouse right button to move around. Scroll wheel to zoom in and out. Left button to cut", () =>
+        UIManager.Instance.overLayUI.ShowDialouge("Press&Drag to cut.\r\nRemember, I only have to Collect O/R, so just cut them.", () =>
         {
             UIManager.Instance.overLayUI.HideDialogue();
             FinishTutorial(TutorialTypeEnum.EnterKnifeCutter);
+        });
+    }
+
+    private void StartBackToCollageTutorial()
+    {
+        UIManager.Instance.overLayUI.ShowDialouge("To paste O/R to the blackmail, Press \"Collected Letters\".\r\nThen Drag some O/R to the place it belongs.\r\n", () =>
+        {
+            UIManager.Instance.overLayUI.ShowDialouge("When It's thought to be done, Press \"Send Mail\".", () =>
+            {
+                UIManager.Instance.overLayUI.HideDialogue();
+                FinishTutorial(TutorialTypeEnum.BackToCollage);
+            });
         });
     }
 }
@@ -75,5 +97,6 @@ public enum TutorialTypeEnum
     None = 0,
     EnterGameOutOfStock = 1,//刚进入游戏 “我用完了所有的库存” 可能后续不是第一个？
     EnterSelectCover = 2,//I only have game cover
-    EnterKnifeCutter = 3//introducing mouse control
+    EnterKnifeCutter = 3,//introducing mouse control
+    BackToCollage = 4,//return to collage with at least one cutimage
 }
