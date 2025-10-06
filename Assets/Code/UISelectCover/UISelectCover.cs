@@ -21,17 +21,10 @@ public class UISelectCover : MonoBehaviour
     void Start()
     {
         DestroyAllProps();
-        CreateProps(false);//TODO use random or fixed according to game mode
-
-        //selectCoverPropTemplate.gameObject.SetActive(true);
-        //for (int i = 0; i < selectPropTransList.Count; ++i)
-        //{
-        //    GameObject itemObj = Instantiate(selectCoverPropTemplate, selectPropTransList[i].transform);
-        //    SelectCoverProp propScript = itemObj.GetComponent<SelectCoverProp>();
-        //    propScript.Init(imageTable.GetImageData(i % imageTable.images.Count));
-        //    propList.Add(propScript);
-        //}
-        //selectCoverPropTemplate.gameObject.SetActive(false);
+        if (Game.Instance.IsStoryMode)
+            CreateProps(false);
+        else
+            CreateProps(true);
     }
 
     private void DestroyAllProps()
@@ -99,7 +92,10 @@ public class UISelectCover : MonoBehaviour
     {
         //DestroyAllProps();
         //CreateRandomProps();
-        RefreshProps(false);//TODO use random or fixed according to game mode
+        if (Game.Instance.IsStoryMode)
+            RefreshProps(false);
+        else
+            RefreshProps(true);
 
         for (int i = 0; i < propList.Count; ++i)
         {

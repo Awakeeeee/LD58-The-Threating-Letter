@@ -14,7 +14,7 @@ public class UITitle : MonoBehaviour
     public Transform titleInScreenTrans;
     public Transform titleOutScreenTrans;
     public Button startButton;
-    //public Button startButtonWithFreeMode;
+    public Button startButtonWithFreeMode;
 
     private float accumulatedTime;
     private float changeInterval = 0.5f;
@@ -28,8 +28,22 @@ public class UITitle : MonoBehaviour
 
         RandomOAndR();
 
+        startButton.gameObject.SetActive(true);
+        startButtonWithFreeMode.gameObject.SetActive(false);
+
         startButton.onClick.AddListener(() =>
         {
+            Game.Instance.IsStoryMode = true;
+
+            SFXManager.Instance.PlaySFX(CommonSFX.button);
+            UIManager.Instance.OnStartClicked();
+        });
+
+        startButtonWithFreeMode.onClick.AddListener(() =>
+        {
+            Game.Instance.IsStoryMode = false;
+            Game.Instance.RestartGameAsFreeMode();
+
             SFXManager.Instance.PlaySFX(CommonSFX.button);
             UIManager.Instance.OnStartClicked();
         });
@@ -80,6 +94,7 @@ public class UITitle : MonoBehaviour
     public void OnExitAnim(Action callback)
     {
         startButton.gameObject.SetActive(false);
+        startButtonWithFreeMode.gameObject.SetActive(false);
 
         titleTrans.transform.DOMove(titleOutScreenTrans.position, 0.5f).onComplete += () =>
         {
@@ -87,6 +102,7 @@ public class UITitle : MonoBehaviour
 
             gameObject.SetActive(false);
             startButton.gameObject.SetActive(true);
+            startButtonWithFreeMode.gameObject.SetActive(true);//简单搞搞 一旦退出 就认为下次再出现时可以有freemode按钮了
             titleTrans.transform.position = titleInScreenTrans.position;
         };
     }

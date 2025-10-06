@@ -40,7 +40,7 @@ public class TutorialManager : MonoBehaviourSingleton<TutorialManager>
 
     private void StartEnterGameOutOfStockTutorial()
     {
-        UIManager.Instance.overLayUI.ShowDialouge("Those <shake>***</shake> is destroying my precious. I need to stop them.", () =>
+        UIManager.Instance.overLayUI.ShowDialouge("Those <shake>***</shake> are destroying my precious. I need to stop them.", () =>
         {
             UIManager.Instance.overLayUI.ShowDialouge("Oh no. I have used up all my letter pieces of <bounce><color=#FFFF00>O</color></bounce> and <bounce><color=#FFFF00>R</color></bounce>. I need to collect some more",
                 () =>
@@ -56,7 +56,7 @@ public class TutorialManager : MonoBehaviourSingleton<TutorialManager>
         UIManager.Instance.overLayUI.ShowDialouge("Only some game packages here. I have no choice.", () =>
         {
             UIManager.Instance.overLayUI.HideDialogue();
-            FinishTutorial(TutorialTypeEnum.EnterGameOutOfStock);
+            FinishTutorial(TutorialTypeEnum.EnterSelectCover);
         });
     }
 

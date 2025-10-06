@@ -20,6 +20,8 @@ public class Game : MonoBehaviourSingleton<Game>
 
     public GameMode CurrentMode { get; private set; }
 
+    public bool IsStoryMode { get; set; }//story mode 盒子是固定的 有默认信件 只能裁剪 o/r. not story mode 自由模式 盒子是随机的 无默认信件 可以随意裁剪。
+
     public Camera Cam { get; private set; }
 
     [TitleGroup("View Control")]
@@ -663,6 +665,11 @@ public class Game : MonoBehaviourSingleton<Game>
     public int GetExistingStickerCount()
     {
         return mLetterStickers.Count;
+    }
+
+    public void RestartGameAsFreeMode()
+    {
+        //TODO clear cache / change letter 
     }
 }
 
