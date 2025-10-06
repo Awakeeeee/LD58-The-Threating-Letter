@@ -10,6 +10,7 @@ public class Sticker : MonoBehaviour, IPoolObject
         Placed
     }
 
+    public Animator anim;
     public SpriteRenderer mainTex;
     public CutImage BindingData { get; private set; }
     public StickerState State { get; private set; }
@@ -32,6 +33,13 @@ public class Sticker : MonoBehaviour, IPoolObject
 
         // Set sorting order
         mainTex.sortingOrder = sortingOrder;
+
+        anim.SetTrigger("stick");
+    }
+
+    public void AnimEvtOnStick()
+    {
+        SFXManager.Instance.PlaySFX(@"sfx_stick");
     }
 
     public void OnCreate()

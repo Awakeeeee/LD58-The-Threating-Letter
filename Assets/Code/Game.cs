@@ -530,7 +530,7 @@ public class Game : MonoBehaviourSingleton<Game>
         // Return to Free mode
         SwitchMode(GameMode.Free);
 
-        SFXManager.Instance.PlaySFX(@"sfx_stick");
+        //SFXManager.Instance.PlaySFX(@"sfx_stick");
     }
 
     private void CancelSticker()
