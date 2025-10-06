@@ -194,16 +194,18 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
         ShowGlobalMask();
         titleUI.OnExitAnim(() =>
         {
-            HideGlobalMask();
-
             collageUI.gameObject.SetActive(true);
+            collageUI.InitAnim();
+            collageUI.OnEnterAnim(() =>
+            {
+                HideGlobalMask();
+                TutorialManager.Instance.CheckAndStartTutorial(TutorialTypeEnum.EnterGameOutOfStock);
+            });
 
             collectionUI.gameObject.SetActive(true);
             overLayUI.gameObject.SetActive(true);
 
             overLayUI.SetTopBtnStateOfUICollage();
-
-            TutorialManager.Instance.CheckAndStartTutorial(TutorialTypeEnum.EnterGameOutOfStock);
         });
     }
 

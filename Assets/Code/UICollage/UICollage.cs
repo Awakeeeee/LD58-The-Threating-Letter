@@ -22,26 +22,23 @@ public class UICollage : MonoBehaviour
 
     public void InitAnim()
     {
-        //letterPaper.transform.position = letterOutOfScreenTrans.position;
+        letterPaper.transform.position = letterOutOfScreenTrans.position;
     }
 
     public void OnEnterAnim(Action callback = null)
     {
-        callback?.Invoke();
 
-        //letterPaper.transform.DOMove(letterInScreenTrans.position, 0.5f).onComplete += () =>
-        //{
-        //    callback?.Invoke();
-        //};
+        letterPaper.transform.DOMove(letterInScreenTrans.position, 0.5f).onComplete += () =>
+        {
+            callback?.Invoke();
+        };
     }
 
     public void OnExitAnim(Action callback = null)
     {
-        callback?.Invoke();
-
-        //letterPaper.transform.DOMove(letterOutOfScreenTrans.position, 0.5f).onComplete += () =>
-        //{
-        //    callback?.Invoke();
-        //};
+        letterPaper.transform.DOMove(letterOutOfScreenTrans.position, 0.5f).onComplete += () =>
+        {
+            callback?.Invoke();
+        };
     }
 }
