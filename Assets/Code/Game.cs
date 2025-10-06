@@ -580,7 +580,9 @@ public class Game : MonoBehaviourSingleton<Game>
 
     private void OnPrepareSendMail(object args)
     {
+        Game.Instance.letter.gameObject.SetActive(true);
         FinalLetter = UtilFunction.CaptureCompositeSceneToSprite(Game.Instance.letter.transform, Game.Instance.Cam, 20);
+        Game.Instance.letter.gameObject.SetActive(false);
     }
 
     private void ConfirmSticker()
