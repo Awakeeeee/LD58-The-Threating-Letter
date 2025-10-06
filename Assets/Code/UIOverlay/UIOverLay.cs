@@ -30,7 +30,7 @@ public class UIOverLay : MonoBehaviour
 
         HideAllButton();
         left_gotoCutCoverBtn.gameObject.SetActive(true);
-        right_gotoSendMailBtn.gameObject.SetActive(false);//
+        right_gotoSendMailBtn.gameObject.SetActive(true);//TODO 根据是否已经拼贴了一些
 
         right_gotoCollageBtn.onClick.AddListener(() =>
         {
@@ -39,7 +39,7 @@ public class UIOverLay : MonoBehaviour
             UIManager.Instance.ChangeFromSelectCoverToCollage(() =>
             {
                 left_gotoCutCoverBtn.gameObject.SetActive(true);
-                right_gotoSendMailBtn.gameObject.SetActive(false);
+                right_gotoSendMailBtn.gameObject.SetActive(true);//
             });
         });
 
@@ -122,6 +122,6 @@ public class UIOverLay : MonoBehaviour
     {
         right_gotoCollageBtn.gameObject.SetActive(false);
         left_gotoCutCoverBtn.gameObject.SetActive(true);
-        right_gotoSendMailBtn.gameObject.SetActive(false);
+        right_gotoSendMailBtn.gameObject.SetActive(true);
     }
 }

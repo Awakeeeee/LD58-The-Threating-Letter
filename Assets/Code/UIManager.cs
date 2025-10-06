@@ -201,6 +201,8 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
             collectionUI.gameObject.SetActive(true);
             overLayUI.gameObject.SetActive(true);
 
+            overLayUI.SetTopBtnStateOfUICollage();
+
             TutorialManager.Instance.CheckAndStartTutorial(TutorialTypeEnum.EnterGameOutOfStock);
         });
     }
