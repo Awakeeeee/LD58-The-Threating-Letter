@@ -30,6 +30,7 @@ public class Game : MonoBehaviourSingleton<Game>
     public Vector2 zoomLimit;
     public float defaultOrthoZoom = 3f;
     public float zoomScrollSpeed = 0.002f;
+    public float dragSizeFactor = 1f;
     private bool isDraggingCamera = false;
     private Vector3 lastPointerWorldPos;
     private bool isUpdatingZoomSlider = false; // 防止循环更新
@@ -182,7 +183,7 @@ public class Game : MonoBehaviourSingleton<Game>
 
                 // Save original scale and scale up
                 dragTargetOriginalScale = targetTransform.localScale;
-                targetTransform.localScale = dragTargetOriginalScale * 1.2f;
+                targetTransform.localScale = dragTargetOriginalScale * dragSizeFactor;
 
                 SFXManager.Instance.PlaySFX(@"sfx_put");
             }
