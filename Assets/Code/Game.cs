@@ -49,6 +49,9 @@ public class Game : MonoBehaviourSingleton<Game>
 
     public Sprite FinalLetter { get; private set; }
 
+    public Sprite defaultLetter;
+    public Sprite emptyLetter;
+
 
     protected override void Awake()
     {
@@ -678,12 +681,12 @@ public class Game : MonoBehaviourSingleton<Game>
     public void RestartGame()
     {
         mStickerFactory.ReturnAll();
+        letter.sprite = defaultLetter;
     }
 
     public void RestartGameAsFreeMode()
     {
-        //TODO change letter 
-
+        letter.sprite = emptyLetter;
         mStickerFactory.ReturnAll(); //clear stickers
 
         Cam.orthographicSize = defaultOrthoZoom;
