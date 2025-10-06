@@ -21,7 +21,7 @@ public class UISelectCover : MonoBehaviour
     void Start()
     {
         DestroyAllProps();
-        CreateRandomProps();
+        CreateProps(false);//TODO use random or fixed according to game mode
 
         //selectCoverPropTemplate.gameObject.SetActive(true);
         //for (int i = 0; i < selectPropTransList.Count; ++i)
@@ -44,7 +44,7 @@ public class UISelectCover : MonoBehaviour
         propList.Clear();
     }
 
-    private void CreateRandomProps()
+    private List<int> GetRandomIDList()
     {
         List<int> shuffleList = new List<int>();
         int maxNum = imageTable.images.Count;
@@ -53,31 +53,45 @@ public class UISelectCover : MonoBehaviour
             shuffleList.Add(i);
         }
         shuffleList.Shuffle<int>();
+        return shuffleList;
+    }
+
+    private List<int> GetFixedIDList()
+    {
+        //AceCombat 1 Chrono 6 BIO 4 FF7 8 Mario 12 undertale 14 poke 13 yoshi 15
+        return new List<int>() { 1, 6, 4, 8, 12, 14, 13, 15 };
+    }
+
+    private void CreateProps(bool useRandomID)
+    {
+        List<int> idList;
+        if (useRandomID)
+            idList = GetRandomIDList();
+        else
+            idList = GetFixedIDList();
 
         selectCoverPropTemplate.gameObject.SetActive(true);
         for (int i = 0; i < selectPropTransList.Count; ++i)
         {
             GameObject itemObj = Instantiate(selectCoverPropTemplate, selectPropTransList[i].transform);
             SelectCoverProp propScript = itemObj.GetComponent<SelectCoverProp>();
-            propScript.Init(imageTable.GetImageData(shuffleList[i]));
+            propScript.Init(imageTable.GetImageData(idList[i]));
             propList.Add(propScript);
         }
         selectCoverPropTemplate.gameObject.SetActive(false);
     }
 
-    public void RefreshPropsWithRandomImagePreProcessData()
+    public void RefreshProps(bool useRandomID)
     {
-        List<int> shuffleList = new List<int>();
-        int maxNum = imageTable.images.Count;
-        for (int i = 0; i < maxNum; ++i)
-        {
-            shuffleList.Add(i);
-        }
-        shuffleList.Shuffle<int>();
+        List<int> idList;
+        if (useRandomID)
+            idList = GetRandomIDList();
+        else
+            idList = GetFixedIDList();
 
         for (int i = 0; i < propList.Count; ++i)
         {
-            propList[i].Init(imageTable.GetImageData(shuffleList[i]));
+            propList[i].Init(imageTable.GetImageData(idList[i]));
         }
     }
 
@@ -85,7 +99,7 @@ public class UISelectCover : MonoBehaviour
     {
         //DestroyAllProps();
         //CreateRandomProps();
-        RefreshPropsWithRandomImagePreProcessData();
+        RefreshProps(false);//TODO use random or fixed according to game mode
 
         for (int i = 0; i < propList.Count; ++i)
         {
