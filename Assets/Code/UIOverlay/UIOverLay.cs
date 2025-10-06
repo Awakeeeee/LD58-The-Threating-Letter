@@ -1,3 +1,5 @@
+using Febucci.UI;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +17,12 @@ public class UIOverLay : MonoBehaviour
 
     public GameObject returnBtnForUICutter;//切图时用的返回按钮
     public Button returnBtn;
+
+    public GameObject tutorialDialougeRoot;//教程
+    public TextAnimator_TMP textAnimator;
+    public TypewriterByCharacter typeWriterScript;
+    public Button dialougeFinishBtn;
+    private Action dialougeCallbackCache;
 
     public void Start()
     {
@@ -72,6 +80,13 @@ public class UIOverLay : MonoBehaviour
             SFXManager.Instance.PlaySFX("sfx_fly");
             UIManager.Instance.OnReturnBtnClicked();
         });
+
+        tutorialDialougeRoot.gameObject.SetActive(false);
+        typeWriterScript.onTextShowed.AddListener(() => dialougeFinishBtn.gameObject.SetActive(true));
+        dialougeFinishBtn.onClick.AddListener(() =>
+        {
+            dialougeCallbackCache?.Invoke();
+        });
     }
 
     private void HideAllButton()
@@ -102,5 +117,19 @@ public class UIOverLay : MonoBehaviour
     {
         navigationBtnsRoot.gameObject.SetActive(true);
         returnBtnForUICutter.gameObject.SetActive(false);
+    }
+
+    public void ShowDialouge(string dialougeString, Action callback)
+    {
+        dialougeCallbackCache = callback;
+
+        tutorialDialougeRoot.gameObject.SetActive(true);
+        typeWriterScript.ShowText(dialougeString);
+        dialougeFinishBtn.gameObject.SetActive(false);
+    }
+
+    public void HideDialogue()
+    {
+        tutorialDialougeRoot.gameObject.SetActive(false);
     }
 }
