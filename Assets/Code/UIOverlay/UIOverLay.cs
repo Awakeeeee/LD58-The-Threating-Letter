@@ -13,7 +13,6 @@ public class UIOverLay : MonoBehaviour
     public Button right_gotoCollageBtn;//当前在左侧裁剪 前往拼贴
     public Button left_gotoCutCoverBtn;//当前在中间拼贴 前往左侧裁剪
     public Button right_gotoSendMailBtn;//当前在中间拼贴 前往右侧寄信
-    public Button left_gotoCollageBtn;//当前在寄信 前往拼贴
 
     public GameObject returnBtnForUICutter;//切图时用的返回按钮
     public Button returnBtn;
@@ -58,21 +57,7 @@ public class UIOverLay : MonoBehaviour
         {
             SFXManager.Instance.PlaySFX("sfx_fly");
             HideAllButton();
-            UIManager.Instance.ChangeToSendMail(() =>
-            {
-                left_gotoCollageBtn.gameObject.SetActive(true);
-            });
-        });
-        
-        left_gotoCollageBtn.onClick.AddListener(() =>
-        {
-            SFXManager.Instance.PlaySFX("sfx_fly");
-            HideAllButton();
-            UIManager.Instance.ChangeFromSendMailToCollage(() =>
-            {
-                left_gotoCutCoverBtn.gameObject.SetActive(true);
-                right_gotoSendMailBtn.gameObject.SetActive(false);
-            });
+            UIManager.Instance.ChangeToSendMail(null);
         });
 
         returnBtn.onClick.AddListener(() =>
@@ -94,7 +79,6 @@ public class UIOverLay : MonoBehaviour
         right_gotoCollageBtn.gameObject.SetActive(false);
         left_gotoCutCoverBtn.gameObject.SetActive(false);
         right_gotoSendMailBtn.gameObject.SetActive(false);
-        left_gotoCollageBtn.gameObject.SetActive(false);
     }
 
     public void HideAllTopBtns()
@@ -131,5 +115,13 @@ public class UIOverLay : MonoBehaviour
     public void HideDialogue()
     {
         tutorialDialougeRoot.gameObject.SetActive(false);
+    }
+
+    //把导航按钮设置成 Collage时的形式
+    public void SetTopBtnStateOfUICollage()
+    {
+        right_gotoCollageBtn.gameObject.SetActive(false);
+        left_gotoCutCoverBtn.gameObject.SetActive(true);
+        right_gotoSendMailBtn.gameObject.SetActive(false);
     }
 }

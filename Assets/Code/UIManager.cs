@@ -14,7 +14,7 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
     public GameObject knifeCutterRoot;
     public UISelectCover selectCoverUI;
     public UICollage collageUI;
-    public UISendMail sendMailUI;
+    public UISendMailConfirm sendMailConfirmUI;
     public UICollection collectionUI;
     public UIOverLay overLayUI;
     public UITitle titleUI;
@@ -35,7 +35,7 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 
         selectCoverUI.gameObject.SetActive(false);
         collageUI.gameObject.SetActive(false);
-        sendMailUI.gameObject.SetActive(false);
+        sendMailConfirmUI.gameObject.SetActive(false);
 
         collectionUI.gameObject.SetActive(false);
         overLayUI.gameObject.SetActive(false);
@@ -61,7 +61,7 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
         {
             selectCoverUI.gameObject.SetActive(false);
             collageUI.gameObject.SetActive(true);
-            sendMailUI.gameObject.SetActive(false);
+            sendMailConfirmUI.gameObject.SetActive(false);
 
             //selectCoverUI.transform.position = leftUIRef.position;
             //collageUI.transform.position = centerUIRef.position;
@@ -83,7 +83,7 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 
         selectCoverUI.gameObject.SetActive(true);
         collageUI.gameObject.SetActive(false);
-        sendMailUI.gameObject.SetActive(false);
+        sendMailConfirmUI.gameObject.SetActive(false);
 
         //selectCoverUI.transform.position = centerUIRef.position;
         selectCoverUI.InitEnterAnim();
@@ -102,15 +102,15 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 
         selectCoverUI.gameObject.SetActive(false);
         collageUI.gameObject.SetActive(false);
-        sendMailUI.gameObject.SetActive(true);
+        sendMailConfirmUI.gameObject.SetActive(true);
 
         //selectCoverUI.transform.position = leftUIRef.position;
         //collageUI.transform.position = leftUIRef.position;
         //sendMailUI.transform.position = centerUIRef.position;
-        sendMailUI.InitEnterAnim();
+        sendMailConfirmUI.InitEnterAnim();
         //sendMailUI.transform.DOMove(centerUIRef.position, 0.5f).SetEase(Ease.InOutSine).onComplete += () =>
         //{
-        sendMailUI.OnEnterAnim(HideGlobalMask);
+        sendMailConfirmUI.OnEnterAnim(HideGlobalMask);
         callback?.Invoke();
         //};
     }
@@ -119,16 +119,17 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
     {
         ShowGlobalMask();
 
-        selectCoverUI.gameObject.SetActive(false);
-        collageUI.gameObject.SetActive(true);
-        sendMailUI.gameObject.SetActive(false);
+        sendMailConfirmUI.OnExitAnim(() =>
+        {
+            selectCoverUI.gameObject.SetActive(false);
+            collageUI.gameObject.SetActive(true);
+            sendMailConfirmUI.gameObject.SetActive(false);
 
-        //selectCoverUI.transform.position = leftUIRef.position;
-        //collageUI.transform.position = centerUIRef.position;
-        HideGlobalMask();
-        callback?.Invoke();
-        //sendMailUI.transform.position = rightUIRef.position;
+            HideGlobalMask();
+            callback?.Invoke();
 
+            overLayUI.SetTopBtnStateOfUICollage();
+        });
     }
 
     public void ShowGlobalMask()
@@ -205,5 +206,15 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 
             TutorialManager.Instance.CheckAndStartTutorial(TutorialTypeEnum.EnterGameOutOfStock);
         });
+    }
+
+    public void OnReturnBtnOnSendMailClicked()
+    {
+        ChangeFromSendMailToCollage(null);
+    }
+
+    public void OnConfirmBtnOnSendMailClicked()
+    {
+        Debug.LogWarning("NotImplemented To SendMail");
     }
 }
