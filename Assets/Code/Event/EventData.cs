@@ -12,4 +12,5 @@ public class EvtArgs_ImageCut
 {
     public List<Vector2> contourPointsInTexture;
     public Sprite cutSprite;
+    public Vector3 wpos;
 }

@@ -353,7 +353,14 @@ public class Game : MonoBehaviourSingleton<Game>
         }
 
         CutImage result = EvaluateCut(data.contourPointsInTexture, imageData);
-        result.image = data.cutSprite; // 填充切出的图片
+        result.image = data.cutSprite;
+
+        int scoreLevel = 1;
+        if (result.score > 0.6f) scoreLevel = 3;
+        else if (result.score < 0.3f) scoreLevel = 1;
+        else scoreLevel = 2;
+        UIPopup.Instance.Show(scoreLevel, data.wpos);
+
         Debug.Log($"Cut Score Result: Success={result.success}, Score={result.score:F2}, MatchedMark={result.matchedMark?.text}");
 
         imageSource.sprite = imageData.GetRuntimeSprite();
@@ -463,7 +470,7 @@ public class Game : MonoBehaviourSingleton<Game>
         }
 
         result.score = unionPixels > 0 ? (float)intersectionPixels / unionPixels : 0f;
-        result.success = result.score > 0.5f; // TODO 评分标准
+        result.success = true;
 
         Debug.Log($"IoU Score: intersection={intersectionPixels}, union={unionPixels}, IoU={result.score:F3}");
 

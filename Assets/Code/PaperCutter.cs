@@ -51,6 +51,7 @@ public class PaperCutter : MonoBehaviour
     private Coroutine retreatCoroutine = null; // 跟踪回退协程
     private Vector2 lastDrawPosition; // 用于检测鼠标移动
     private bool isMouseMoving = false;
+    private Vector3 lastMouseWorldPosition; // 记录切图时鼠标的世界坐标位置
 
     public void Init()
     {
@@ -171,6 +172,9 @@ public class PaperCutter : MonoBehaviour
 
     private void UpdateDrawing(Vector2 screenPos)
     {
+        // Update mouse world position
+        lastMouseWorldPosition = ScreenToWorldPosition(screenPos);
+
         if (contourPoints.Count > 3 && Vector2.Distance(screenPos, startPoint) < closeLoopDistance)
         {
             EndDrawing(true);
@@ -516,7 +520,8 @@ public class PaperCutter : MonoBehaviour
         EvtArgs_ImageCut eventArgs = new EvtArgs_ImageCut
         {
             contourPointsInTexture = textureContour,
-            cutSprite = outputSprite
+            cutSprite = outputSprite,
+            wpos = lastMouseWorldPosition
         };
         Utils.EventManager.TriggerEvent(GameEvent.OnCutComplete, eventArgs);
     }
