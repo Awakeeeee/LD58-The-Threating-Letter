@@ -5,7 +5,7 @@ using TMPro;
 using Coffee.UIEffects;
 using Utils;
 
-public class CylindricalItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+public class CylindricalItem : MonoBehaviour, IPointerClickHandler
 {
     [Header("UI组件")]
     [SerializeField] private Image itemImage;
@@ -22,7 +22,7 @@ public class CylindricalItem : MonoBehaviour, IPointerEnterHandler, IPointerExit
     public void Initialize(int index, CutImage cutImage, System.Action<int, CutImage> clickCallback)
     {
         cutImageCache = cutImage;
-        imageArea.InitCutImageCache(cutImage);
+        imageArea.InitCutImageCache(this, cutImage);
 
         Sprite icon = cutImage.image;
         string title = cutImage.matchedMark?.text;
@@ -31,7 +31,10 @@ public class CylindricalItem : MonoBehaviour, IPointerEnterHandler, IPointerExit
         onItemClick = clickCallback;
 
         if (itemImage != null && icon != null)
+        {
             itemImage.sprite = icon;
+            itemImage.alphaHitTestMinimumThreshold = 0.2f;
+        }
 
         if (itemText != null)
             itemText.text = title;
@@ -70,22 +73,5 @@ public class CylindricalItem : MonoBehaviour, IPointerEnterHandler, IPointerExit
         SetSelected(isCenter);
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        uiEffect.colorFilter = ColorFilter.MultiplyAdditive;
-        uiEffect.colorIntensity = 1;
-        //effectOnCoverImage.edgeMode = EdgeMode.Plain;
-        uiEffect.shadowMode = ShadowMode.Outline8;
 
-        //transform.localScale = Vector3.one * 1.05f;
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        uiEffect.colorFilter = ColorFilter.None;
-        //uiEffect.edgeMode = EdgeMode.None;
-        uiEffect.shadowMode = ShadowMode.None;
-
-        //transform.localScale = Vector3.one;
-    }
 }
