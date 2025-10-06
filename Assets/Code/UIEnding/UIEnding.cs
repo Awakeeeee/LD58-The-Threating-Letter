@@ -25,6 +25,8 @@ public class UIEnding : MonoBehaviour
     public Image letterImg;
 
     public Button btnSave;
+    private Tween sfxTween1;
+    private Tween sfxTween2;
 
     void Start()
     {
@@ -32,6 +34,8 @@ public class UIEnding : MonoBehaviour
 
         btnSave.onClick.AddListener(() =>
         {
+            SFXManager.Instance.PlaySFX("sfx_screenshot");
+
             string timestamp = System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
             string filename = $"letter_{timestamp}";
             UtilFunction.TransferSpriteToPNG(Game.Instance.FinalLetter, defualtFileName: filename, useDownloadForWebGL: true);
@@ -49,6 +53,26 @@ public class UIEnding : MonoBehaviour
         underBlackScreenRoot.gameObject.SetActive(false);
         blackScreenImage.gameObject.SetActive(true);
         blackScreenImage.color = Color.clear;
+
+        ClearSfxTween();
+
+        sfxTween1 = DOVirtual.DelayedCall(2f, () =>
+        {
+            SFXManager.Instance.PlaySFX("sfx_hmm");
+        });
+
+        int idx = UnityEngine.Random.Range(1, 3);
+        string name = "sfx_scream_" + idx.ToString("0");
+        sfxTween2 = DOVirtual.DelayedCall(4f, () =>
+        {
+            SFXManager.Instance.PlaySFX(name);
+        });
+    }
+
+    private void ClearSfxTween()
+    {
+        if (sfxTween1 != null) sfxTween1.Kill();
+        if (sfxTween2 != null) sfxTween2.Kill();
     }
 
     public void OnEnterAnim(Action finishCallback = null)
@@ -107,6 +131,8 @@ public class UIEnding : MonoBehaviour
 
     public void OnExitAnim(Action onBlackScreenFadInCallback, Action onBlackScreenFadeOutCallback)
     {
+        ClearSfxTween();
+
         blackScreenImage.DOColor(Color.black, 0.5f).onComplete += () =>
         {
             underBlackScreenRoot.gameObject.SetActive(false);
