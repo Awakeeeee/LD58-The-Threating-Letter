@@ -41,6 +41,7 @@ public class Game : MonoBehaviourSingleton<Game>
     private List<Sticker> mLetterStickers;
     private Sticker currentDraggingSticker;
     private int nextStickerSortingOrder;
+    private const int DraggingSortingOrderOffset = 100;
 
 
     protected override void Awake()
@@ -73,6 +74,7 @@ public class Game : MonoBehaviourSingleton<Game>
     {
         if (CurrentMode == GameMode.Free)
         {
+            HandleStickerPickup();
             HandleCameraDrag();
             HandleCameraZoom();
         }
@@ -80,6 +82,65 @@ public class Game : MonoBehaviourSingleton<Game>
         {
             HandleStickerDrag();
         }
+    }
+
+    private void HandleStickerPickup()
+    {
+        if (UnityEngine.InputSystem.Mouse.current == null) return;
+
+        // Check for left button press
+        if (UnityEngine.InputSystem.Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            Vector2 screenPos = UnityEngine.InputSystem.Pointer.current.position.ReadValue();
+            Vector3 worldPos = UtilFunction.ScreenToWorldPosition(screenPos, Cam);
+
+            // Check if clicking on a placed sticker
+            Sticker clickedSticker = GetStickerAtPosition(worldPos);
+            if (clickedSticker != null)
+            {
+                StartAdjustingSticker(clickedSticker);
+            }
+        }
+    }
+
+    private Sticker GetStickerAtPosition(Vector3 worldPos)
+    {
+        // Check stickers in reverse order (top to bottom)
+        for (int i = mLetterStickers.Count - 1; i >= 0; i--)
+        {
+            Sticker sticker = mLetterStickers[i];
+            if (sticker != null && sticker.mainTex != null)
+            {
+                Bounds bounds = sticker.mainTex.bounds;
+                if (bounds.Contains(worldPos))
+                {
+                    return sticker;
+                }
+            }
+        }
+        return null;
+    }
+
+    private void StartAdjustingSticker(Sticker sticker)
+    {
+        if (sticker == null) return;
+
+        Debug.Log("Start adjusting sticker");
+
+        // Remove from placed list
+        mLetterStickers.Remove(sticker);
+
+        // Set as current dragging sticker
+        currentDraggingSticker = sticker;
+        currentDraggingSticker.ResetToDragging();
+
+        // Set high sorting order while dragging
+        currentDraggingSticker.mainTex.sortingOrder = letter.sortingOrder + DraggingSortingOrderOffset;
+
+        // Switch to sticking mode
+        SwitchMode(GameMode.Sticking);
+
+        // Position will be updated in HandleStickerDrag
     }
 
     private void HandleCameraDrag()
@@ -452,7 +513,7 @@ public class Game : MonoBehaviourSingleton<Game>
         }
 
         // Close the collection UI
-        UIManager.Instance.collectionUI.OnCloseBtnClicked();
+        //UIManager.Instance.collectionUI.OnCloseBtnClicked();
 
         // Switch to sticking mode
         SwitchMode(GameMode.Sticking);
@@ -460,6 +521,9 @@ public class Game : MonoBehaviourSingleton<Game>
         // Create sticker
         currentDraggingSticker = mStickerFactory.Get();
         currentDraggingSticker.Init(data);
+
+        // Set high sorting order while dragging
+        currentDraggingSticker.mainTex.sortingOrder = letter.sortingOrder + DraggingSortingOrderOffset;
 
         // Set initial position to mouse
         Vector2 screenPos = UnityEngine.InputSystem.Pointer.current.position.ReadValue();

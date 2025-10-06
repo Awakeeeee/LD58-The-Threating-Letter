@@ -37,6 +37,11 @@ public class Sticker : MonoBehaviour, IPoolObject
         anim.SetTrigger("stick");
     }
 
+    public void ResetToDragging()
+    {
+        State = StickerState.Dragging;
+    }
+
     public void AnimEvtOnStick()
     {
         SFXManager.Instance.PlaySFX(@"sfx_stick");
