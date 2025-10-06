@@ -487,9 +487,9 @@ public class Game : MonoBehaviourSingleton<Game>
     }
 
     [Button(ButtonSizes.Large)]
-    private void TestScreenCapture()
+    private void TestLetterCapture()
     {
-        UtilFunction.CaptureSpriteRendererToPNG(imageSource, @"test_screenshot", true, 50);
+        UtilFunction.CaptureCompositeSceneToPNG(letterRoot, Cam, @"letter_screenshot", true, 20);
     }
 
     public RectTransform GetCollectionUI()

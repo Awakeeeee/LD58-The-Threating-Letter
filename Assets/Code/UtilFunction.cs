@@ -250,6 +250,91 @@ public class UtilFunction : MonoBehaviour
         SavePNGData(pngData, defaultFileName, useDownloadForWebGL);
     }
 
+    public static void CaptureCompositeSceneToPNG(Transform root, Camera camera, string defaultFileName = "screenshot", bool useDownloadForWebGL = true, int borderWidth = 0)
+    {
+        if (root == null)
+        {
+            Debug.LogWarning("UtilFunction: Root transform is null");
+            return;
+        }
+
+        if (camera == null)
+        {
+            camera = Camera.main;
+        }
+
+        if (camera == null)
+        {
+            Debug.LogWarning("UtilFunction: Camera not found");
+            return;
+        }
+
+        // Collect all sprite renderers
+        SpriteRenderer[] spriteRenderers = root.GetComponentsInChildren<SpriteRenderer>();
+        if (spriteRenderers.Length == 0)
+        {
+            Debug.LogWarning("UtilFunction: No sprite renderers found");
+            return;
+        }
+
+        // Calculate bounds
+        Bounds totalBounds = spriteRenderers[0].bounds;
+        foreach (var sr in spriteRenderers)
+        {
+            totalBounds.Encapsulate(sr.bounds);
+        }
+
+        // Calculate camera settings
+        Vector3 center = totalBounds.center;
+        float height = totalBounds.size.y;
+        float width = totalBounds.size.x;
+
+        // Create temporary camera
+        GameObject tempCamObj = new GameObject("TempScreenshotCamera");
+        Camera tempCam = tempCamObj.AddComponent<Camera>();
+        tempCam.CopyFrom(camera);
+        tempCam.orthographic = true;
+        tempCam.orthographicSize = height / 2f;
+        tempCam.transform.position = new Vector3(center.x, center.y, camera.transform.position.z);
+        tempCam.clearFlags = CameraClearFlags.SolidColor;
+        tempCam.backgroundColor = new Color(0, 0, 0, 0);
+
+        // Calculate render texture size
+        int textureWidth = Mathf.CeilToInt(width * 100); // pixels per unit
+        int textureHeight = Mathf.CeilToInt(height * 100);
+
+        // Create render texture
+        RenderTexture rt = new RenderTexture(textureWidth, textureHeight, 24, RenderTextureFormat.ARGB32);
+        rt.antiAliasing = 1;
+        tempCam.targetTexture = rt;
+
+        // Render
+        tempCam.Render();
+
+        // Read pixels from render texture
+        RenderTexture.active = rt;
+        Texture2D captureTexture = new Texture2D(textureWidth, textureHeight, TextureFormat.RGBA32, false);
+        captureTexture.ReadPixels(new Rect(0, 0, textureWidth, textureHeight), 0, 0);
+        captureTexture.Apply();
+        RenderTexture.active = null;
+
+        // Cleanup
+        tempCam.targetTexture = null;
+        Object.Destroy(tempCamObj);
+        Object.Destroy(rt);
+
+        // Add border if needed
+        if (borderWidth > 0)
+        {
+            captureTexture = AddBorderToTexture(captureTexture, borderWidth, Color.white);
+        }
+
+        byte[] pngData = captureTexture.EncodeToPNG();
+        Object.Destroy(captureTexture);
+
+        SavePNGData(pngData, defaultFileName, useDownloadForWebGL);
+    }
+
     public static void CaptureImageToPNG(Image img, string defaultFileName = "screenshot", bool useDownloadForWebGL = true, int borderWidth = 0)
     {
         if (img == null || img.sprite == null)
