@@ -87,7 +87,11 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 
             Game.Instance.ResetZoom();
             selectCoverUI.InitEnterAnim();
-            selectCoverUI.OnEnterAnim(HideGlobalMask);
+            selectCoverUI.OnEnterAnim( () =>
+            {
+                HideGlobalMask();
+                TutorialManager.Instance.CheckAndStartTutorial(TutorialTypeEnum.EnterSelectCover);
+            });
             callback?.Invoke();
         });
     }
@@ -150,6 +154,8 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 
         //collectionUI.gameObject.SetActive(false);
         overLayUI.ShowReturnBtn();
+
+        TutorialManager.Instance.CheckAndStartTutorial(TutorialTypeEnum.EnterKnifeCutter);
     }
 
     public void OnReturnBtnInKnifeCutterClicked()

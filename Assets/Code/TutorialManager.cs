@@ -19,7 +19,14 @@ public class TutorialManager : MonoBehaviourSingleton<TutorialManager>
         {
             StartEnterGameOutOfStockTutorial();
         }
-        //else if()
+        else if (targetTutorialType == TutorialTypeEnum.EnterSelectCover)
+        {
+            StartEnterSelectCover();
+        }
+        else if (targetTutorialType == TutorialTypeEnum.EnterKnifeCutter)
+        {
+            StartEnterKnifeCutterTutorial();
+        }
     }
 
     public void FinishTutorial(TutorialTypeEnum targetTutorialType)
@@ -35,12 +42,30 @@ public class TutorialManager : MonoBehaviourSingleton<TutorialManager>
     {
         UIManager.Instance.overLayUI.ShowDialouge("Those <shake>***</shake> is destroying my precious. I need to stop them.", () =>
         {
-            UIManager.Instance.overLayUI.ShowDialouge("Oh no. I have used up all my letter pieces of <bounce><color=#FFFF00>O</color></bounce> and <bounce><color=#FFFF00>R</color></bounce>. Let me see where I might be able to find more.",
+            UIManager.Instance.overLayUI.ShowDialouge("Oh no. I have used up all my letter pieces of <bounce><color=#FFFF00>O</color></bounce> and <bounce><color=#FFFF00>R</color></bounce>. I need to collect some more",
                 () =>
                 {
                     UIManager.Instance.overLayUI.HideDialogue();
                     FinishTutorial(TutorialTypeEnum.EnterGameOutOfStock);
                 });
+        });
+    }
+
+    private void StartEnterSelectCover()
+    {
+        UIManager.Instance.overLayUI.ShowDialouge("Only some game packages here. I have no choice.", () =>
+        {
+            UIManager.Instance.overLayUI.HideDialogue();
+            FinishTutorial(TutorialTypeEnum.EnterGameOutOfStock);
+        });
+    }
+
+    private void StartEnterKnifeCutterTutorial()
+    {
+        UIManager.Instance.overLayUI.ShowDialouge("Hold Mouse right button to move around. Scroll wheel to zoom in and out. Left button to cut", () =>
+        {
+            UIManager.Instance.overLayUI.HideDialogue();
+            FinishTutorial(TutorialTypeEnum.EnterKnifeCutter);
         });
     }
 }
@@ -49,4 +74,6 @@ public enum TutorialTypeEnum
 {
     None = 0,
     EnterGameOutOfStock = 1,//刚进入游戏 “我用完了所有的库存” 可能后续不是第一个？
+    EnterSelectCover = 2,//I only have game cover
+    EnterKnifeCutter = 3//introducing mouse control
 }
