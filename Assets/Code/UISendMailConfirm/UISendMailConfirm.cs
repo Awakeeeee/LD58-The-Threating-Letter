@@ -27,13 +27,13 @@ public class UISendMailConfirm : MonoBehaviour
 
         returnButton.onClick.AddListener(() =>
         {
-            SFXManager.Instance.PlaySFX("sfx_fly");
+            SFXManager.Instance.PlaySFX(CommonSFX.button);
             UIManager.Instance.OnReturnBtnOnSendMailClicked();
         });
 
         confirmButton.onClick.AddListener(() =>
         {
-            SFXManager.Instance.PlaySFX("sfx_fly");
+            SFXManager.Instance.PlaySFX(CommonSFX.button);
             UIManager.Instance.OnConfirmBtnOnSendMailClicked();
         });
     }

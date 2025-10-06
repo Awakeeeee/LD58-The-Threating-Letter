@@ -19,3 +19,8 @@ public enum GameMode
     Free, //左键切图 右键移动 滚轮缩放
     Sticking,
 }
+
+public class CommonSFX
+{
+    public static string button = "sfx_button";
+}

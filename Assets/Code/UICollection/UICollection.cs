@@ -38,7 +38,7 @@ public class UICollection : MonoBehaviour
 
     public void OnCloseBtnClicked()
     {
-        SFXManager.Instance.PlaySFX("sfx_fly");
+        SFXManager.Instance.PlaySFX("sfx_button");
 
         isOpen = false;
         UIManager.Instance.ShowGlobalMask();
@@ -57,7 +57,7 @@ public class UICollection : MonoBehaviour
 
     private void OnOpenBtnClicked()
     {
-        SFXManager.Instance.PlaySFX("sfx_fly");
+        SFXManager.Instance.PlaySFX(CommonSFX.button);
 
         isOpen = true;
         propManager.Show();

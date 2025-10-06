@@ -10,14 +10,14 @@ public class UIOverLay : MonoBehaviour
     public GameObject topBtnRoot;
 
     public GameObject navigationBtnsRoot;
-    public Button right_gotoCollageBtn;//µ±Ç°ÔÚ×ó²à²Ã¼ô Ç°ÍùÆ´Ìù
-    public Button left_gotoCutCoverBtn;//µ±Ç°ÔÚÖÐ¼äÆ´Ìù Ç°Íù×ó²à²Ã¼ô
-    public Button right_gotoSendMailBtn;//µ±Ç°ÔÚÖÐ¼äÆ´Ìù Ç°ÍùÓÒ²à¼ÄÐÅ
+    public Button right_gotoCollageBtn;//ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ Ç°ï¿½ï¿½Æ´ï¿½ï¿½
+    public Button left_gotoCutCoverBtn;//ï¿½ï¿½Ç°ï¿½ï¿½ï¿½Ð¼ï¿½Æ´ï¿½ï¿½ Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½
+    public Button right_gotoSendMailBtn;//ï¿½ï¿½Ç°ï¿½ï¿½ï¿½Ð¼ï¿½Æ´ï¿½ï¿½ Ç°ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½
 
-    public GameObject returnBtnForUICutter;//ÇÐÍ¼Ê±ÓÃµÄ·µ»Ø°´Å¥
+    public GameObject returnBtnForUICutter;//ï¿½ï¿½Í¼Ê±ï¿½ÃµÄ·ï¿½ï¿½Ø°ï¿½Å¥
     public Button returnBtn;
 
-    public GameObject tutorialDialougeRoot;//½Ì³Ì
+    public GameObject tutorialDialougeRoot;//ï¿½Ì³ï¿½
     public TextAnimator_TMP textAnimator;
     public TypewriterByCharacter typeWriterScript;
     public Button dialougeFinishBtn;
@@ -30,11 +30,11 @@ public class UIOverLay : MonoBehaviour
 
         HideAllButton();
         left_gotoCutCoverBtn.gameObject.SetActive(true);
-        right_gotoSendMailBtn.gameObject.SetActive(true);//TODO ¸ù¾ÝÊÇ·ñÒÑ¾­Æ´ÌùÁËÒ»Ð©
+        right_gotoSendMailBtn.gameObject.SetActive(true);//TODO ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Ñ¾ï¿½Æ´ï¿½ï¿½ï¿½ï¿½Ò»Ð©
 
         right_gotoCollageBtn.onClick.AddListener(() =>
         {
-            SFXManager.Instance.PlaySFX("sfx_fly");
+            SFXManager.Instance.PlaySFX(CommonSFX.button);
             HideAllButton();
             UIManager.Instance.ChangeFromSelectCoverToCollage(() =>
             {
@@ -45,7 +45,7 @@ public class UIOverLay : MonoBehaviour
 
         left_gotoCutCoverBtn.onClick.AddListener(() =>
         {
-            SFXManager.Instance.PlaySFX("sfx_fly");
+            SFXManager.Instance.PlaySFX(CommonSFX.button);
             HideAllButton();
             UIManager.Instance.ChangeToSelectCover(() =>
             {
@@ -55,14 +55,14 @@ public class UIOverLay : MonoBehaviour
 
         right_gotoSendMailBtn.onClick.AddListener(() =>
         {
-            SFXManager.Instance.PlaySFX("sfx_fly");
+            SFXManager.Instance.PlaySFX(CommonSFX.button);
             HideAllButton();
             UIManager.Instance.ChangeToSendMail(null);
         });
 
         returnBtn.onClick.AddListener(() =>
         {
-            SFXManager.Instance.PlaySFX("sfx_fly");
+            SFXManager.Instance.PlaySFX(CommonSFX.button);
             UIManager.Instance.OnReturnBtnInKnifeCutterClicked();
         });
 
@@ -117,7 +117,7 @@ public class UIOverLay : MonoBehaviour
         tutorialDialougeRoot.gameObject.SetActive(false);
     }
 
-    //°Ñµ¼º½°´Å¥ÉèÖÃ³É CollageÊ±µÄÐÎÊ½
+    //ï¿½Ñµï¿½ï¿½ï¿½ï¿½ï¿½Å¥ï¿½ï¿½ï¿½Ã³ï¿½ CollageÊ±ï¿½ï¿½ï¿½ï¿½Ê½
     public void SetTopBtnStateOfUICollage()
     {
         right_gotoCollageBtn.gameObject.SetActive(false);

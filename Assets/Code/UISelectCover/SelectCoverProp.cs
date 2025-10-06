@@ -56,11 +56,11 @@ public class SelectCoverProp : MonoBehaviour, IPointerEnterHandler, IPointerExit
         //if (dataCache.runtimeTexture != null)
         //{
         //    Texture2D texture = dataCache.runtimeTexture;
-        //    // ½«Texture2D×ª»»ÎªSprite
+        //    // ï¿½ï¿½Texture2D×ªï¿½ï¿½ÎªSprite
         //    dynamicSprite = Sprite.Create(
         //        texture,
-        //        new Rect(0, 0, texture.width, texture.height), // ÉèÖÃ¾ØÐÎÇøÓòÎªÕû¸öÎÆÀí
-        //        new Vector2(0.5f, 0.5f) // ÉèÖÃÖáÐÄµãÎªÖÐÐÄ£¬Äã¿ÉÒÔ°´Ðèµ÷Õû
+        //        new Rect(0, 0, texture.width, texture.height), // ï¿½ï¿½ï¿½Ã¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        //        new Vector2(0.5f, 0.5f) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½Îªï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½ï¿½ï¿½Ô°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         //    );
         //    coverImage.sprite = dynamicSprite;
         //}
@@ -70,14 +70,14 @@ public class SelectCoverProp : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        SFXManager.Instance.PlaySFX("sfx_fly");
+        SFXManager.Instance.PlaySFX(CommonSFX.button);
         OnPointerExit(eventData);
         UIManager.Instance.OnSelectCoverPropClicked(dataCache);
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        //RuntimeSprite Ê¹ÓÃ MultiplyAdditive »áÓÐÎÊÌâ ËãÁËËãÁË
+        //RuntimeSprite Ê¹ï¿½ï¿½ MultiplyAdditive ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         //effectOnCoverImage_GBA.colorFilter = ColorFilter.MultiplyAdditive;
         //effectOnCoverImage_GBA.colorIntensity = 0.5f;
         //effectOnCoverImage_GBA.shadowMode = ShadowMode.Outline8;

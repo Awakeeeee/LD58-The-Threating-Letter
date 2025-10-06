@@ -30,7 +30,7 @@ public class UITitle : MonoBehaviour
 
         startButton.onClick.AddListener(() =>
         {
-            SFXManager.Instance.PlaySFX("sfx_fly");
+            SFXManager.Instance.PlaySFX(CommonSFX.button);
             UIManager.Instance.OnStartClicked();
         });
     }
