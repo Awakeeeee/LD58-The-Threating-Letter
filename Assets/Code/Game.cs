@@ -670,6 +670,15 @@ public class Game : MonoBehaviourSingleton<Game>
     public void RestartGameAsFreeMode()
     {
         //TODO clear cache / change letter 
+
+        Cam.orthographicSize = defaultOrthoZoom;
+        CutCollection.Clear();
+        mLetterStickers.Clear();
+        CurrentMode = GameMode.Free;
+        //letter
+        nextStickerSortingOrder = letter.sortingOrder + 1;
+        cutter.Init();
+        imageTable.DiscardAllRuntimeTexture();
     }
 }
 
