@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 [System.Serializable]
@@ -12,6 +13,7 @@ public class ImagePreprocessData : ScriptableObject
 
     public string title;
 
+    [PreviewField]
     public Sprite image;
 
     public List<CharacterMark> characters;

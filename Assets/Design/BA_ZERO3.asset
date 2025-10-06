@@ -17,6 +17,76 @@ MonoBehaviour:
   title: BA_ZERO3
   image: {fileID: 21300000, guid: 2a77817a1a5d2764490150368ff89156, type: 3}
   characters:
+  - text: g
+    editorNote: g_in_gameday
+    pivot: {x: 106.94184, y: 80.28516}
+    min: {x: 63, y: 45.3}
+    max: {x: 151.9, y: 106}
+  - text: a
+    editorNote: a_in_gameday_1
+    pivot: {x: 106.94184, y: 140.3227}
+    min: {x: 65.6, y: 111.1}
+    max: {x: 153.1, y: 169.9}
+  - text: m
+    editorNote: m_in_gameday
+    pivot: {x: 110.69418, y: 211.61725}
+    min: {x: 65.9, y: 177.9}
+    max: {x: 150.1, y: 253.7}
+  - text: e
+    editorNote: e_in_gameday
+    pivot: {x: 108.818016, y: 284.78796}
+    min: {x: 67.6, y: 260.8}
+    max: {x: 151.6, y: 304.78796}
+  - text: d
+    editorNote: d_in_gameday
+    pivot: {x: 110.69418, y: 344.8255}
+    min: {x: 67.9, y: 312.4}
+    max: {x: 152.1, y: 370.6}
+  - text: a
+    editorNote: a_in_gameday_2
+    pivot: {x: 110.69418, y: 408.61536}
+    min: {x: 65.8, y: 375.2}
+    max: {x: 154.9, y: 430.5}
+  - text: y
+    editorNote: y_in_gameday
+    pivot: {x: 105.06567, y: 464.90057}
+    min: {x: 68.3, y: 434}
+    max: {x: 153.5, y: 488.6}
+  - text: a
+    editorNote: a_in_advance_1
+    pivot: {x: 110.69418, y: 532.44275}
+    min: {x: 83.6, y: 501.4}
+    max: {x: 140.5, y: 552.44275}
+  - text: d
+    editorNote: d_in_advance
+    pivot: {x: 108.818016, y: 592.4803}
+    min: {x: 77.9, y: 563.8}
+    max: {x: 143.5, y: 622.7}
+  - text: v
+    editorNote: v_in_advance
+    pivot: {x: 105.06567, y: 658.14636}
+    min: {x: 76.7, y: 629.3}
+    max: {x: 137.9, y: 680.8}
+  - text: a
+    editorNote: a_in_advance_2
+    pivot: {x: 112.57036, y: 718.18384}
+    min: {x: 81.1, y: 688.5}
+    max: {x: 139.8, y: 740.8}
+  - text: n
+    editorNote: n_in_advance
+    pivot: {x: 108.818016, y: 781.97375}
+    min: {x: 76.2, y: 752.1}
+    max: {x: 139.5, y: 810.2}
+  - text: c
+    editorNote: c_in_advance
+    pivot: {x: 110.69418, y: 853.2683}
+    min: {x: 78.1, y: 821}
+    max: {x: 141.3, y: 876.8}
+  - text: e
+    editorNote: e_in_davance
+    pivot: {x: 108.818016, y: 915.182}
+    min: {x: 66.2, y: 886}
+    max: {x: 145.6, y: 945.4}
   - text: r
     editorNote: r_in_zero
     pivot: {x: 704.698, y: 921.9866}

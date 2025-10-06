@@ -17,6 +17,71 @@ MonoBehaviour:
   title: BA_Undertale
   image: {fileID: 21300000, guid: 56f008cca3be2694c84e8f381709bcd4, type: 3}
   characters:
+  - text: p
+    editorNote: p_in_play
+    pivot: {x: 32.258064, y: 970.2366}
+    min: {x: 19.5, y: 946.6}
+    max: {x: 49.5, y: 994.3}
+  - text: l
+    editorNote: l_in_play
+    pivot: {x: 60.483868, y: 970.2366}
+    min: {x: 53.5, y: 946.4}
+    max: {x: 66.1, y: 996}
+  - text: a
+    editorNote: a_in_play
+    pivot: {x: 81.98924, y: 962.17206}
+    min: {x: 68.9, y: 945.9}
+    max: {x: 96.5, y: 982.17206}
+  - text: y
+    editorNote: y_in_play
+    pivot: {x: 115.59139, y: 962.17206}
+    min: {x: 100.1, y: 935.1}
+    max: {x: 129.9, y: 981.7}
+  - text: s
+    editorNote: s_in_stadium
+    pivot: {x: 145.16129, y: 970.2366}
+    min: {x: 129.6, y: 944.6}
+    max: {x: 159.7, y: 996.1}
+  - text: t
+    editorNote: t_in_stadiuim
+    pivot: {x: 172.043, y: 968.89246}
+    min: {x: 161.5, y: 945.5}
+    max: {x: 183, y: 988.89246}
+  - text: a
+    editorNote: a_in_stadium
+    pivot: {x: 198.92473, y: 964.8602}
+    min: {x: 184.4, y: 945.7}
+    max: {x: 211.4, y: 984.8602}
+  - text: d
+    editorNote: d_in_stadium
+    pivot: {x: 231.28743, y: 964.8683}
+    min: {x: 217.1, y: 947.1}
+    max: {x: 248.3, y: 998}
+  - text: i
+    editorNote: i_in_stadium
+    pivot: {x: 257.48505, y: 965.61676}
+    min: {x: 252.2, y: 947.2}
+    max: {x: 264.1, y: 995.3}
+  - text: u
+    editorNote: u_in_stadium
+    pivot: {x: 282.93414, y: 965.61676}
+    min: {x: 268.6, y: 946.6}
+    max: {x: 298.5, y: 981.7}
+  - text: m
+    editorNote: m_in_stadium
+    pivot: {x: 327.09583, y: 964.11975}
+    min: {x: 304, y: 946.1}
+    max: {x: 351.6, y: 983.3}
+  - text: x
+    editorNote: x_in_x
+    pivot: {x: 372.7545, y: 969.35925}
+    min: {x: 357, y: 946.8}
+    max: {x: 390.5, y: 994.2}
+  - text: p
+    editorNote: p_in_p
+    pivot: {x: 622.006, y: 975.3473}
+    min: {x: 594.2, y: 930.9}
+    max: {x: 653.6, y: 1013.8}
   - text: r
     editorNote: r_in_under
     pivot: {x: 346.30872, y: 559.57043}
