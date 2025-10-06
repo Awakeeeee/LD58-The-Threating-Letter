@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BA_BIO2
   m_EditorClassIdentifier: 
   ID: 4
+  isSquareBox: 0
   title: BA_BIO2
   image: {fileID: 21300000, guid: 31a64b115eb698a4c9df5ec475dfaa46, type: 3}
   characters:
@@ -31,3 +32,43 @@ MonoBehaviour:
     pivot: {x: 438.81116, y: 223.30072}
     min: {x: 417.8, y: 152.3}
     max: {x: 463.7, y: 283.2}
+  - text: b
+    editorNote: b_in_bio
+    pivot: {x: 45.26167, y: 219.19098}
+    min: {x: 18.6, y: 150.9}
+    max: {x: 71.7, y: 281.5}
+  - text: i
+    editorNote: i_in_bio
+    pivot: {x: 89.10891, y: 224.8487}
+    min: {x: 76, y: 152.1}
+    max: {x: 104.3, y: 283.9}
+  - text: h
+    editorNote: h_in_harmony
+    pivot: {x: 196.60538, y: 220.60541}
+    min: {x: 170.2, y: 152.1}
+    max: {x: 223, y: 283.7}
+  - text: a
+    editorNote: a_in_harmony
+    pivot: {x: 256.01132, y: 220.60541}
+    min: {x: 231.9, y: 152.9}
+    max: {x: 282.6, y: 283.2}
+  - text: m
+    editorNote: m_in_harmony
+    pivot: {x: 377.65204, y: 222.01984}
+    min: {x: 345.9, y: 150.7}
+    max: {x: 409.8, y: 284.7}
+  - text: n
+    editorNote: n_in_harmony
+    pivot: {x: 495.0495, y: 223.43427}
+    min: {x: 471.1, y: 152.3}
+    max: {x: 520.6, y: 283.7}
+  - text: y
+    editorNote: y_in_harmony
+    pivot: {x: 551.6266, y: 224.8487}
+    min: {x: 528.5, y: 153.3}
+    max: {x: 577.8, y: 284.3}
+  - text: 2
+    editorNote: 2_in_2
+    pivot: {x: 626.5912, y: 220.60541}
+    min: {x: 598.4, y: 155.3}
+    max: {x: 654, y: 287.8}

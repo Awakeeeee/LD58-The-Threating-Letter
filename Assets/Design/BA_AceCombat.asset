@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BA_AceCombat
   m_EditorClassIdentifier: 
   ID: 1
+  isSquareBox: 0
   title: BA_AceCombat
   image: {fileID: 21300000, guid: 845eafd8a04ff1d43b968c8139179b87, type: 3}
   characters:
@@ -36,3 +37,98 @@ MonoBehaviour:
     pivot: {x: 642, y: 830}
     min: {x: 628.6, y: 813.5}
     max: {x: 659.3, y: 844.3}
+  - text: a
+    editorNote: a_in_air
+    pivot: {x: 79.908676, y: 871.032}
+    min: {x: 46.4, y: 845.9}
+    max: {x: 111, y: 898}
+  - text: i
+    editorNote: i_in_air
+    pivot: {x: 126.67947, y: 873.6481}
+    min: {x: 110.3, y: 846.2}
+    max: {x: 140.4, y: 899.1}
+  - text: c
+    editorNote: c_in_combat
+    pivot: {x: 252.07935, y: 875.5675}
+    min: {x: 221.8, y: 846.8}
+    max: {x: 277.5, y: 901.9}
+  - text: m
+    editorNote: m_in_combat
+    pivot: {x: 370.44147, y: 873.0083}
+    min: {x: 339.7, y: 846.9}
+    max: {x: 406.5, y: 899}
+  - text: b
+    editorNote: b_in_combat
+    pivot: {x: 435.7006, y: 873.6481}
+    min: {x: 412.1, y: 847.2}
+    max: {x: 461.1, y: 899.5}
+  - text: a
+    editorNote: a_in_combat
+    pivot: {x: 492.64236, y: 873.0083}
+    min: {x: 462.8, y: 847.3}
+    max: {x: 516.8, y: 898.6}
+  - text: t
+    editorNote: t_in_combat
+    pivot: {x: 547.02496, y: 873.0083}
+    min: {x: 520.3, y: 847.6}
+    max: {x: 573, y: 899.6}
+  - text: 5
+    editorNote: 5_in_5
+    pivot: {x: 619.9616, y: 873.6481}
+    min: {x: 595.1, y: 845.8}
+    max: {x: 646.2, y: 898.7}
+  - text: t
+    editorNote: t_in_the
+    pivot: {x: 42.866283, y: 829.5022}
+    min: {x: 28.3, y: 814.2}
+    max: {x: 57.2, y: 843.1}
+  - text: h
+    editorNote: h_in_the
+    pivot: {x: 95.3295, y: 830.78186}
+    min: {x: 80.5, y: 814.5}
+    max: {x: 109.1, y: 844.1}
+  - text: e
+    editorNote: e_in_the
+    pivot: {x: 144.97041, y: 830.5089}
+    min: {x: 132, y: 815.1}
+    max: {x: 160.3, y: 843.8}
+  - text: u
+    editorNote: u_inuntold
+    pivot: {x: 211.8343, y: 831.6923}
+    min: {x: 197.9, y: 815.3}
+    max: {x: 223.9, y: 843}
+  - text: n
+    editorNote: n_in_untold
+    pivot: {x: 262.13016, y: 829.32544}
+    min: {x: 249.6, y: 814.8}
+    max: {x: 278.3, y: 843.2}
+  - text: t
+    editorNote: t_in_untold
+    pivot: {x: 314.79288, y: 830.5089}
+    min: {x: 299.3, y: 814.5}
+    max: {x: 330, y: 843.7}
+  - text: l
+    editorNote: l_in_untold
+    pivot: {x: 413.01773, y: 829.9172}
+    min: {x: 401.6, y: 815.1}
+    max: {x: 428.4, y: 844.3}
+  - text: d
+    editorNote: d_in_untold
+    pivot: {x: 466.8639, y: 831.6923}
+    min: {x: 452, y: 814.8}
+    max: {x: 480.7, y: 844.1}
+  - text: w
+    editorNote: w_in_war
+    pivot: {x: 537.2781, y: 829.9172}
+    min: {x: 517.2781, y: 815.1}
+    max: {x: 557.2781, y: 842.9}
+  - text: a
+    editorNote: a_in_war
+    pivot: {x: 589.3491, y: 828.142}
+    min: {x: 576.5, y: 813.4}
+    max: {x: 607.6, y: 841.5}
+  - text: t
+    editorNote: t_in_T
+    pivot: {x: 55.029583, y: 178.43793}
+    min: {x: 24.5, y: 147.2}
+    max: {x: 85.1, y: 211.4}

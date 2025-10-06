@@ -22,3 +22,93 @@ MonoBehaviour:
     pivot: {x: 630.56683, y: 821.57086}
     min: {x: 604.1, y: 775.4}
     max: {x: 660.8, y: 857.8}
+  - text: a
+    editorNote: a_in_advent
+    pivot: {x: 396.65652, y: 929.7751}
+    min: {x: 356.9, y: 877.7}
+    max: {x: 429.2, y: 974.9}
+  - text: d
+    editorNote: d_in_adevent
+    pivot: {x: 475.6839, y: 931.2948}
+    min: {x: 444, y: 878.7}
+    max: {x: 507.4, y: 975.2}
+  - text: v
+    editorNote: v_in_advent
+    pivot: {x: 556.231, y: 932.8146}
+    min: {x: 521.8, y: 870.7}
+    max: {x: 585.2, y: 975.3}
+  - text: e
+    editorNote: e_in_advent
+    pivot: {x: 629.1793, y: 926.73553}
+    min: {x: 597.8, y: 875.8}
+    max: {x: 666.3, y: 979.2}
+  - text: n
+    editorNote: n_in_advent
+    pivot: {x: 718.845, y: 922.1763}
+    min: {x: 679.1, y: 875}
+    max: {x: 764, y: 978.6}
+  - text: t
+    editorNote: t_in_advent
+    pivot: {x: 813.06995, y: 928.2553}
+    min: {x: 774.1, y: 874.2}
+    max: {x: 860.1, y: 980.4}
+  - text: w
+    editorNote: w_in_wars
+    pivot: {x: 500, y: 821.8723}
+    min: {x: 461.8, y: 779.2}
+    max: {x: 538.5, y: 856}
+  - text: a
+    editorNote: a_in_wars
+    pivot: {x: 572.94836, y: 818.8328}
+    min: {x: 545, y: 779.9}
+    max: {x: 597.1, y: 859}
+  - text: s
+    editorNote: s_in_wars
+    pivot: {x: 689.9696, y: 817.31305}
+    min: {x: 666.6, y: 781}
+    max: {x: 725.1, y: 857.3}
+  - text: e
+    editorNote: e_in_e
+    pivot: {x: 922.0184, y: 170.78894}
+    min: {x: 884.5, y: 116.6}
+    max: {x: 961.9, y: 204.1}
+  - text: l
+    editorNote: l_in_link
+    pivot: {x: 255.63908, y: 132.27069}
+    min: {x: 242.1, y: 114.6}
+    max: {x: 264.3, y: 153.3}
+  - text: i
+    editorNote: i_in_link
+    pivot: {x: 272.18045, y: 135.2782}
+    min: {x: 264.2, y: 115.2782}
+    max: {x: 278, y: 155.2782}
+  - text: n
+    editorNote: n_in_link
+    pivot: {x: 287.1287, y: 130.08203}
+    min: {x: 277.6, y: 115.6}
+    max: {x: 298.7, y: 146.1}
+  - text: k
+    editorNote: k_in_link
+    pivot: {x: 306.9307, y: 134.32532}
+    min: {x: 298, y: 115.9}
+    max: {x: 321.4, y: 154.32532}
+  - text: i
+    editorNote: i_in_it
+    pivot: {x: 330.97595, y: 131.49646}
+    min: {x: 323, y: 115.1}
+    max: {x: 338, y: 153.9}
+  - text: t
+    editorNote: t_in_it
+    pivot: {x: 345.1202, y: 135.73975}
+    min: {x: 337.9, y: 113.5}
+    max: {x: 353.2, y: 155.73975}
+  - text: u
+    editorNote: u_in_up
+    pivot: {x: 369.16547, y: 137.15417}
+    min: {x: 358.7, y: 115.8}
+    max: {x: 381, y: 157.15417}
+  - text: p
+    editorNote: p_in_up
+    pivot: {x: 391.79633, y: 125.838806}
+    min: {x: 382.7, y: 105.7}
+    max: {x: 403.4, y: 145.8388}

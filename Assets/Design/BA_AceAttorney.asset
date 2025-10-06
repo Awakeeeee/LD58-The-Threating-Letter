@@ -42,3 +42,83 @@ MonoBehaviour:
     pivot: {x: 838.46155, y: 206.05127}
     min: {x: 830.6, y: 188.4}
     max: {x: 852, y: 216.8}
+  - text: w
+    editorNote: w_in_who
+    pivot: {x: 746.6125, y: 346.49323}
+    min: {x: 701.82, y: 310.2}
+    max: {x: 791.7, y: 372.7}
+  - text: h
+    editorNote: h_in_who
+    pivot: {x: 822.8, y: 338.3631}
+    min: {x: 798, y: 310}
+    max: {x: 845.4, y: 370.6}
+  - text: i
+    editorNote: i_in_is
+    pivot: {x: 926.8293, y: 337.00812}
+    min: {x: 912.2, y: 310.3}
+    max: {x: 939.3, y: 371.3}
+  - text: s
+    editorNote: s_in_is
+    pivot: {x: 962.05963, y: 334.2981}
+    min: {x: 940.3, y: 311.6}
+    max: {x: 985.1, y: 358.9}
+  - text: i
+    editorNote: i_in_right
+    pivot: {x: 811.65314, y: 274.6775}
+    min: {x: 795.1, y: 254.7}
+    max: {x: 829.5, y: 306}
+  - text: g
+    editorNote: g_in_right
+    pivot: {x: 859.0786, y: 273.32245}
+    min: {x: 831.9, y: 240.9}
+    max: {x: 885.6, y: 303.4}
+  - text: h
+    editorNote: h_in_right
+    pivot: {x: 914.63416, y: 278.7425}
+    min: {x: 887.9, y: 252.5}
+    max: {x: 937.6, y: 306.9}
+  - text: t
+    editorNote: t_in_right
+    pivot: {x: 960.70465, y: 278.7425}
+    min: {x: 941.7, y: 252}
+    max: {x: 984.2, y: 305.6}
+  - text: l
+    editorNote: l_in_old
+    pivot: {x: 691.05695, y: 206.92682}
+    min: {x: 680.6, y: 191.7}
+    max: {x: 697.2, y: 226.92682}
+  - text: d
+    editorNote: d_in_old
+    pivot: {x: 712.9187, y: 205.81818}
+    min: {x: 698.5, y: 189.9}
+    max: {x: 727.2, y: 225.81818}
+  - text: a
+    editorNote: a_in_attorney
+    pivot: {x: 754.03723, y: 206.6087}
+    min: {x: 734.03723, y: 190.7}
+    max: {x: 768.1, y: 224.5}
+  - text: t
+    editorNote: t_in_attorney_1
+    pivot: {x: 776.3975, y: 206.6087}
+    min: {x: 767.7, y: 191.4}
+    max: {x: 788.4, y: 219}
+  - text: t
+    editorNote: t_in_attorney
+    pivot: {x: 798.75775, y: 205.36646}
+    min: {x: 787.3, y: 191.1}
+    max: {x: 808, y: 218}
+  - text: n
+    editorNote: n_in_attorney
+    pivot: {x: 863.354, y: 204.1242}
+    min: {x: 851.9, y: 188.8}
+    max: {x: 874.5, y: 214.3}
+  - text: e
+    editorNote: e_in_attorney
+    pivot: {x: 886.95654, y: 201.63977}
+    min: {x: 875.9, y: 190.1}
+    max: {x: 897, y: 215.8}
+  - text: y
+    editorNote: y_in_attorney
+    pivot: {x: 908.0745, y: 204.1242}
+    min: {x: 896.7, y: 191.1}
+    max: {x: 921.4, y: 215.9}
