@@ -133,6 +133,29 @@ public class UtilFunction : MonoBehaviour
         }
     }
 
+    public static Vector3 ScreenToWorldPosition(Vector2 screenPos, Camera camera, float worldZ = 0f)
+    {
+        if (camera == null)
+        {
+            camera = Camera.main;
+        }
+
+        if (camera == null)
+        {
+            Debug.LogWarning("UtilFunction: Camera not found");
+            return Vector3.zero;
+        }
+
+        // Calculate the depth from camera to target world Z plane
+        float depth = worldZ - camera.transform.position.z;
+        Vector3 screenPoint = new Vector3(screenPos.x, screenPos.y, depth);
+        Vector3 worldPos = camera.ScreenToWorldPoint(screenPoint);
+
+        // Ensure exact Z value
+        worldPos.z = worldZ;
+        return worldPos;
+    }
+
     public static void CurveFly(Transform obj, Vector2 from, Vector3 to, float time, Ease ease = Ease.OutCirc, System.Action OnComplete = null)
     {
         obj.DOKill();

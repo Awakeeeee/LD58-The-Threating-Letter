@@ -3,8 +3,9 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
 using Coffee.UIEffects;
+using Utils;
 
-public class CylindricalItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+public class CylindricalItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IPointerDownHandler
 {
     [Header("UI组件")]
     [SerializeField] private Image itemImage;
@@ -26,10 +27,10 @@ public class CylindricalItem : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
         itemIndex = index;
         onItemClick = clickCallback;
-        
+
         if (itemImage != null && icon != null)
             itemImage.sprite = icon;
-            
+
         if (itemText != null)
             itemText.text = title;
 
@@ -38,18 +39,23 @@ public class CylindricalItem : MonoBehaviour, IPointerEnterHandler, IPointerExit
 #endif
         SetSelected(false);
     }
-    
+
     public void SetSelected(bool selected)
     {
         //if (selectionHighlight != null)
         //    selectionHighlight.SetActive(selected);
     }
-    
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        EventManager.TriggerEvent(GameEvent.OnStartSticking, cutImageCache);
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         onItemClick?.Invoke(itemIndex, cutImageCache);
     }
-    
+
     // 更新项目状态（根据在圆柱面上的位置）
     public void UpdateItemState(float scale, bool isCenter)
     {
@@ -58,7 +64,7 @@ public class CylindricalItem : MonoBehaviour, IPointerEnterHandler, IPointerExit
         {
             itemText.alpha = isCenter ? 1f : 0.7f;
         }
-        
+
         SetSelected(isCenter);
     }
 

@@ -8,12 +8,13 @@ public enum GameEvent
     OnCutComplete,
     OnZoomChanged,
     OnModeChanged,
+    OnStartSticking,
+    OnCollectionChange,
 }
 
 public enum GameMode
 {
     None,
-    Carve,
-    Navigate,
     Free, //左键切图 右键移动 滚轮缩放
+    Sticking,
 }

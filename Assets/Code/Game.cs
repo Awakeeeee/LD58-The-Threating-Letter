@@ -32,6 +32,16 @@ public class Game : MonoBehaviourSingleton<Game>
     private Vector3 lastPointerWorldPos;
     private bool isUpdatingZoomSlider = false; // 防止循环更新
 
+    [TitleGroup("Make Letter")]
+    public Transform letterRoot;
+    public SpriteRenderer letter;
+    public Transform poolRoot;
+    public Sticker stickerPrefab;
+    private ObjectFactory<Sticker> mStickerFactory;
+    private List<Sticker> mLetterStickers;
+    private Sticker currentDraggingSticker;
+    private int nextStickerSortingOrder;
+
 
     protected override void Awake()
     {
@@ -39,8 +49,12 @@ public class Game : MonoBehaviourSingleton<Game>
         Cam = Camera.main;
         Cam.orthographicSize = defaultOrthoZoom;
         CutCollection = new List<CutImage>();
+        mLetterStickers = new List<Sticker>();
         CurrentMode = GameMode.Free;
+        mStickerFactory = new ObjectFactory<Sticker>(stickerPrefab, letterRoot, poolRoot, 2);
+        nextStickerSortingOrder = letter.sortingOrder + 1;
         EventManager.StartListening(GameEvent.OnCutComplete, OnCutImageComplete);
+        EventManager.StartListening(GameEvent.OnStartSticking, StartSticking);
         cutter.Init();
     }
 
@@ -52,14 +66,19 @@ public class Game : MonoBehaviourSingleton<Game>
     void OnDestroy()
     {
         EventManager.StopListening(GameEvent.OnCutComplete, OnCutImageComplete);
+        EventManager.StopListening(GameEvent.OnStartSticking, StartSticking);
     }
 
     void Update()
     {
-        if (CurrentMode == GameMode.Navigate || CurrentMode == GameMode.Free)
+        if (CurrentMode == GameMode.Free)
         {
             HandleCameraDrag();
             HandleCameraZoom();
+        }
+        else if (CurrentMode == GameMode.Sticking)
+        {
+            HandleStickerDrag();
         }
     }
 
@@ -70,22 +89,7 @@ public class Game : MonoBehaviourSingleton<Game>
             return;
         }
 
-        // 根据模式判断使用哪个按钮
-        bool isPressed = false;
-        if (CurrentMode == GameMode.Navigate)
-        {
-            // Navigate模式：任意pointer按下
-            isPressed = UnityEngine.InputSystem.Pointer.current.press.isPressed;
-        }
-        else if (CurrentMode == GameMode.Free)
-        {
-            // Free模式：只响应右键
-            if (UnityEngine.InputSystem.Mouse.current != null)
-            {
-                isPressed = UnityEngine.InputSystem.Mouse.current.rightButton.isPressed;
-            }
-        }
-
+        bool isPressed = UnityEngine.InputSystem.Mouse.current.rightButton.isPressed;
         Vector2 screenPos = UnityEngine.InputSystem.Pointer.current.position.ReadValue();
 
         if (isPressed)
@@ -421,20 +425,6 @@ public class Game : MonoBehaviourSingleton<Game>
         Debug.Log(log);
     }
 
-    [Button("AB TEST - 鼠标全操作", ButtonSizes.Large)]
-    private void ABTestSetModeFree()
-    {
-        if (Game.Instance == null) return;
-        SwitchMode(GameMode.Free);
-    }
-
-    [Button("AB TEST - UI切换模式", ButtonSizes.Large)]
-    private void ABTestSetModeUI()
-    {
-        if (Game.Instance == null) return;
-        SwitchMode(GameMode.Navigate);
-    }
-
     [Button(ButtonSizes.Large)]
     private void TestScreenCapture()
     {
@@ -444,6 +434,129 @@ public class Game : MonoBehaviourSingleton<Game>
     public RectTransform GetCollectionUI()
     {
         return UIManager.Instance.collectionUI.GetFlyEnd();
+    }
+
+    public void StartSticking(object args)
+    {
+        CutImage data = args as CutImage;
+        if (data == null)
+        {
+            return;
+        }
+
+        // Remove from collection (being consumed)
+        if (CutCollection.Contains(data))
+        {
+            CutCollection.Remove(data);
+            EventManager.TriggerEvent(GameEvent.OnCollectionChange);
+        }
+
+        // Close the collection UI
+        UIManager.Instance.collectionUI.OnCloseBtnClicked();
+
+        // Switch to sticking mode
+        SwitchMode(GameMode.Sticking);
+
+        // Create sticker
+        currentDraggingSticker = mStickerFactory.Get();
+        currentDraggingSticker.Init(data);
+
+        // Set initial position to mouse
+        Vector2 screenPos = UnityEngine.InputSystem.Pointer.current.position.ReadValue();
+        Vector3 worldPos = UtilFunction.ScreenToWorldPosition(screenPos, Cam);
+        currentDraggingSticker.SetPosition(worldPos);
+    }
+
+    private void HandleStickerDrag()
+    {
+        if (currentDraggingSticker == null)
+        {
+            return;
+        }
+
+        // Follow mouse
+        Vector2 screenPos = UnityEngine.InputSystem.Pointer.current.position.ReadValue();
+        Vector3 worldPos = UtilFunction.ScreenToWorldPosition(screenPos, Cam);
+        currentDraggingSticker.SetPosition(worldPos);
+
+        // Check for pointer up
+        if (UnityEngine.InputSystem.Mouse.current.leftButton.wasReleasedThisFrame)
+        {
+            // Check if position is on letter
+            if (IsPositionOnLetter(worldPos))
+            {
+                ConfirmSticker();
+            }
+            else
+            {
+                CancelSticker();
+            }
+        }
+    }
+
+    private bool IsPositionOnLetter(Vector3 worldPos)
+    {
+        if (letter == null)
+        {
+            return false;
+        }
+
+        Bounds bounds = letter.bounds;
+        return bounds.Contains(worldPos);
+    }
+
+    private void ConfirmSticker()
+    {
+        if (currentDraggingSticker == null)
+        {
+            return;
+        }
+
+        // Place the sticker
+        currentDraggingSticker.PlaceSticker(nextStickerSortingOrder);
+        nextStickerSortingOrder++;
+
+        // Ensure parent is letterRoot
+        currentDraggingSticker.transform.SetParent(letterRoot);
+
+        // Add to list
+        mLetterStickers.Add(currentDraggingSticker);
+
+        Debug.Log($"Sticker placed at {currentDraggingSticker.transform.position}");
+
+        // Clear reference
+        currentDraggingSticker = null;
+
+        // Return to Free mode
+        SwitchMode(GameMode.Free);
+
+        SFXManager.Instance.PlaySFX(@"sfx_stick");
+    }
+
+    private void CancelSticker()
+    {
+        if (currentDraggingSticker == null)
+        {
+            return;
+        }
+
+        Debug.Log("Sticker placement cancelled");
+
+        // Return the CutImage back to collection
+        if (currentDraggingSticker.BindingData != null)
+        {
+            CutCollection.Add(currentDraggingSticker.BindingData);
+            EventManager.TriggerEvent(GameEvent.OnCollectionChange);
+        }
+
+        // Return to pool
+        mStickerFactory.Return(currentDraggingSticker);
+        currentDraggingSticker = null;
+
+        // Return to Free mode
+        SwitchMode(GameMode.Free);
+
+        SFXManager.Instance.PlaySFX(@"sfx_cancel");
     }
 }
 

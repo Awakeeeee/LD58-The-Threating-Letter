@@ -4,6 +4,7 @@ using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Utils;
 
 public class PaperCutter : MonoBehaviour
 {
@@ -80,7 +81,7 @@ public class PaperCutter : MonoBehaviour
 
         // 只在Carve或Free模式下响应切图输入
         GameMode currentMode = Game.Instance.CurrentMode;
-        if (currentMode != GameMode.Carve && currentMode != GameMode.Free) return;
+        if (currentMode != GameMode.Free) return;
 
         bool isLeftPressed = false;
         if (UnityEngine.InputSystem.Mouse.current != null)
@@ -196,7 +197,7 @@ public class PaperCutter : MonoBehaviour
             //加入交点
             newContourPoints.Add(intersectionPoint);
             //再把交点所在线段的后一个节点 所在contourPoints位置 及其之后的所有点 加入列表
-            for(int i = index; i < contourPoints.Count; ++i)
+            for (int i = index; i < contourPoints.Count; ++i)
             {
                 newContourPoints.Add(contourPoints[i]);
             }
@@ -494,7 +495,7 @@ public class PaperCutter : MonoBehaviour
                     UtilFunction.CurveFly(ImageOutput.transform, ImageOutput.transform.position, destination, destFlyTime, destFlyEase, () =>
                     {
                         ImageOutput.gameObject.SetActive(false);
-                        // TODO 通过事件或直接调用接口更新ui
+                        EventManager.TriggerEvent(GameEvent.OnCollectionChange);
                     });
                 }
             });

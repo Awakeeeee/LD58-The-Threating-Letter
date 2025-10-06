@@ -68,8 +68,8 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
             //collageUI.transform.DOMove(centerUIRef.position, 0.5f).SetEase(Ease.InOutSine).onComplete += () =>
             //{
             //collageUI.Enter
-                HideGlobalMask();
-                callback?.Invoke();
+            HideGlobalMask();
+            callback?.Invoke();
             //};
             //sendMailUI.transform.position = rightUIRef.position;
         });
@@ -147,7 +147,7 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
         knifeCutterRoot.gameObject.SetActive(true);
         selectCoverUI.gameObject.SetActive(false);
 
-        Game.Instance.ResetZoom();//½¨Á¢ÔÚ·Ç²ÃÇÐ/Æ´ÌùÊ± Íæ¼Ò²»ÄÜ¹öÂÖzoomµÄ»° ÕâÀïµ¹ÊÇÒ²²»ÓÃÔÙµ÷ÓÃ
+        Game.Instance.ResetZoom();//ï¿½ï¿½ï¿½ï¿½ï¿½Ú·Ç²ï¿½ï¿½ï¿½/Æ´ï¿½ï¿½Ê± ï¿½ï¿½Ò²ï¿½ï¿½Ü¹ï¿½ï¿½ï¿½zoomï¿½Ä»ï¿½ ï¿½ï¿½ï¿½ïµ¹ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½Ùµï¿½ï¿½ï¿½
         Game.Instance.SetOperatingImage(processDataClicked);
 
         collectionUI.gameObject.SetActive(false);
@@ -177,19 +177,20 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 
     public bool AllowZoom()
     {
-        return IsInKnifeCutterStage();//TODO Æ´ÌùµÄÊ±ºò¿ÉÄÜÒ²ÔÊÐí
+        return IsInKnifeCutterStage();//TODO Æ´ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½ï¿½ï¿½
     }
 
     private void OnModeChange(object args)
     {
-        if (Game.Instance.CurrentMode == GameMode.Free)
-        {
-            modeUI.gameObject.SetActive(false);
-        }
-        else
-        {
-            modeUI.gameObject.SetActive(true);
-        }
+        // if (Game.Instance.CurrentMode == GameMode.Free)
+        // {
+        //     modeUI.gameObject.SetActive(false);
+        // }
+        // else
+        // {
+        //     modeUI.gameObject.SetActive(true);
+        // }
+        modeUI.gameObject.SetActive(false);
     }
 
     public void OnStartClicked()

@@ -60,6 +60,8 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: a6c2f065880645a4cb3b96f5e898f3fe, type: 3}
   - name: sfx_pop
     clip: {fileID: 8300000, guid: 82d997984aef9c247920a6d32fd35766, type: 3}
+  - name: sfx_stick
+    clip: {fileID: 8300000, guid: 33325b3e3b3b2e24c9cdf3aa0b851a7a, type: 3}
   bgmPlayer: {fileID: 4526290655093885696}
   sfxPlayer: {fileID: 4878483169273344841}
   loopSfxPlayer: {fileID: 2435319835199430504}

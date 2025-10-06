@@ -12,17 +12,17 @@ public class UIModePanel : MonoBehaviour
 
     void Start()
     {
-        btnCarveMode.onClick.AddListener(() =>
-        {
-            Game.Instance.SwitchMode(GameMode.Carve);
-            UpdateState();
-        });
+        // btnCarveMode.onClick.AddListener(() =>
+        // {
+        //     Game.Instance.SwitchMode(GameMode.Carve);
+        //     UpdateState();
+        // });
 
-        btnNavigateMode.onClick.AddListener(() =>
-        {
-            Game.Instance.SwitchMode(GameMode.Navigate);
-            UpdateState();
-        });
+        // btnNavigateMode.onClick.AddListener(() =>
+        // {
+        //     Game.Instance.SwitchMode(GameMode.Navigate);
+        //     UpdateState();
+        // });
 
         zoomSlider.minValue = Game.Instance.zoomLimit.x;
         zoomSlider.maxValue = Game.Instance.zoomLimit.y;
@@ -55,14 +55,14 @@ public class UIModePanel : MonoBehaviour
         imgNavi.color = Color.white;
         zoomSlider.gameObject.SetActive(false);
 
-        if (Game.Instance.CurrentMode == GameMode.Navigate)
-        {
-            imgNavi.color = Color.yellow;
-            zoomSlider.gameObject.SetActive(true);
-        }
-        else if (Game.Instance.CurrentMode == GameMode.Carve)
-        {
-            imgCarve.color = Color.yellow;
-        }
+        // if (Game.Instance.CurrentMode == GameMode.Navigate)
+        // {
+        //     imgNavi.color = Color.yellow;
+        //     zoomSlider.gameObject.SetActive(true);
+        // }
+        // else if (Game.Instance.CurrentMode == GameMode.Carve)
+        // {
+        //     imgCarve.color = Color.yellow;
+        // }
     }
 }

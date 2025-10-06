@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Utils;
 
 public class CylindricalMenuManager : MonoBehaviour
 {
@@ -15,6 +16,13 @@ public class CylindricalMenuManager : MonoBehaviour
     {
         itemPrefab.gameObject.SetActive(false);
         //InitializeMenu();
+
+        EventManager.StartListening(GameEvent.OnCollectionChange, OnCollectionChange);
+    }
+
+    void OnDestroy()
+    {
+        EventManager.StopListening(GameEvent.OnCollectionChange, OnCollectionChange);
     }
 
     public void Show()
@@ -48,6 +56,11 @@ public class CylindricalMenuManager : MonoBehaviour
         itemPrefab.gameObject.SetActive(false);
     }
 
+    private void OnCollectionChange(object args)
+    {
+        InitializeMenu();
+    }
+
     private void DestoryMenu()
     {
         for (int i = layoutGroup.transform.childCount - 1; i >= 0; i--)
@@ -66,16 +79,16 @@ public class CylindricalMenuManager : MonoBehaviour
 
         GameObject itemObj = Instantiate(itemPrefab, layoutGroup.transform);
         CylindricalItem item = itemObj.GetComponent<CylindricalItem>();
-        
+
         if (item != null)
         {
             //Sprite icon = cutImage.image;
             //string title = cutImage.matchedMark?.text;
-            
+
             item.Initialize(index, cutImage, OnItemClicked);
             items.Add(item);
         }
-        
+
         layoutGroup.AddItem(itemObj.GetComponent<RectTransform>());
     }
 
@@ -96,7 +109,7 @@ public class CylindricalMenuManager : MonoBehaviour
         //TODO 创建可以拼贴的组件
         UIManager.Instance.collectionUI.OnCloseBtnClicked();
     }
-    
+
     // 动态添加项目
     //public void AddNewItem(Sprite icon, string title)
     //{
@@ -104,7 +117,7 @@ public class CylindricalMenuManager : MonoBehaviour
     //    itemTitles.Add(title);
     //    CreateMenuItem(itemIcons.Count - 1);
     //}
-    
+
     // 动态移除项目
     public void RemoveItem(int index)
     {
@@ -112,10 +125,10 @@ public class CylindricalMenuManager : MonoBehaviour
         {
             //itemIcons.RemoveAt(index);
             //itemTitles.RemoveAt(index);
-            
+
             CylindricalItem item = items[index];
             items.RemoveAt(index);
-            
+
             if (item != null)
                 Destroy(item.gameObject);
         }
