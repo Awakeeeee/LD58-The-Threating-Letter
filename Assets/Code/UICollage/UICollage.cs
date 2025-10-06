@@ -39,8 +39,8 @@ public class UICollage : MonoBehaviour
     public void OnExitAnim(Action callback = null)
     {
         UIManager.Instance.rightHand.transform.position = handExitStartRef.transform.position;
-        UIManager.Instance.rightHand.transform.DOMove(handExitEndRef.transform.position, 0.5f);
-        letterPaper.transform.DOMove(letterOutOfScreenTrans.position, 0.5f).onComplete += () =>
+        UIManager.Instance.rightHand.transform.DOMove(handExitEndRef.transform.position, 0.7f);
+        letterPaper.transform.DOMove(letterOutOfScreenTrans.position, 0.5f).SetDelay(0.2f).onComplete += () =>
         {
             callback?.Invoke();
         };
