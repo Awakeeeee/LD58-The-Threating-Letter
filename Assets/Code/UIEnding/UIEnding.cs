@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-//°üº¬¼Ä³öÐÅ¼þµÄÑÝ³ö ºÍ ×îºó×ªÒÎµÄÑÝ³ö ÒÔ¼°ÆÀ·Ö£¿ ÒÔ¼°ÖØ¿ª°´Å¥
+//ï¿½ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½Å¼ï¿½ï¿½ï¿½ï¿½Ý³ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½×ªï¿½Îµï¿½ï¿½Ý³ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½Ö£ï¿½ ï¿½Ô¼ï¿½ï¿½Ø¿ï¿½ï¿½ï¿½Å¥
 public class UIEnding : MonoBehaviour
 {
     public GameObject underBlackScreenRoot;
@@ -31,7 +31,9 @@ public class UIEnding : MonoBehaviour
 
         btnSave.onClick.AddListener(() =>
         {
-            UtilFunction.TransferSpriteToPNG(Game.Instance.FinalLetter, defualtFileName: "letter", useDownloadForWebGL: true);
+            string timestamp = System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss");
+            string filename = $"letter_{timestamp}";
+            UtilFunction.TransferSpriteToPNG(Game.Instance.FinalLetter, defualtFileName: filename, useDownloadForWebGL: true);
         });
     }
 
