@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
     public UICollection collectionUI;
     public UIOverLay overLayUI;
     public UITitle titleUI;
+    public UIEnding endingUI;
     public UIModePanel modeUI;
 
     public GameObject globalMask;
@@ -43,7 +44,7 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
         modeUI.gameObject.SetActive(false);
 
         titleUI.gameObject.SetActive(true);
-
+        endingUI.gameObject.SetActive(false);
 
         EventManager.StartListening(GameEvent.OnModeChanged, OnModeChange);
     }
@@ -154,7 +155,7 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
         overLayUI.ShowReturnBtn();
     }
 
-    public void OnReturnBtnClicked()
+    public void OnReturnBtnInKnifeCutterClicked()
     {
         knifeCutterRoot.gameObject.SetActive(false);
         selectCoverUI.gameObject.SetActive(true);
@@ -177,7 +178,7 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 
     public bool AllowZoom()
     {
-        return IsInKnifeCutterStage();//TODO ƴ����ʱ�����Ҳ����
+        return IsInKnifeCutterStage() || IsInCollageStage();
     }
 
     private void OnModeChange(object args)
@@ -216,6 +217,35 @@ public class UIManager : MonoBehaviourSingleton<UIManager>
 
     public void OnConfirmBtnOnSendMailClicked()
     {
-        Debug.LogWarning("NotImplemented To SendMail");
+        if (endingUI == null)
+            return;
+
+        ShowGlobalMask();
+
+        sendMailConfirmUI.OnExitAnim(() =>
+        {
+            collectionUI.gameObject.SetActive(false);
+            overLayUI.gameObject.SetActive(false);
+            endingUI.gameObject.SetActive(true);
+
+            endingUI.InitEnterAnim();
+            endingUI.OnEnterAnim(() =>
+            {
+                HideGlobalMask();
+            });
+        });
+    }
+
+    public void RestartGameOnEndingUI()
+    {
+        ShowGlobalMask();
+        endingUI.OnExitAnim(() =>
+        {
+            titleUI.gameObject.SetActive(true);
+        }, () =>
+        {
+            endingUI.gameObject.SetActive(false);
+        });
+
     }
 }

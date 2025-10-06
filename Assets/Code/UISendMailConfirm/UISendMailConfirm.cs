@@ -47,21 +47,24 @@ public class UISendMailConfirm : MonoBehaviour
 
     public void OnEnterAnim(Action finishCallback = null)
     {
-        handWithLetter.transform.DOMove(handWithLetterInScreen.position, 0.5f).onComplete += () =>
+        //handWithLetter.transform.DOMove(handWithLetterInScreen.position, 0.5f).SetEase(Ease.InOutSine)
+        //{
+        //    finishCallback?.Invoke();
+        //};
+        returnButton.transform.DOMove(returnButtonInScreenRef.position, 0.5f).SetEase(Ease.InOutSine).SetDelay(0.1f).onComplete += () =>
         {
             finishCallback?.Invoke();
         };
-        returnButton.transform.DOMove(returnButtonInScreenRef.position, 0.5f).SetDelay(0.1f);
-        confirmButton.transform.DOMove(confirmButtonInScreenRef.position, 0.5f).SetDelay(0.1f);
+        confirmButton.transform.DOMove(confirmButtonInScreenRef.position, 0.5f).SetEase(Ease.InOutSine).SetDelay(0.1f);
     }
 
     public void OnExitAnim(Action finishCallback = null)
     {
-        handWithLetter.transform.DOMove(handWithLetterOutOfScreen.position, 0.3f).onComplete += () =>
+        handWithLetter.transform.DOMove(handWithLetterOutOfScreen.position, 0.3f).SetEase(Ease.InOutSine).onComplete += () =>
         {
             finishCallback?.Invoke();
         };
-        returnButton.transform.DOMove(returnButtonOutOfScreenRef.position, 0.3f);
-        confirmButton.transform.DOMove(confirmButtonOutOfScreenRef.position, 0.3f);
+        returnButton.transform.DOMove(returnButtonOutOfScreenRef.position, 0.3f).SetEase(Ease.InOutSine);
+        confirmButton.transform.DOMove(confirmButtonOutOfScreenRef.position, 0.3f).SetEase(Ease.InOutSine);
     }
 }

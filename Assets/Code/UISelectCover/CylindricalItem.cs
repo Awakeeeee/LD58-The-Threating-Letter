@@ -5,10 +5,11 @@ using TMPro;
 using Coffee.UIEffects;
 using Utils;
 
-public class CylindricalItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IPointerDownHandler
+public class CylindricalItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     [Header("UI组件")]
     [SerializeField] private Image itemImage;
+    [SerializeField] private CylindricalItemRealImageArea imageArea;
     [SerializeField] private TextMeshProUGUI itemText;
     //[SerializeField] private GameObject selectionHighlight;
 
@@ -21,6 +22,7 @@ public class CylindricalItem : MonoBehaviour, IPointerEnterHandler, IPointerExit
     public void Initialize(int index, CutImage cutImage, System.Action<int, CutImage> clickCallback)
     {
         cutImageCache = cutImage;
+        imageArea.InitCutImageCache(cutImage);
 
         Sprite icon = cutImage.image;
         string title = cutImage.matchedMark?.text;
@@ -46,10 +48,10 @@ public class CylindricalItem : MonoBehaviour, IPointerEnterHandler, IPointerExit
         //    selectionHighlight.SetActive(selected);
     }
 
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        EventManager.TriggerEvent(GameEvent.OnStartSticking, cutImageCache);
-    }
+    //public void OnPointerDown(PointerEventData eventData)
+    //{
+    //    EventManager.TriggerEvent(GameEvent.OnStartSticking, cutImageCache);
+    //}
 
     public void OnPointerClick(PointerEventData eventData)
     {

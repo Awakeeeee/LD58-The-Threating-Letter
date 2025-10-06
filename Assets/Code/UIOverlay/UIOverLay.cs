@@ -63,7 +63,7 @@ public class UIOverLay : MonoBehaviour
         returnBtn.onClick.AddListener(() =>
         {
             SFXManager.Instance.PlaySFX("sfx_fly");
-            UIManager.Instance.OnReturnBtnClicked();
+            UIManager.Instance.OnReturnBtnInKnifeCutterClicked();
         });
 
         tutorialDialougeRoot.gameObject.SetActive(false);
