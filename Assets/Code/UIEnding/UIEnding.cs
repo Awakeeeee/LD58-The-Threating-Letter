@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Febucci.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -22,6 +23,7 @@ public class UIEnding : MonoBehaviour
     public Transform RestartBtnOutOfScreenRef;
 
     public Image blackScreenImage;
+    public TypewriterByCharacter typeWriterScriptOnBlackScreen;
     public Image letterImg;
 
     public Button btnSave;
@@ -53,6 +55,7 @@ public class UIEnding : MonoBehaviour
         underBlackScreenRoot.gameObject.SetActive(false);
         blackScreenImage.gameObject.SetActive(true);
         blackScreenImage.color = Color.clear;
+        typeWriterScriptOnBlackScreen.gameObject.SetActive(false);
 
         ClearSfxTween();
 
@@ -92,27 +95,39 @@ public class UIEnding : MonoBehaviour
 
                 blackScreenImage.DOColor(Color.black, 0.5f).SetDelay(0.8f).onComplete += () =>
                 {
-                    sendMailPartRoot.SetActive(false);
-                    officePartRoot.SetActive(true);
-
-                    thinkingBubble.transform.localScale = Vector3.zero;
-                    resultImageOnThinkingBubble_QuestionMark.gameObject.SetActive(false);
-                    resultImageOnThinkingBubble_DotDotDotMark.gameObject.SetActive(false);
-                    resultImageOnThinkingBubble_ExclamationMark.gameObject.SetActive(false);
-                    Image finalResultImage = GetFinalResultMarkImage();
-                    finalResultImage.gameObject.SetActive(true);
-                    finalResultImage.color = Color.clear;
-                    RestartBtn.transform.position = RestartBtnOutOfScreenRef.transform.position;
-
-                    blackScreenImage.DOColor(Color.clear, 0.2f).onComplete += () =>
+                    typeWriterScriptOnBlackScreen.gameObject.SetActive(true);
+                    typeWriterScriptOnBlackScreen.ShowText("The mail is on its way.\r\nHow will they react upon receiving it?\r\nNever mind, it's just an old gamers' gossip.\r\nTime to Collet O&R again.");
+                    typeWriterScriptOnBlackScreen.onTextShowed.AddListener(() =>
                     {
-                        thinkingBubble.transform.DOScale(Vector3.one, 0.4f).onComplete += () =>
+                        sendMailPartRoot.SetActive(false);
+                        officePartRoot.SetActive(true);
+
+                        thinkingBubble.transform.localScale = Vector3.zero;
+                        resultImageOnThinkingBubble_QuestionMark.gameObject.SetActive(false);
+                        resultImageOnThinkingBubble_DotDotDotMark.gameObject.SetActive(false);
+                        resultImageOnThinkingBubble_ExclamationMark.gameObject.SetActive(false);
+                        Image finalResultImage = GetFinalResultMarkImage();
+                        finalResultImage.gameObject.SetActive(true);
+                        finalResultImage.color = Color.clear;
+                        RestartBtn.transform.position = RestartBtnOutOfScreenRef.transform.position;
+
+                        blackScreenImage.DOColor(Color.black, 0.2f).SetDelay(0.8f).onComplete += () =>
+                        { typeWriterScriptOnBlackScreen.gameObject.SetActive(false); };
+
+                        blackScreenImage.DOColor(Color.clear, 0.2f).SetDelay(1.0f).onComplete += () =>
                         {
-                            finalResultImage.DOColor(Color.white, 0.2f);
-                            RestartBtn.transform.DOMove(RestartBtnInScreenRef.transform.position, 0.4f).SetEase(Ease.InOutSine);
+                            thinkingBubble.transform.DOScale(Vector3.one, 0.4f).onComplete += () =>
+                            {
+                                finalResultImage.DOColor(Color.white, 0.2f);
+                                RestartBtn.transform.DOMove(RestartBtnInScreenRef.transform.position, 0.4f).SetEase(Ease.InOutSine);
+                            };
+                            finishCallback?.Invoke();
                         };
-                        finishCallback?.Invoke();
-                    };
+
+                        typeWriterScriptOnBlackScreen.onTextShowed.RemoveAllListeners();
+                    });
+
+
                 };
             };
             handWithLetter.position = handWithLetterOutOfScreen.position;
@@ -122,14 +137,16 @@ public class UIEnding : MonoBehaviour
     //from ? ! ...
     private Image GetFinalResultMarkImage()
     {
+        return resultImageOnThinkingBubble_QuestionMark;
+
         //TODO some other grading algorithm
-        int existingStickerNum = Game.Instance.GetExistingStickerCount();
-        if (existingStickerNum < 3)
-            return resultImageOnThinkingBubble_DotDotDotMark;
-        else if (existingStickerNum > 9)
-            return resultImageOnThinkingBubble_QuestionMark;
-        else
-            return resultImageOnThinkingBubble_ExclamationMark;
+        //int existingStickerNum = Game.Instance.GetExistingStickerCount();
+        //if (existingStickerNum < 3)
+        //    return resultImageOnThinkingBubble_DotDotDotMark;
+        //else if (existingStickerNum > 9)
+        //    return resultImageOnThinkingBubble_QuestionMark;
+        //else
+        //    return resultImageOnThinkingBubble_ExclamationMark;
     }
 
     public void OnExitAnim(Action onBlackScreenFadInCallback, Action onBlackScreenFadeOutCallback)

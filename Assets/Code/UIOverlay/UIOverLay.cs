@@ -127,9 +127,9 @@ public class UIOverLay : MonoBehaviour
     public void HideDialogue()
     {
         tutorialDialougeRoot.gameObject.SetActive(false);
+        typeWriterScript.ShowText(string.Empty);
     }
 
-    //�ѵ�����ť���ó� Collageʱ����ʽ
     public void SetTopBtnStateOfUICollage()
     {
         right_gotoCollageBtn.gameObject.SetActive(false);
